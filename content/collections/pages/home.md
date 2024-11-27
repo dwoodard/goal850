@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Goal 850
 id: home
 template: home
 blueprint: home

@@ -1,0 +1,35 @@
+<div
+    class="bg-white shadow-md rounded-lg p-6 mx-auto max-w-4xl"
+>
+    <header  >
+        <p>
+            Search Results for
+        </p>
+        <h1>
+             {{ get:q }}
+        </h1>
+    </header>
+    <section>
+        <div>
+            <div>
+                <h2 class="text-2xl font-bold" > Search Results 1 </h2>
+                <div>asdfasdf</div>
+            </div>
+        </div>
+    </section>
+    {{# <form action="{{ url('/search') }}" method="GET">
+        <input type="text" name="query" placeholder="Search..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    {{ if results }}
+        <h2>Search Results:</h2>
+        <ul>
+            {{ results }}
+                <li><a href="{{ url }}">{{ title }}</a></li>
+            {{ /results }}
+        </ul>
+    {{ else }}
+        <p>No results found.</p>
+    {{ /if }} #}}
+</div>

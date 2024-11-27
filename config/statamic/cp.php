@@ -54,6 +54,7 @@ return [
 
     'widgets' => [
         'getting_started',
+        // 'my_widget',
     ],
 
     /*
