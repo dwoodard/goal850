@@ -10,5 +10,6 @@ preferences:
     contact:
       columns:
         - datestamp
+        - name
         - email
         - message
