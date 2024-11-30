@@ -4568,6 +4568,14 @@
             },
             "type": "library",
             "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Statamic": "Statamic\\Statamic"
+                    },
+                    "providers": [
+                        "Statamic\\Providers\\StatamicServiceProvider"
+                    ]
+                },
                 "download-dist": [
                     {
                         "url": "https://github.com/statamic/cms/releases/download/{$version}/dist.tar.gz",
@@ -4577,15 +4585,7 @@
                         "url": "https://github.com/statamic/cms/releases/download/{$version}/dist-frontend.tar.gz",
                         "path": "resources/dist-frontend"
                     }
-                ],
-                "laravel": {
-                    "providers": [
-                        "Statamic\\Providers\\StatamicServiceProvider"
-                    ],
-                    "aliases": {
-                        "Statamic": "Statamic\\Statamic"
-                    }
-                }
+                ]
             },
             "autoload": {
                 "files": [
