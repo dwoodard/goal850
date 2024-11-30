@@ -3,12 +3,14 @@
 ## Project Description
 Establish a Credit Rebuilding Company dedicated to providing a wide array of financial services designed to help both individuals enhance their credit scores. Our services will include digitally automated credit counseling, debt management strategies, and tailored financial education programs, all aimed at empowering our clients to achieve better creditworthiness and financial stability. 
 
+
 ## Goals 
-## Goals 
-- **Goal 1**: Develop a modern and user-friendly blogging platform using Statamic.
-  - **1.1**: Design the user interface for the blog.
-  - **1.2**: Implement content management features.
-  - **1.3**: Optimize for SEO and performance.
+- **Goal 1**: Create a visually appealing and intuitive blogging platform powered by Statamic, featuring easy navigation, engaging layouts, and responsive design.
+  - **1.1**: Statimic CMS: Develop a custom blogging platform using Statamic CMS.
+    - **1.1.1**: Create custom templates and layouts for the blog.
+    - **1.1.2**: Implement dynamic content management for blog posts.
+  - **1.2**: Develop an admin panel for content management.
+  - **1.3**: Conduct SEO audits and implement performance enhancements.
 
 - **Goal 2**: Create a way to add Podcasts with episodes.
   - **2.1**: Design the podcast submission form.
@@ -17,7 +19,7 @@ Establish a Credit Rebuilding Company dedicated to providing a wide array of fin
 
 - **Goal 3**: Add Array.com API to give users access to podcast content.
   - **3.1**: Set up API authentication.
-  - **3.2**: Develop features to fetch and display podcast data.
+  - **3.2**: Develop features to fetch and display Array's content
   - **3.3**: Ensure compatibility with existing podcast functionality.
 
 
