@@ -50,11 +50,6 @@ tabs:
               validate:
                 - required
           -
-            handle: published_date
-            field:
-              type: date
-              display: 'Published Date'
-          -
             handle: topics
             field:
               type: terms
