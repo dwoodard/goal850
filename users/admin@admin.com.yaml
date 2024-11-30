@@ -13,3 +13,5 @@ preferences:
         - name
         - email
         - message
+  locale: en
+  favorites: {  }
