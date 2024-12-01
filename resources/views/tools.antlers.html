@@ -1,0 +1,18 @@
+<div class="max-w-5xl mx-auto  ">
+    <h1>Tools</h1>
+
+    {{ nav }}
+    <li>
+        <a href="{{ url }}">{{ title }}</a>
+        {{ if children }}
+        <ul class="{{ depth == 1 ?= '  ml-10 ' }}">
+            {{ *recursive children* }}
+        </ul>
+        {{ /if }}
+    </li>
+    {{ /nav }}
+
+
+
+
+</div>

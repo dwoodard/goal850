@@ -1,4 +1,5 @@
-# admin:
-#   title: Administrator
-#   permissions:
-#     - super
+user:
+  title: User
+  permissions:
+    - 'view articles entries'
+    - 'view pages entries'
