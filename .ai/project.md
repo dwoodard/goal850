@@ -18,9 +18,7 @@ Establish a Credit Rebuilding Company dedicated to providing a wide array of fin
   - **2.3**: Integrate a podcast player on the site.
 
 - **Goal 3**: Add Array.com API to give users access to podcast content.
-  - **3.1**: Set up API authentication.
-  - **3.2**: Develop features to fetch and display Array's content
-  - **3.3**: Ensure compatibility with existing podcast functionality.
+  - **3.1**: we need to add array components, HTML Embed of Credit, Identity Protection, Privacy Protection, Subscription Management
 
 
 ## Roadmap (Current Phase: Phase 1)
