@@ -9,10 +9,10 @@
         <meta name="theme-color" content="00908F">
         {{ vite src="resources/js/site.js|resources/css/site.css" }}
     </head>
-    <body 
-        x-data="{ showMobileNav: false }" 
-        class="font-sans leading-normal text-grey-800 px-4 sm:px-10" 
-    > 
+    <body
+        x-data="{ showMobileNav: false }"
+        class="font-sans leading-normal text-grey-800 px-4 sm:px-10"
+    >
         {{ partial:nav }}
             {{ template_content }}
         {{ partial:footer }}
