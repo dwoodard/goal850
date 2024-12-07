@@ -1,5 +1,5 @@
 export default {
-  content: [
+    content: [
         './resources/**/*.antlers.html',
         './resources/**/*.blade.php',
         './content/**/*.md'
@@ -12,7 +12,21 @@ export default {
         extend: {
             colors: {
                 'teal': '#008483',
-                'teal-light': '#a6d0cf'
+                'teal-light': '#a6d0cf',
+                'green': {
+                    '50': '#f2fcf1',
+                    '100': '#e0f9df',
+                    '200': '#c0f2c0',
+                    '300': '#8fe68f',
+                    '400': '#58d157',
+                    '500': '#30b730',
+                    '600': '#219121',
+                    '700': '#1e771e',
+                    '800': '#1d5e1e',
+                    '900': '#194e1a',
+                    '950': '#092a0b',
+                },
+
             }
         }
     },
