@@ -13,6 +13,17 @@ export default {
             colors: {
                 'teal': '#008483',
                 'teal-light': '#a6d0cf',
+                'red': {
+                    '100': '#f9d3cc',
+                    '200': '#f3a699',
+                    '300': '#ed7a66',
+                    '400': '#e74d33',
+                    '500': '#e12100',
+                    '600': '#b41a00',
+                    '700': '#871400',
+                    '800': '#5a0d00',
+                    '900': '#2d0700'
+                },
                 'green': {
                     '50': '#f2fcf1',
                     '100': '#e0f9df',
@@ -55,7 +66,13 @@ export default {
 
 
 
-            }
+            },
+            borderRadius: {
+                // Add new sizes
+                '3xl': '1.5rem',
+                '4xl': '2rem',
+                '2xl': '1.25rem',
+            },
         }
     },
     plugins: [
