@@ -20,7 +20,7 @@
 | array_user_id          | UUID      | User's Array ID                         |
 | array_user_token       | String    | User's Array token                      |
 
-## Example
+### Example
 
 ```json
 {
@@ -62,3 +62,92 @@
     "status": "published"
 }
 ```
+
+## Comment
+
+| Field Name | Data Type | Description                            |
+| ---------- | --------- | -------------------------------------- |
+| id         | UUID      | Unique identifier for the comment      |
+| user_id    | UUID      | Unique identifier for the user         |
+| article_id | UUID      | Unique identifier for the blog article |
+| content    | Text      | Content of the comment                 |
+| created_at | DateTime  | Timestamp of comment creation          |
+| updated_at | DateTime  | Timestamp of last update               |
+
+```json
+{
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "123e4567-e89b-12d3-a456-426614174001",
+    "article_id": "123e4567-e89b-12d3-a456-426614174002",
+    "content": "Great article! Thanks for sharing.",
+    "created_at": "2023-01-01T12:00:00Z",
+    "updated_at": "2023-01-01T12:00:00Z"
+}
+```
+
+## Subscription
+
+| Field Name | Data Type | Description                                 |
+| ---------- | --------- | ------------------------------------------- |
+| id         | UUID      | Unique identifier for the subscription      |
+| user_id    | UUID      | Unique identifier for the user              |
+| plan_id    | UUID      | Unique identifier for the subscription plan |
+| status     | String    | Subscription status (active/inactive)       |
+| created_at | DateTime  | Timestamp of subscription creation          |
+| updated_at | DateTime  | Timestamp of last update                    |
+
+```json
+{
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "123e4567-e89b-12d3-a456-426614174001",
+    "plan_id": "123e4567-e89b-12d3-a456-426614174002",
+    "status": "active",
+    "created_at": "2023-01-01T12:00:00Z",
+    "updated_at": "2023-01-01T12:00:00Z"
+}
+```
+
+## Subscription Plan
+
+| Field Name | Data Type | Description                            |
+| ---------- | --------- | -------------------------------------- |
+| id         | UUID      | Unique identifier for the subscription |
+| name       | String    | Name of the subscription plan          |
+| price      | Decimal   | Price of the subscription plan         |
+| interval   | String    | Billing interval (month/year)          |
+| created_at | DateTime  | Timestamp of plan creation             |
+| updated_at | DateTime  | Timestamp of last update               |
+
+```json
+{
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Basic Plan",
+    "price": 19.99,
+    "interval": "month",
+    "created_at": "2023-01-01T12:00:00Z",
+    "updated_at": "2023-01-01T12:00:00Z"
+}
+```
+
+## User Subscription
+
+| Field Name      | Data Type | Description                             |
+| --------------- | --------- | --------------------------------------- |
+| id              | UUID      | Unique identifier for the user          |
+| user_id         | UUID      | Unique identifier for the user          |
+| subscription_id | UUID      | Unique identifier for the subscription  |
+| status          | String    | Subscription status (active/inactive)   |
+| created_at      | DateTime  | Timestamp of user subscription creation |
+| updated_at      | DateTime  | Timestamp of last update                |
+
+```json
+{
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "123e4567-e89b-12d3-a456-426614174001",
+    "subscription_id": "123e4567-e89b-12d3-a456-426614174002",
+    "status": "active",
+    "created_at": "2023-01-01T12:00:00Z",
+    "updated_at": "2023-01-01T12:00:00Z"
+}
+```
+
