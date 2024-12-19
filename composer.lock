@@ -4701,14 +4701,14 @@
             },
             "type": "statamic-addon",
             "extra": {
-                "statamic": {
-                    "name": "Static Site Generator",
-                    "description": "Generate static sites with Statamic."
-                },
                 "laravel": {
                     "providers": [
                         "Statamic\\StaticSite\\ServiceProvider"
                     ]
+                },
+                "statamic": {
+                    "name": "Static Site Generator",
+                    "description": "Generate static sites with Statamic."
                 }
             },
             "autoload": {
