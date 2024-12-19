@@ -3,7 +3,6 @@
 ## Project Description
 Establish a Credit Rebuilding Company dedicated to providing a wide array of financial services designed to help both individuals enhance their credit scores. Our services will include digitally automated credit counseling, debt management strategies, and tailored financial education programs, all aimed at empowering our clients to achieve better creditworthiness and financial stability. 
 
-
 ## Goals 
 - **Goal 1**: Create a visually appealing and intuitive blogging platform powered by Statamic, featuring easy navigation, engaging layouts, and responsive design.
   - **1.1**: Statimic CMS: Develop a custom blogging platform using Statamic CMS.
@@ -40,8 +39,4 @@ Establish a Credit Rebuilding Company dedicated to providing a wide array of fin
 - **Blog**: Collection of blog posts.
 - **Podcasts**: Collection of podcasts.
 - **About**: Information about the company.
-- **Contact**: Form for users to contact the company.
-
-
-
-
+- **Contact**: Form for users to contact the company. 
