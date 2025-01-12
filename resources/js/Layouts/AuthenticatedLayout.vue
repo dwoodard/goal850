@@ -71,11 +71,21 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
+                                        <a
+                                            v-if="
+                                                $page.props.auth.user.is_admin
+                                            "
+                                            href="/cp"
+                                            class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+                                        >
+                                            Admin Panel
+                                        </a>
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
                                             Profile
                                         </DropdownLink>
+
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
