@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             'super' => true,
         ]);
 
-        //  $this->call(CollectionSeeder::class);
+        $this->call(CollectionSeeder::class);
     }
 }
