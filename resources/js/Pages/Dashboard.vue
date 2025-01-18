@@ -13,12 +13,12 @@ const props = defineProps({
 
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout class=" text-white">
         <template #header>
             <h2>Dashboard</h2>
         </template>
 
-        <div class="py-12 text-white">
+        <div class="py-12 ">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6">You're logged in!</div>
