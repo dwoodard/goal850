@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -30,6 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
@@ -41,6 +43,19 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Create a pipeline to handle additional tasks
+        app(Pipeline::class)
+            ->send($user)
+            ->through([
+                // \App\Pipes\CreateSquareUser::class,
+                // \App\Pipes\SubscribeSquareUser::class,
+                // \App\Pipes\CreateArrayUser::class,
+                // \App\Pipes\CreateGoHighLevelUser::class,
+            ])
+            ->then(function ($user) {
+                return $user;
+            });
 
         event(new Registered($user));
 
