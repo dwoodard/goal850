@@ -8,7 +8,7 @@ class DashboardController extends Controller
     {
 
         $data = [
-            'user' => auth()->user()->only('id', 'name', 'email'),
+            'user' => auth()->user()->only('id', 'name', 'email', 'is_admin'),
         ];
 
         return inertia()->render('Dashboard', $data);

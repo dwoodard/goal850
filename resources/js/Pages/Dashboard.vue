@@ -23,6 +23,13 @@ const props = defineProps({
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6">You're logged in!</div>
 
+                    <div
+                    v-if="props.user.is_admin"
+                    >
+                        <!-- check if user is admin -->
+                        {{ props.user.is_admin ? 'You are an admin' : 'You are not an admin' }}
+                    </div>
+
                     <div>
                         <div class="p-6">
                             <h1>User Information</h1>
