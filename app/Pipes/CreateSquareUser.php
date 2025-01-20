@@ -2,26 +2,27 @@
 
 namespace App\Pipes;
 
-use Square\Apis\CustomersApi;
+use App\Models\User;
+
+// use Square\Apis\CustomersApi;
 
 class CreateSquareUser
 {
-    protected $customersApi;
-
-    public function __construct(CustomersApi $customersApi)
+    public function handle(User $user, \Closure $next)
     {
-        $this->customersApi = $customersApi;
-    }
+        // // Logic to create a Square user
+        // $squareUser = $this->createSquareUser($request);
 
-    public function handle($request, \Closure $next)
-    {
-        // Logic to create a Square user
-        $squareUser = $this->createSquareUser($request);
+        // // Add the Square user to the request
+        // $request->merge(['square_user' => $squareUser]);
 
-        // Add the Square user to the request
-        $request->merge(['square_user' => $squareUser]);
+        // Imitate that we have created a square user and subscription
+        $user->update([
+            'square_user_id' => 'fake-id',
+            'square_subscription_id' => 'fake-subscription-id',
+        ]);
 
-        return $next($request);
+        return $next($user);
     }
 
     protected function createSquareUser($request)

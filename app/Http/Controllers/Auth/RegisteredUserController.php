@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -44,17 +45,18 @@ class RegisteredUserController extends Controller
         ]);
 
         // Create a pipeline to handle additional tasks
-        // app(Pipeline::class)
-        //     ->send($user)
-        //     ->through([
-        //         // \App\Pipes\CreateSquareUser::class,
-        //         // \App\Pipes\SubscribeSquareUser::class,
-        //         // \App\Pipes\CreateArrayUser::class,
-        //         // \App\Pipes\CreateGoHighLevelUser::class,
-        //     ])
-        //     ->then(function ($user) {
-        //         return $user;
-        //     });
+        app(Pipeline::class)
+            ->send($user)
+            ->through([
+                \App\Pipes\CreateGoHighLevelUser::class,
+                \App\Pipes\CreateSquareUser::class,
+                \App\Pipes\CreateArrayUser::class,
+
+            ])
+            ->then(function ($user) {
+
+                return $user;
+            });
 
         // (new App\Http\Controllers\Auth\UserRegistrationService)->handle($user);
 

@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'square_user_id',
+        'square_subscription_id',
+        'ghl_user_id',
+        'array_user_id',
+        'array_user_token',
     ];
 
     /**
