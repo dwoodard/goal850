@@ -48,13 +48,12 @@ class RegisteredUserController extends Controller
         app(Pipeline::class)
             ->send($user)
             ->through([
-                \App\Pipes\CreateGoHighLevelUser::class,
                 \App\Pipes\CreateSquareUser::class,
+                \App\Pipes\CreateGoHighLevelUser::class,
                 \App\Pipes\CreateArrayUser::class,
 
             ])
             ->then(function ($user) {
-
                 return $user;
             });
 
