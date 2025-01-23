@@ -60,11 +60,25 @@ function allStepsBeforeAreValid(index) {
 
         <Head title="Register" />
 
-        <div>
-            <div class="flex gap-2 justify-center">
-                <div v-for="(step, id, i) in stepper.steps.value" :key="id" class="">
-                    <Button :disabled="!allStepsBeforeAreValid(i) && stepper.isBefore(id)" @click="stepper.goTo(id)"
-                        v-text="step.title" />
+
+        <Link href="/" class="    mb-4">
+        <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
+        </Link>
+
+
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <div class="flex gap-2  ">
+                <div v-motion :initial="{ opacity: 0, y: -50 }" :enter="{ opacity: 1, y: 0 }" :delay="i * 200"
+                    :duration="500" v-for="(step, id, i) in stepper.steps.value" :key="id" class="">
+                    <Button class="w-40 h-10 flex items-center justify-between px-4 py-2 rounded-lg"
+                        :disabled="!allStepsBeforeAreValid(i) && stepper.isBefore(id)" @click="stepper.goTo(id)">
+                        <span v-text="step.title" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10.293 15.707a1 1 0 010-1.414L13.586 11H3a1 1 0 110-2h10.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </Button>
                 </div>
             </div>
 
