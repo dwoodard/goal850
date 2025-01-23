@@ -19,5 +19,10 @@ class='dark'
     </head>
     <body class="font-sans antialiased">
         @inertia        
+
+        <script 
+        src="https://widgets.leadconnectorhq.com/loader.js"  
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" 
+        data-widget-id="6791a86c46f09b3e3cabe181"></script>
     </body>
 </html>
