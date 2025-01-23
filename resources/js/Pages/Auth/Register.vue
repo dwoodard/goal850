@@ -60,11 +60,6 @@ function allStepsBeforeAreValid(index) {
 
         <Head title="Register" />
 
-
-        <div class="text-white">
-            <pre>{{ form }}</pre>
-        </div>
-
         <div>
             <div class="flex gap-2 justify-center">
                 <div v-for="(step, id, i) in stepper.steps.value" :key="id" class="">
@@ -133,17 +128,7 @@ function allStepsBeforeAreValid(index) {
                 </div>
             </form>
 
-            <div class="flex flex-col gap-4 mt-12 text-white">
-                <div class="w-full px-4 py-2 rounded border border-main space-y-2 overflow-auto h-full">
-                    <span class="font-bold">Form</span>
-                    <pre v-text="form" />
-                </div>
 
-                <div class="w-full px-4 py-2 rounded border border-main space-y-2 overflow-auto h-full">
-                    <span class="font-bold">Wizard</span>
-                    <pre v-text="stepper" />
-                </div>
-            </div>
         </div>
     </GuestLayout>
 </template>
