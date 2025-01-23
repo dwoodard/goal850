@@ -67,7 +67,7 @@ function allStepsBeforeAreValid(index) {
 
 
         <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
-            <div class="flex gap-2  ">
+            <div class="flex flex-wrap gap-5  ">
                 <div v-motion :initial="{ opacity: 0, y: -50 }" :enter="{ opacity: 1, y: 0 }" :delay="i * 200"
                     :duration="500" v-for="(step, id, i) in stepper.steps.value" :key="id" class="">
                     <Button class="w-40 h-10 flex items-center justify-between px-4 py-2 rounded-lg"
