@@ -1,10 +1,10 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/components/InputError.vue';
-import InputLabel from '@/components/InputLabel.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import TextInput from '@/components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import {
+    Head,
+    router,
+    useForm
+} from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,18 +13,21 @@ import { useStepper } from '@vueuse/core';
 import { reactive } from 'vue';
 
 const form = reactive({
-    firstName: 'Jon',
-    lastName: '',
+    email: '',
+    first_name: 'Jon',
+    last_name: '',
+
+    password: '',
+    password_confirmation: '',
+
     billingAddress: '',
     contractAccepted: false,
-    carbonOffsetting: false,
-    payment: 'credit-card',
 });
 
 const stepper = useStepper({
     'user-information': {
         title: 'User information',
-        isValid: () => form.firstName && form.lastName,
+        isValid: () => !!form.first_name && !!form.last_name && !!form.email,
     },
     'billing-address': {
         title: 'Billing address',
@@ -34,15 +37,15 @@ const stepper = useStepper({
         title: 'Terms',
         isValid: () => form.contractAccepted === true,
     },
-    'payment': {
-        title: 'Payment',
-        isValid: () => ['credit-card', 'paypal'].includes(form.payment),
-    },
 });
 
 function submit() {
-    if (stepper.current.value.isValid())
+    if (stepper.current.value.isValid() && stepper.isLast.value) {
+        console.log('submitting form', form);
+        router.post('/register', form);
+    } else if (stepper.current.value.isValid()) {
         stepper.goToNext();
+    }
 }
 
 function allStepsBeforeAreValid(index) {
@@ -54,7 +57,14 @@ function allStepsBeforeAreValid(index) {
 
 <template>
     <GuestLayout>
+
         <Head title="Register" />
+
+
+        <div class="text-white">
+            <pre>{{ form }}</pre>
+        </div>
+
         <div>
             <div class="flex gap-2 justify-center">
                 <div v-for="(step, id, i) in stepper.steps.value" :key="id" class="">
@@ -68,10 +78,31 @@ function allStepsBeforeAreValid(index) {
                 <div class="flex flex-col justify-center gap-2 mt-2">
                     <div>
                         <div v-if="stepper.isCurrent('user-information')">
-                            <span>First name:</span>
-                            <Input v-model="form.firstName" class="!mt-0.5" type="text" />
-                            <span>Last name:</span>
-                            <Input v-model="form.lastName" class="!mt-0.5" type="text" />
+                            <div class="mb-4">
+                                <Label for="email">Email</Label>
+                                <Input id="email" v-model="form.email" type="email" placeholder="Email" />
+                            </div>
+
+                            <div class="mb-4">
+                                <Label for="first_name">First name:</Label>
+                                <Input id="first_name" v-model="form.first_name" class="mt-0.5" type="text" />
+                            </div>
+
+                            <div class="mb-4">
+                                <Label for="last_name">Last name:</Label>
+                                <Input id="last_name" v-model="form.last_name" class="mt-0.5" type="text" />
+                            </div>
+
+                            <div class="mb-4">
+                                <Label for="password">Password:</Label>
+                                <Input id="password" v-model="form.password" class="mt-0.5" type="password" />
+                            </div>
+
+                            <div class="mb-4">
+                                <Label for="confirm-password">Confirm Password:</Label>
+                                <Input id="confirm-password" v-model="form.password_confirmation" class="mt-0.5"
+                                    type="password" />
+                            </div>
                         </div>
 
                         <div v-if="stepper.isCurrent('billing-address')">
@@ -79,32 +110,14 @@ function allStepsBeforeAreValid(index) {
                         </div>
 
                         <div v-if="stepper.isCurrent('terms')">
-                            <div>
-                                <Checkbox id="carbon-offsetting" v-model="form.carbonOffsetting" />
-                                <Label for="carbon-offsetting">I accept to deposit a carbon offsetting fee</Label>
-                            </div>
-                            <div>
-                                <Checkbox id="contract" v-model="form.contractAccepted" />
-                                <Label for="contract">I accept the terms of the contract</Label>
-                            </div>
-                            <div>
-                                <Checkbox id="terms" />
+
+                            <div class="flex items-center space-x-2">
+                                <Checkbox id="terms" v-bind="form.contractAccepted"
+                                    v-on:update:checked="form.contractAccepted = $event" />
                                 <label for="terms"
                                     class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                     Accept terms and conditions
                                 </label>
-                            </div>
-                        </div>
-
-                        <div v-if="stepper.isCurrent('payment')">
-                            <div>
-                                <Input id="credit-card" v-model="form.payment" type="radio" class="mr-2"
-                                    value="credit-card" />
-                                <Label for="credit-card">Credit card</Label>
-                            </div>
-                            <div>
-                                <Input id="paypal" v-model="form.payment" type="radio" class="mr-2" value="paypal" />
-                                <Label for="paypal">PayPal</Label>
                             </div>
                         </div>
                     </div>
@@ -119,6 +132,18 @@ function allStepsBeforeAreValid(index) {
                     </div>
                 </div>
             </form>
+
+            <div class="flex flex-col gap-4 mt-12 text-white">
+                <div class="w-full px-4 py-2 rounded border border-main space-y-2 overflow-auto h-full">
+                    <span class="font-bold">Form</span>
+                    <pre v-text="form" />
+                </div>
+
+                <div class="w-full px-4 py-2 rounded border border-main space-y-2 overflow-auto h-full">
+                    <span class="font-bold">Wizard</span>
+                    <pre v-text="stepper" />
+                </div>
+            </div>
         </div>
     </GuestLayout>
 </template>
