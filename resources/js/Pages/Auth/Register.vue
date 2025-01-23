@@ -14,7 +14,7 @@ import { reactive } from 'vue';
 
 const form = reactive({
     email: '',
-    first_name: 'Jon',
+    first_name: '',
     last_name: '',
 
     password: '',
@@ -75,7 +75,7 @@ function allStepsBeforeAreValid(index) {
                         <div v-if="stepper.isCurrent('user-information')">
                             <div class="mb-4">
                                 <Label for="email">Email</Label>
-                                <Input id="email" v-model="form.email" type="email" placeholder="Email" />
+                                <Input id="email" v-model="form.email" type="email" />
                             </div>
 
                             <div class="mb-4">
