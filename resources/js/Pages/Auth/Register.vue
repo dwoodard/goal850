@@ -27,7 +27,12 @@ const form = reactive({
 const stepper = useStepper({
     'user-information': {
         title: 'User information',
-        isValid: () => !!form.first_name && !!form.last_name && !!form.email,
+        isValid: () => !!form.first_name
+            && !!form.last_name
+            && !!form.email
+            && !!form.password
+            && !!form.password_confirmation
+            && form.password === form.password_confirmation,
     },
     'billing-address': {
         title: 'Billing address',
