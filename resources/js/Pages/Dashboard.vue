@@ -34,7 +34,7 @@ const props = defineProps({
                         <div class="p-6">
                             <h1>User Information</h1>
                             <div class="mt-4">
-                                <p>Name: {{ props.user.name }}</p>
+                                <p>Name: {{props.user.first_name}} {{props.user.last_name}}</p>
                                 <p>Email: {{ props.user.email }}</p>
                             </div>
                         </div>

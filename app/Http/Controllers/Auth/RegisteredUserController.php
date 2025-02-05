@@ -32,9 +32,9 @@ class RegisteredUserController extends Controller
     {
 
         $request->validate([
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'billingAddress' => 'required|string|max:255',
             'contractAccepted' => 'required|boolean',
@@ -47,8 +47,8 @@ class RegisteredUserController extends Controller
             ->send($user)
             ->through([
                 \App\Pipes\CreateSquareUser::class,
-                \App\Pipes\CreateGoHighLevelUser::class,
-                \App\Pipes\CreateArrayUser::class,
+                // \App\Pipes\CreateGoHighLevelUser::class,
+                // \App\Pipes\CreateArrayUser::class,
 
             ])
             ->then(function ($user) {

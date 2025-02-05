@@ -45,10 +45,12 @@ const stepper = useStepper({
 });
 
 function submit() {
-    if (stepper.current.value.isValid() && stepper.isLast.value) {
+    if (!stepper.current.value.isValid()) return;
+
+    if (stepper.isLast.value) {
         console.log('submitting form', form);
         router.post('/register', form);
-    } else if (stepper.current.value.isValid()) {
+    } else {
         stepper.goToNext();
     }
 }
