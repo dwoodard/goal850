@@ -23,12 +23,21 @@ return new class extends Migration
 
             $table->string('square_user_id')->nullable();
             $table->string('square_subscription_id')->nullable();
+            $table->string('subscription_status')->nullable();
 
             $table->string('array_user_id')->nullable();
             $table->string('array_user_token')->nullable();
 
             $table->string('ghl_user_id')->nullable();
 
+            
+            
+
+            // Added new columns for login tracking
+            $table->unsignedInteger('login_count')->default(0);
+            $table->string('last_ip')->nullable();
+            $table->string('user_agent')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });

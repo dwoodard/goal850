@@ -50,6 +50,13 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        // Added new login tracking—update user's login_count, last_ip, and user_agent after sign-in
+        $user = Auth::user();
+        $user->increment('login_count');
+        $user->last_ip = $this->ip();
+        $user->user_agent = $this->header('User-Agent');
+        $user->save();
     }
 
     /**

@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'billingAddress' => 'required|string|max:255',
             'contractAccepted' => 'required|boolean',
         ]);
-
+        
         $user = User::create($request->all());
 
         // Create a pipeline to handle additional tasks

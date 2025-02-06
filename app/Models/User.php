@@ -27,6 +27,10 @@ class User extends Authenticatable
         'ghl_user_id',
         'array_user_id',
         'array_user_token',
+        'last_login',
+        'login_count',
+        'last_ip',
+        'user_agent',
     ];
 
     /**
@@ -50,6 +54,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'last_login'  => 'datetime',
+            'login_count' => 'integer',
+            'last_ip'     => 'string',
+            'user_agent'  => 'string',
         ];
     }
 
@@ -58,6 +66,6 @@ class User extends Authenticatable
      */
     public function getIsAdminAttribute(): bool
     {
-        return $this->super;
+        return !!$this->super;
     }
 }
