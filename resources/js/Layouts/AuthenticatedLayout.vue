@@ -203,6 +203,7 @@ const showingNavigationDropdown = ref(false);
             <main>
                 <slot />
             </main>
+            
         </div>
     </div>
 </template>
