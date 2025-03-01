@@ -69,7 +69,21 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4 block">
+            <div class="flex mt-4 block">
+
+                <!--
+                     go to register page
+                 -->
+
+                <label>
+                    <Link
+                        :href="route('register')"
+                        class="text-sm mr-10 text-gray-600 dark:text-gray-400 hover:underline"
+                    >
+                        Create an account
+                    </Link>
+                </label>
+
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ms-2 text-sm text-gray-600 dark:text-gray-400"

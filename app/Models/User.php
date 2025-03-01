@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use Billable, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -54,10 +55,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
-            'last_login'  => 'datetime',
+            'last_login' => 'datetime',
             'login_count' => 'integer',
-            'last_ip'     => 'string',
-            'user_agent'  => 'string',
+            'last_ip' => 'string',
+            'user_agent' => 'string',
         ];
     }
 
@@ -66,6 +67,12 @@ class User extends Authenticatable
      */
     public function getIsAdminAttribute(): bool
     {
-        return !!$this->super;
+        return (bool) $this->super;
+    }
+
+    // a check if the user is subscribed
+    public function subscribed(): bool
+    {
+        return $this->subscribed('default');
     }
 }

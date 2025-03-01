@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use Core\Authentication\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,6 +22,31 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/subscription-checkout', function (Request $request) {
+    return $request->user()
+        ->newSubscription('default', 'price_basic_monthly')
+        ->trialDays(5)
+        ->allowPromotionCodes()
+        ->checkout([
+            'success_url' => route('your-success-route'),
+            'cancel_url' => route('your-cancel-route'),
+        ]);
+});
+
+Route::get('/billing-portal', function (Request $request) {
+
+    // if auth check
+    if (!$request->user()) {
+       return redirect()->route('login');
+    } else {
+        dd(
+            Auth::user()
+        );
+    }
+
+    return $request->user()->redirectToBillingPortal(route('dashboard'));
 });
 
 // Route::get('/settings', function () {
