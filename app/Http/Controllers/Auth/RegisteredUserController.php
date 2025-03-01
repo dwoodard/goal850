@@ -31,17 +31,29 @@ class RegisteredUserController extends Controller
     {
 
         $request->validate([
+            'phone_number' => 'required|numeric|unique:'.User::class.',phone_number',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'billingAddress' => 'required|string|max:255',
-            'contractAccepted' => 'required|boolean',
         ]);
 
+        // $request->validate([
+        //     'first_name' => 'required|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        //     // 'billingAddress' => 'required|string|max:255',
+        //     // 'contractAccepted' => 'required|boolean',
+        // ]);
+
         $user = User::create($request->all());
-        $user->createAsStripeCustomer();
-        $user->createGoHighLevelUser();
+
+        // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
+        $user->registerAsStripeCustomer();
+
+        // $user->createAsStripeCustomer();
+        // $user->createGoHighLevelUser();
 
         // (new App\Http\Controllers\Auth\UserRegistrationService)->handle($user);
 
@@ -52,13 +64,28 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 
+    /*
+        register as stripe customer
+        */
+    public function registerAsStripeCustomer($user): void
+    {
+        $user
+            ->newSubscription('prod_RrgBQhJGRJHOxf', ['price_1QxwoiHIAHd68JddyMYe9yaI'])
+            ->trialDays(5)
+            ->allowPromotionCodes()
+            ->checkout([
+                'success_url' => route('dashboard'),
+                'cancel_url' => route('welcome'),
+            ]);
+    }
+
     /**
      * Create a contact in Go HighLevel.
      */
     protected function createGoHighLevelContact($user)
     {
         $client = new \GuzzleHttp\Client;
-        $apiKey = env('GOHIGHLEVEL_API_TOKEN'); // Ensure this is in your .env
+        $apiKey = env('GOHIGHLEVEL_API_TOKEN');
 
         $response = $client->post('https://rest.gohighlevel.com/v1/contacts/', [
             'headers' => [

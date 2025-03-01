@@ -12,7 +12,8 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+})
+    ->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -36,15 +37,6 @@ Route::get('/subscription-checkout', function (Request $request) {
 });
 
 Route::get('/billing-portal', function (Request $request) {
-
-    // if auth check
-    if (!$request->user()) {
-       return redirect()->route('login');
-    } else {
-        dd(
-            Auth::user()
-        );
-    }
 
     return $request->user()->redirectToBillingPortal(route('dashboard'));
 });

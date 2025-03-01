@@ -1,12 +1,12 @@
 <script setup>
-import { cn } from '@/lib/utils';
-import { Check } from 'lucide-vue-next';
+import { cn } from '@/lib/utils'
+import { Check } from 'lucide-vue-next'
 import {
   CheckboxIndicator,
   CheckboxRoot,
-  useForwardPropsEmits,
-} from 'radix-vue';
-import { computed } from 'vue';
+  useForwardPropsEmits
+} from 'radix-vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   defaultChecked: { type: Boolean, required: false },
@@ -18,17 +18,17 @@ const props = defineProps({
   id: { type: String, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
-  class: { type: null, required: false },
-});
-const emits = defineEmits(['update:checked']);
+  class: { type: null, required: false }
+})
+const emits = defineEmits(['update:checked'])
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
@@ -39,13 +39,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         'mr-2 my-2 peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
         props.class,
       )
-    "
-  >
+    ">
     <CheckboxIndicator
-      class="flex h-full w-full items-center justify-center text-current"
-    >
+      class="flex size-full items-center justify-center text-current">
       <slot>
-        <Check class="h-4 w-4" />
+        <Check class="size-4" />
       </slot>
     </CheckboxIndicator>
   </CheckboxRoot>

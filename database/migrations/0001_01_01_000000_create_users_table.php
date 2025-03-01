@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
+            $table->string('phone')->nullable();
+
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+
+            $table->string('status')->default('pending'); // pending, partial, complete
 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -30,14 +34,11 @@ return new class extends Migration
 
             $table->string('ghl_user_id')->nullable();
 
-            
-            
-
             // Added new columns for login tracking
             $table->unsignedInteger('login_count')->default(0);
             $table->string('last_ip')->nullable();
             $table->string('user_agent')->nullable();
-            
+
             $table->rememberToken();
             $table->timestamps();
         });
