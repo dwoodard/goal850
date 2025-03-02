@@ -30,30 +30,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        $request->validate([
-            'phone_number' => 'required|numeric|unique:'.User::class.',phone_number',
+        // transform phone number to 10 digits
+        $request->merge([
+            'phone' => preg_replace('/[^0-9]/', '', $request->phone),
+            'email' => strtolower($request->email),
+        ]);
+
+        $data = $request->validate([
+            'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-        // $request->validate([
-        //     'first_name' => 'required|string|max:255',
-        //     'last_name' => 'required|string|max:255',
-        //     'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        //     // 'billingAddress' => 'required|string|max:255',
-        //     // 'contractAccepted' => 'required|boolean',
-        // ]);
+        dd(
+          $data
+        );
 
         $user = User::create($request->all());
+
+        $this->createGoHighLevelContact($user);
 
         // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
         $user->registerAsStripeCustomer();
 
         // $user->createAsStripeCustomer();
-        // $user->createGoHighLevelUser();
 
         // (new App\Http\Controllers\Auth\UserRegistrationService)->handle($user);
 
@@ -85,21 +86,46 @@ class RegisteredUserController extends Controller
     protected function createGoHighLevelContact($user)
     {
         $client = new \GuzzleHttp\Client;
-        $apiKey = env('GOHIGHLEVEL_API_TOKEN');
 
-        $response = $client->post('https://rest.gohighlevel.com/v1/contacts/', [
-            'headers' => [
-                'Authorization' => "Bearer $apiKey",
-                'Content-Type' => 'application/json',
-            ],
-            'json' => [
-                'phone' => $user->phone_number,
-                'source' => 'Laravel Registration',
-            ],
-        ]);
+        if (! env('GHL_ENABLED')) {
+            $response = $client->post('https://rest.gohighlevel.com/v1/contacts/', [
+                'headers' => [
+                    'Authorization' => 'Bearer '.env('GHL_API_TOKEN'),
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'phone' => $user->phone,
+                    'email' => $user->email,
+                    'firstName' => $user->first_name,
+                    'lastName' => $user->last_name,
+                    'name' => $user->name ?? ($user->first_name.' '.$user->last_name),
+                    'dateOfBirth' => $user->date_of_birth ?? null,
+                    'address1' => $user->address1 ?? null,
+                    'city' => $user->city ?? null,
+                    'state' => $user->state ?? null,
+                    'country' => $user->country ?? null,
+                    'postalCode' => $user->postal_code ?? null,
+                    'companyName' => $user->company_name ?? null,
+                    'website' => $user->website ?? null,
+                    'source' => 'Goal850 Registration',
+                    'tags' => ['goal850'],
 
-        // Store GHL contact ID for later updates
-        $ghlData = json_decode($response->getBody(), true);
-        $user->update(['ghl_contact_id' => $ghlData['contact']['id']]);
+                    // Custom fields
+                    'customFields' => [
+                        'goal850_id' => $user->id,
+                    ],
+
+                ],
+            ]);
+
+            // Store GHL contact ID for later updates
+            $ghlData = json_decode($response->getBody(), true);
+            $user->update([
+                'ghl_contact_id' => $ghlData['contact']['id'],
+                'ghl_location_id' => $ghlData['contact']['locationId'],
+
+            ]);
+        }
+
     }
 }

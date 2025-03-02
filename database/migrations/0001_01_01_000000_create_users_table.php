@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
 
+            $table->string('subscription_status')->default('pending');
+            // pending,canceled,paused,incomplete,incomplete_expired,active
+
             $table->string('status')->default('pending'); // pending, partial, complete
 
             $table->string('email')->unique();
@@ -27,12 +30,12 @@ return new class extends Migration
 
             $table->string('square_user_id')->nullable();
             $table->string('square_subscription_id')->nullable();
-            $table->string('subscription_status')->nullable();
 
             $table->string('array_user_id')->nullable();
             $table->string('array_user_token')->nullable();
 
             $table->string('ghl_user_id')->nullable();
+            $table->string('ghl_location_id')->nullable();
 
             // Added new columns for login tracking
             $table->unsignedInteger('login_count')->default(0);
