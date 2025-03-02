@@ -109,12 +109,9 @@ class RegisteredUserController extends Controller
             // Store GHL contact ID for later updates
             $ghlData = json_decode($response->getBody(), true);
 
-            
-
             $user->update([
                 'ghl_contact_id' => $ghlData['contact']['id'],
                 'ghl_location_id' => $ghlData['contact']['locationId'],
-
             ]);
         }
 

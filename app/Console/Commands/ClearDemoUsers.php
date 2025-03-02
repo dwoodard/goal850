@@ -48,12 +48,12 @@ class ClearDemoUsers extends Command
         if ($this->option('stripe-id')) {
             $query->where('stripe_id', $this->option('stripe-id'));
         } elseif ($this->option('ghl-id')) {
-            $query->where('ghl_user_id', $this->option('ghl-id'));
+            $query->where('ghl_contact_id', $this->option('ghl-id'));
         } elseif ($this->option('all')) {
             // You might want to add specific conditions for what constitutes a "demo" user
             // For example: $query->where('is_demo', true);
             // For now, we'll assume you have some way to identify demo users
-            $query->whereNotNull('stripe_id')->orWhereNotNull('ghl_user_id');
+            $query->whereNotNull('stripe_id')->orWhereNotNull('ghl_contact_id');
         } else {
             $this->error('Please specify either --stripe-id, --ghl-id, or --all');
 
@@ -85,10 +85,10 @@ class ClearDemoUsers extends Command
                 }
 
                 // Clear from GoHighLevel
-                if ($user->ghl_user_id) {
+                if ($user->ghl_contact_id) {
                     try {
                         $httpClient->delete(
-                            "https://rest.gohighlevel.com/v1/contacts/{$user->ghl_user_id}",
+                            "https://rest.gohighlevel.com/v1/contacts/{$user->ghl_contact_id}",
                             [
                                 'headers' => [
                                     'Authorization' => 'Bearer '.env('GHL_API_TOKEN'),
@@ -96,7 +96,7 @@ class ClearDemoUsers extends Command
                                 ],
                             ]
                         );
-                        $this->info("✓ Cleared from GHL: {$user->ghl_user_id}");
+                        $this->info("✓ Cleared from GHL: {$user->ghl_contact_id}");
                     } catch (\Exception $e) {
                         $this->warn("Failed to clear from GHL: {$e->getMessage()}");
                     }

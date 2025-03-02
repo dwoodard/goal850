@@ -23,13 +23,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->string('square_user_id')->nullable();
-            $table->string('square_subscription_id')->nullable();
-
             $table->string('array_user_id')->nullable();
             $table->string('array_user_token')->nullable();
 
-            $table->string('ghl_user_id')->nullable();
+            $table->string('ghl_contact_id')->nullable();
             $table->string('ghl_location_id')->nullable();
 
             // Added new columns for login tracking
