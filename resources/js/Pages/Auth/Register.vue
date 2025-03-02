@@ -104,7 +104,7 @@ function allStepsBeforeAreValid(index) {
             <div class="mb-4">
               <Label for="phone">Phone</Label>
 
-              <Input v-model="form.phone" type="text" />
+              <Input id="phone" v-model="form.phone" type="text" />
 
               <p v-if="form.errors.phone" class="mt-1 text-sm text-red-500">
                 {{ form.errors.phone }}
@@ -114,7 +114,7 @@ function allStepsBeforeAreValid(index) {
             <div class="mb-4">
               <Label for="email">Email</Label>
 
-              <Input v-model="form.email" type="email" />
+              <Input id="email" v-model="form.email" type="email" />
 
               <p v-if="form.errors.email" class="mt-1 text-sm text-red-500">
                 {{ form.errors.email }}

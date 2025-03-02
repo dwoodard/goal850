@@ -43,16 +43,13 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        dd(
-          $data
-        );
 
         $user = User::create($request->all());
 
         $this->createGoHighLevelContact($user);
 
         // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
-        $user->registerAsStripeCustomer();
+        $this->registerAsStripeCustomer($user);
 
         // $user->createAsStripeCustomer();
 
@@ -87,7 +84,7 @@ class RegisteredUserController extends Controller
     {
         $client = new \GuzzleHttp\Client;
 
-        if (! env('GHL_ENABLED')) {
+        if (env('GHL_ENABLED')) {
             $response = $client->post('https://rest.gohighlevel.com/v1/contacts/', [
                 'headers' => [
                     'Authorization' => 'Bearer '.env('GHL_API_TOKEN'),
@@ -98,15 +95,6 @@ class RegisteredUserController extends Controller
                     'email' => $user->email,
                     'firstName' => $user->first_name,
                     'lastName' => $user->last_name,
-                    'name' => $user->name ?? ($user->first_name.' '.$user->last_name),
-                    'dateOfBirth' => $user->date_of_birth ?? null,
-                    'address1' => $user->address1 ?? null,
-                    'city' => $user->city ?? null,
-                    'state' => $user->state ?? null,
-                    'country' => $user->country ?? null,
-                    'postalCode' => $user->postal_code ?? null,
-                    'companyName' => $user->company_name ?? null,
-                    'website' => $user->website ?? null,
                     'source' => 'Goal850 Registration',
                     'tags' => ['goal850'],
 
@@ -120,6 +108,9 @@ class RegisteredUserController extends Controller
 
             // Store GHL contact ID for later updates
             $ghlData = json_decode($response->getBody(), true);
+
+            
+
             $user->update([
                 'ghl_contact_id' => $ghlData['contact']['id'],
                 'ghl_location_id' => $ghlData['contact']['locationId'],

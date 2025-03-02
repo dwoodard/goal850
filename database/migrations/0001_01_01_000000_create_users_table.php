@@ -19,11 +19,6 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
 
-            $table->string('subscription_status')->default('pending');
-            // pending,canceled,paused,incomplete,incomplete_expired,active
-
-            $table->string('status')->default('pending'); // pending, partial, complete
-
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
