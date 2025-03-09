@@ -368,7 +368,7 @@ onMounted(() => {
       <!-- Canvas for particles -->
       <canvas
         ref="canvasRef"
-        class="pointer-events-none absolute left-0 top-0 z-0 size-full"/>
+        class="pointer-events-none fixed inset-0 z-0" />
     </section>
 
     <section class="overflow-hidden bg-white pb-40 pt-24">
