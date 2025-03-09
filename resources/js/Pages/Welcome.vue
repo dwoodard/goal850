@@ -5,7 +5,10 @@ import {
 } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
-import { ref } from 'vue'
+import {
+  onMounted,
+  ref
+} from 'vue'
 defineProps({
   canLogin: {
     type: Boolean
@@ -17,6 +20,92 @@ defineProps({
 })
 
 const mobileNavOpen = ref(false)
+const subscribeEmail = ref(null)
+
+const scrollToBottom = () => {
+  subscribeEmail.value?.scrollIntoView({ behavior: 'smooth' })
+}
+
+const canvasRef = ref(null)
+const particles = []
+const numParticles = 50
+
+// Particle Class
+class Particle {
+  constructor(x, y, size, color, speedX, speedY) {
+    this.x = x
+    this.y = y
+    this.size = size
+    this.color = color
+    this.speedX = speedX
+    this.speedY = speedY
+  }
+
+  draw(ctx) {
+    ctx.beginPath()
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+    ctx.fillStyle = this.color
+    ctx.fill()
+  }
+
+  update(canvasWidth, canvasHeight) {
+    this.x += this.speedX
+    this.y += this.speedY
+
+    // Bounce off edges
+    if (this.x + this.size > canvasWidth || this.x - this.size < 0) {
+      this.speedX = -this.speedX
+    }
+    if (this.y + this.size > canvasHeight || this.y - this.size < 0) {
+      this.speedY = -this.speedY
+    }
+  }
+}
+
+// Initialize particles
+const setupParticles = (canvas, ctx) => {
+  particles.length = 0
+  for (let i = 0; i < numParticles; i++) {
+    const size = Math.random() * 3 + 1
+    const x = Math.random() * canvas.width
+    const y = Math.random() * canvas.height
+    const opacity = Math.random() * (0.5 - 0.1) + 0.1
+    const color = `rgba(0, 255, 0, ${opacity})`
+    const speedX = (Math.random() - 0.5) * 1
+    const speedY = (Math.random() - 0.5) * 1
+    particles.push(new Particle(x, y, size, color, speedX, speedY))
+  }
+}
+
+// Animate particles
+const animateParticles = (ctx, canvas) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  particles.forEach((particle) => {
+    particle.update(canvas.width, canvas.height)
+    particle.draw(ctx)
+  })
+  requestAnimationFrame(() => animateParticles(ctx, canvas))
+}
+
+onMounted(() => {
+  console.log('mounted')
+
+  const canvas = canvasRef.value
+  const ctx = canvas.getContext('2d')
+
+  canvas.width = canvas.offsetWidth
+  canvas.height = canvas.offsetHeight
+
+  setupParticles(canvas, ctx)
+  animateParticles(ctx, canvas)
+
+  // Resize event to adjust canvas size
+  window.addEventListener('resize', () => {
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+    setupParticles(canvas, ctx)
+  })
+})
 
 </script>
 
@@ -192,7 +281,23 @@ const mobileNavOpen = ref(false)
         <div class="container mx-auto px-4">
           <div class="-m-8 flex flex-wrap">
             <div class="w-full p-8 md:w-1/2">
-              <h1 class="lg:text-10xl font-heading mb-6 text-6xl font-bold leading-none md:max-w-xl md:text-8xl">
+              <h1
+                v-motion
+                :initial="{
+                  x: -800,
+                  opacity: 0,
+                }"
+                :enter="{
+                  x: 0,
+                  opacity: 1,
+                  transition: {
+
+                    type: 'spring',
+                    stiffness: '300',
+                    delay: 500,
+                  },
+                }"
+                class="lg:text-10xl font-heading mb-6 text-6xl font-bold leading-none md:max-w-xl md:text-8xl">
                 Perfect credit starts here.
               </h1>
 
@@ -210,7 +315,7 @@ const mobileNavOpen = ref(false)
                 </div>
 
                 <div class="w-full p-2.5 md:w-auto">
-                  <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" @click="scrollToBottom">
                     Get your free e-Book
                   </Button>
                 </div>
@@ -236,11 +341,22 @@ const mobileNavOpen = ref(false)
               class="w-full p-8 md:w-1/2">
               <img
                 v-motion
-                :initial="{ opacity: 0, y: 100, scale: 0.93 }"
-                :enter="{ opacity: 1, y: 0, scale: 1 }"
+                :initial="{
+                  opacity: 0,
+                  y: 100,
+                }"
+                :enter="{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    type: 'spring',
+                    stiffness: '300',
+                    delay: 1000,
+                  },
+                }"
                 :variants="{ custom: { scale: 2 } }"
-
                 :delay="200"
+
                 :duration="1200"
                 src="images/GOAT-Mascot.png"
                 alt="">
@@ -248,6 +364,11 @@ const mobileNavOpen = ref(false)
           </div>
         </div>
       </div>
+
+      <!-- Canvas for particles -->
+      <canvas
+        ref="canvasRef"
+        class="pointer-events-none absolute left-0 top-0 z-0 size-full"/>
     </section>
 
     <section class="overflow-hidden bg-white pb-40 pt-24">
@@ -600,7 +721,7 @@ const mobileNavOpen = ref(false)
                   Receive our free eBook and subscribe to our free newsletter filled with credit building tips as well as other financial wellness education.
                 </p>
 
-                <div class="mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring focus-within:ring-indigo-300 md:max-w-xl xl:pl-6">
+                <div ref="subscribeEmail"  class="mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring focus-within:ring-primary md:max-w-xl xl:pl-6">
                   <div class="flex flex-wrap items-center">
                     <div class="w-full xl:flex-1">
                       <input
@@ -776,3 +897,15 @@ const mobileNavOpen = ref(false)
     </div>
   </GuestLayout>
 </template>
+
+<style
+  scoped>
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+ </style>
