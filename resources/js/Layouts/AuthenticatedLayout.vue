@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import ApplicationLogo from '@/components/ApplicationLogo.vue'
-import Dropdown from '@/components/Dropdown.vue'
-import DropdownLink from '@/components/DropdownLink.vue'
-import NavLink from '@/components/NavLink.vue'
-import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue'
+import ApplicationLogo from '@/components_rename/ApplicationLogo.vue'
+import Dropdown from '@/components_rename/Dropdown.vue'
+import DropdownLink from '@/components_rename/DropdownLink.vue'
+import NavLink from '@/components_rename/NavLink.vue'
+import ResponsiveNavLink from '@/components_rename/ResponsiveNavLink.vue'
 import { Link } from '@inertiajs/vue3'
 
 const showingNavigationDropdown = ref(false)

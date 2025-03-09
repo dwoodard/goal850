@@ -4,9 +4,9 @@ import {
   Head,
   useForm
 } from '@inertiajs/vue3'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from '@/components_rename/ui/button'
+import { Input } from '@/components_rename/ui/input'
+import { Label } from '@/components_rename/ui/label'
 // import { Checkbox } from '@/components/ui/checkbox'
 import { useStepper } from '@vueuse/core'
 import { reactive } from 'vue'
