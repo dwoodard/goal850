@@ -63,7 +63,7 @@ class Particle {
 }
 
 // Initialize particles
-const setupParticles = (canvas, ctx) => {
+const setupParticles = (canvas) => {
   particles.length = 0
   for (let i = 0; i < numParticles; i++) {
     const size = Math.random() * 3 + 1
