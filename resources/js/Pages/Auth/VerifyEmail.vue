@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
-import PrimaryButton from '@/components_rename/PrimaryButton.vue'
+import PrimaryButton from '@/components/PrimaryButton.vue'
 import {
   Head,
   Link,

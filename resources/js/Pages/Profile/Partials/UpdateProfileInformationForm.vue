@@ -1,8 +1,8 @@
 <script setup>
-import InputError from '@/components_rename/InputError.vue'
-import InputLabel from '@/components_rename/InputLabel.vue'
-import PrimaryButton from '@/components_rename/PrimaryButton.vue'
-import TextInput from '@/components_rename/TextInput.vue'
+import InputError from '@/components/InputError.vue'
+import InputLabel from '@/components/InputLabel.vue'
+import PrimaryButton from '@/components/PrimaryButton.vue'
+import TextInput from '@/components/TextInput.vue'
 import {
   Link,
   useForm,

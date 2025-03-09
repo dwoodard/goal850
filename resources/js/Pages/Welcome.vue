@@ -3,7 +3,7 @@ import {
   Head,
   Link
 } from '@inertiajs/vue3'
-import { Button } from '@/components_rename/ui/button'
+import { Button } from '@/components/ui/button'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
 import {
   onMounted,
