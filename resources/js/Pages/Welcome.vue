@@ -123,17 +123,13 @@ const mobileNavOpen = ref(false)
             'hidden': !mobileNavOpen
           }"
           class="fixed inset-y-0 left-0 z-50 w-4/6 sm:max-w-xs">
-          <div
-            class="fixed inset-0 bg-gray-800 opacity-80"
-            @click="mobileNavOpen = !mobileNavOpen">
+          <div class="fixed inset-0 bg-gray-800 opacity-95" @click="mobileNavOpen = !mobileNavOpen">
             <nav class="relative z-10 h-full overflow-y-auto bg-white px-9 pt-8">
               <div class="flex h-full flex-wrap justify-between">
                 <div class="w-full">
                   <div class="-m-2 flex items-center justify-between">
                     <div class="w-auto p-2">
-                      <a class="inline-block" href="#">
-                        <img src="flaro-assets/logos/flaro-logo-black.svg" alt="">
-                      </a>
+                      <!-- goal 850 small logo -->
                     </div>
 
                     <div class="w-auto p-2">
@@ -178,9 +174,10 @@ const mobileNavOpen = ref(false)
                   <div class="flex flex-wrap">
                     <div class="w-full">
                       <div class="block">
-                        <button class="w-full rounded-xl border border-indigo-700 bg-indigo-600 px-5 py-3 font-semibold text-white transition duration-200 ease-in-out hover:bg-indigo-700 focus:ring focus:ring-indigo-300" type="button">
-                          Try 14 Days Free Trial
-                        </button>
+                        <Button
+                          class="w-full">
+                          Try 30 Days Free Trial
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -239,7 +236,7 @@ const mobileNavOpen = ref(false)
               class="w-full p-8 md:w-1/2">
               <img
                 v-motion
-                :initial="{ opacity: 0, y: 100 }"
+                :initial="{ opacity: 0, y: 100, scale: 0.93 }"
                 :enter="{ opacity: 1, y: 0, scale: 1 }"
                 :variants="{ custom: { scale: 2 } }"
 
@@ -643,7 +640,7 @@ const mobileNavOpen = ref(false)
           <div class="w-auto p-4">
             <div class="-m-4 flex flex-wrap">
               <div class="w-auto p-4">
-                <a class="text-blueGray-400 hover:text-blueGray-500" href="#">
+                <a href="#">
                   <svg
                     width="9"
                     height="16"
@@ -656,7 +653,7 @@ const mobileNavOpen = ref(false)
               </div>
 
               <div class="w-auto p-4">
-                <a class="text-indigo-600 hover:text-indigo-700" href="#">
+                <a class="text-primary" href="#">
                   <svg
                     width="16"
                     height="16"
@@ -669,7 +666,7 @@ const mobileNavOpen = ref(false)
               </div>
 
               <div class="w-auto p-4">
-                <a class="text-blueGray-400 hover:text-blueGray-500" href="#">
+                <a class=" " href="#">
                   <svg
                     width="16"
                     height="15"
@@ -682,7 +679,7 @@ const mobileNavOpen = ref(false)
               </div>
 
               <div class="w-auto p-4">
-                <a class="text-blueGray-400 hover:text-blueGray-500" href="#">
+                <a class="text-primary " href="#">
                   <svg
                     width="15"
                     height="13"
@@ -699,7 +696,7 @@ const mobileNavOpen = ref(false)
       </div>
     </section>
 
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+    <div class="hidden bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
       <div
         class="relative flex min-h-screen flex-col items-center selection:bg-[#FF2D20] selection:text-white">
         <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
