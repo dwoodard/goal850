@@ -6,7 +6,7 @@ import {
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
-import { useParticles } from '@/composables/useParticles.js'
+// import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
     type: Boolean
@@ -17,7 +17,6 @@ defineProps({
 
 })
 
-const mobileNavOpen = ref(false)
 const subscribeEmail = ref(null)
 
 const scrollToBottom = () => {
@@ -25,7 +24,7 @@ const scrollToBottom = () => {
 }
 
 // Use the composable for particles
-const { canvasRef } = useParticles(50)
+// const { canvasRef } = useParticles(50)
 
 </script>
 
@@ -34,169 +33,6 @@ const { canvasRef } = useParticles(50)
     <Head title="Welcome" />
 
     <section>
-      <div class="container mx-auto overflow-hidden">
-        <div class=" flex items-center justify-between px-4 py-5">
-          <div class="w-auto">
-            <div class="flex flex-wrap items-center">
-              <div class="mr-14 w-auto">
-                <a href="#">
-                  <img src="images/G850-LOGO-WEB-w-Green.png" alt="">
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-auto">
-            <div class="flex flex-wrap items-center">
-              <div class="hidden w-auto lg:block">
-                <ul class="mr-16 flex items-center">
-                  <li class="mr-9 font-medium hover:text-gray-700">
-                    <a href="#">Blog</a>
-                  </li>
-
-                  <li class="mr-9 font-medium hover:text-gray-700">
-                    <a href="#">Solutions</a>
-                  </li>
-
-                  <li class="mr-9 font-medium hover:text-gray-700">
-                    <a href="#">Resources</a>
-                  </li>
-
-                  <li class="font-medium hover:text-gray-700">
-                    <a href="#">Pricing</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="hidden w-auto lg:block">
-                <div class="inline-block">
-                  <nav class="-mx-3 flex flex-1 justify-end">
-                    <Link
-                      v-if="$page.props.auth.user"
-                      :href="route('logout')"
-                      as="button"
-                      method="post"
-                      class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                      Log out
-                    </Link>
-
-                    <template v-else>
-                      <Button
-                        :href="route('login')">
-                        Sign in
-                      </Button>
-
-                      <Link
-                        v-if="canRegister"
-                        :href="route('register')"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                        Register
-                      </Link>
-                    </template>
-                  </nav>
-                </div>
-              </div>
-
-              <div class="w-auto lg:hidden">
-                <button @click="mobileNavOpen = !mobileNavOpen">
-                  <svg
-                    class="text-primary"
-                    width="56"
-                    height="56"
-                    viewbox="0 0 56 56"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <rect
-                      width="56"
-                      height="56"
-                      rx="28"
-                      fill="currentColor"/>
-
-                    <path
-                      d="M37 32H19M37 24H19"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Nav -->
-        <div
-          :class="{
-            'block': mobileNavOpen,
-            'hidden': !mobileNavOpen
-          }"
-          class="fixed inset-y-0 left-0 z-50 w-4/6 sm:max-w-xs">
-          <div class="fixed inset-0 bg-gray-800 opacity-95" @click="mobileNavOpen = !mobileNavOpen">
-            <nav class="relative z-10 h-full overflow-y-auto bg-white px-9 pt-8">
-              <div class="flex h-full flex-wrap justify-between">
-                <div class="w-full">
-                  <div class="-m-2 flex items-center justify-between">
-                    <div class="w-auto p-2">
-                      <!-- goal 850 small logo -->
-                    </div>
-
-                    <div class="w-auto p-2">
-                      <button @click="mobileNavOpen = !mobileNavOpen">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewbox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M6 18L18 6M6 6L18 18"
-                            stroke="#111827"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex w-full flex-col justify-center py-16">
-                  <ul>
-                    <li class="mb-12">
-                      <a class="font-medium hover:text-gray-700" href="#">Features</a>
-                    </li>
-
-                    <li class="mb-12">
-                      <a class="font-medium hover:text-gray-700" href="#">Solutions</a>
-                    </li>
-
-                    <li class="mb-12">
-                      <a class="font-medium hover:text-gray-700" href="#">Resources</a>
-                    </li>
-
-                    <li><a class="font-medium hover:text-gray-700" href="#">Pricing</a></li>
-                  </ul>
-                </div>
-
-                <div class="flex w-full flex-col justify-end pb-8">
-                  <div class="flex flex-wrap">
-                    <div class="w-full">
-                      <div class="block">
-                        <Button
-                          class="w-full">
-                          Try 30 Days Free Trial
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-
       <div class="overflow-hidden pt-16">
         <div class="container mx-auto px-4">
           <div class="-m-8 flex flex-wrap">
@@ -284,9 +120,6 @@ const { canvasRef } = useParticles(50)
           </div>
         </div>
       </div>
-
-      <!-- Canvas for particles -->
-      <canvas ref="canvasRef" class="pointer-events-none fixed inset-0 z-0" />
     </section>
 
     <section class="overflow-hidden bg-white pb-40 pt-24">

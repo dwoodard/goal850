@@ -2,8 +2,8 @@
 import GuestLayout from '@/Layouts/GuestLayout.vue'
 import InputError from '@/components/InputError.vue'
 import InputLabel from '@/components/InputLabel.vue'
-import PrimaryButton from '@/components/PrimaryButton.vue'
 import TextInput from '@/components/TextInput.vue'
+import { Button } from '@/components/ui/button'
 import {
   Head,
   useForm
@@ -57,11 +57,11 @@ const submit = () => {
       </div>
 
       <div class="mt-4 flex items-center justify-end">
-        <PrimaryButton
+        <Button
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing">
           Email Password Reset Link
-        </PrimaryButton>
+        </Button>
       </div>
     </form>
   </GuestLayout>

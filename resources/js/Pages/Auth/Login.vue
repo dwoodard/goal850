@@ -1,10 +1,10 @@
 <script setup>
 import Checkbox from '@/components/Checkbox.vue'
-import GuestLayout from '@/Layouts/GuestLayout.vue'
 import InputError from '@/components/InputError.vue'
 import InputLabel from '@/components/InputLabel.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import TextInput from '@/components/TextInput.vue'
+import { Button } from '@/components/ui/button'
 import {
   Head,
   Link,
@@ -34,7 +34,7 @@ const submit = () => {
 </script>
 
 <template>
-  <GuestLayout>
+  <AppLayout>
     <Head title="Log in" />
 
     <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
@@ -101,13 +101,13 @@ const submit = () => {
           Forgot your password?
         </Link>
 
-        <PrimaryButton
+        <Button
           class="ms-4"
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing">
           Log in
-        </PrimaryButton>
+        </Button>
       </div>
     </form>
-  </GuestLayout>
+  </AppLayout>
 </template>

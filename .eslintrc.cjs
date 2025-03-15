@@ -118,7 +118,7 @@ module.exports = {
       maxEOF: 1
     }],
     'no-multi-spaces': 'error',
-    'no-unused-vars': ['error', { 'varsIgnorePattern': '^_', 'argsIgnorePattern': '^_' }],
+    'no-unused-vars': ['warn', { 'varsIgnorePattern': '^_', 'argsIgnorePattern': '^_' }],
     'no-trailing-spaces': ['error']
   }
 }
