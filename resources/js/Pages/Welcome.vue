@@ -4,7 +4,7 @@ import {
   Link
 } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
-import GuestLayout from '@/Layouts/GuestLayout.vue'
+import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
 import { useParticles } from '@/composables/useParticles.js'
 defineProps({
@@ -30,10 +30,10 @@ const { canvasRef } = useParticles(50)
 </script>
 
 <template>
-  <GuestLayout>
+  <AppLayout>
     <Head title="Welcome" />
 
-    <section >
+    <section>
       <div class="container mx-auto overflow-hidden">
         <div class=" flex items-center justify-between px-4 py-5">
           <div class="w-auto">
@@ -815,7 +815,7 @@ const { canvasRef } = useParticles(50)
         </div>
       </div>
     </div>
-  </GuestLayout>
+  </AppLayout>
 </template>
 
 <style
