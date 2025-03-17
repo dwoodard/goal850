@@ -30,19 +30,33 @@
                   </Link>
                 </li>
 
-                <li class="mr-9 font-medium hover:text-gray-700">
+                <li
+                  class="mr-9 font-medium hover:text-gray-700">
                   <a href="#">Blog</a>
                 </li>
 
-                <li class="mr-9 font-medium hover:text-gray-700">
+                <li
+                  v-if="$page.props.auth.user"
+                  class="mr-9 font-medium hover:text-gray-700">
+                  <a href="#">Tools</a>
+                </li>
+
+                <li
+                  v-if="!$page.props.auth.user"
+                  class="mr-9 font-medium hover:text-gray-700">
                   <a href="#">Solutions</a>
                 </li>
 
-                <li class="mr-9 font-medium hover:text-gray-700">
+                <li
+                  v-if="!$page.props.auth.user"
+                  class="mr-9 font-medium hover:text-gray-700">
                   <a href="#">Resources</a>
                 </li>
 
-                <li class="font-medium hover:text-gray-700">
+                <!-- don't show if auth user-->
+                <li
+                  v-if="!$page.props.auth.user"
+                  class="font-medium hover:text-gray-700">
                   <a href="#">Pricing</a>
                 </li>
               </ul>
