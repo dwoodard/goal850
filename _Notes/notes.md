@@ -141,3 +141,8 @@ the main goal is to get the leads to convert and to make the most money possible
 We'll have affiliates and we'll have a marketing strategy to get the leads to convert.
 
 I'm not fully clear on the marketing strategy, but I know that I want to use go highlevel to automate the process.
+
+## login
+
+useing shadcn-vue make a login with email password using those components
+

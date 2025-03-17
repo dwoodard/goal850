@@ -15,7 +15,8 @@ import {
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  SidebarTrigger
 } from '@/components/ui/sidebar'
 import { Link } from '@inertiajs/vue3'
 
@@ -38,9 +39,13 @@ import {
 </script>
 
 <template>
-  <Sidebar variant="sidebar">
+  <Sidebar >
     <SidebarHeader>
-      <img src="images/Goal-850-Web-Logo-BW.png" alt="Goal850 Logo">
+      <div class="flex justify-between">
+        <img class=" w-32" src="images/Goal-850-Web-Logo-BW.png" alt="Goal850 Logo">
+
+        <SidebarTrigger />
+      </div>
     </SidebarHeader>
 
     <Collapsible>

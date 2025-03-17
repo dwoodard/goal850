@@ -5,9 +5,12 @@
         <div class="w-auto">
           <div class="flex flex-wrap items-center">
             <div class="mr-14 w-auto">
-              <a href="#">
-                <img src="images/G850-LOGO-WEB-w-Green.png" alt="">
-              </a>
+              <Link href="/">
+                <img
+                  class="w-32"
+                  src="images/G850-LOGO-WEB-w-Green.png"
+                  alt="Goal850 Logo" >
+              </Link>
             </div>
           </div>
         </div>
@@ -16,6 +19,14 @@
           <div class="flex flex-wrap items-center">
             <div class="hidden w-auto lg:block">
               <ul class="mr-16 flex items-center">
+                <li
+                  v-if="$page.props.auth.user"
+                  class="mr-9 font-medium hover:text-gray-700">
+                  <Link :href="route('dashboard')">
+                    Dashboard
+                  </Link>
+                </li>
+
                 <li class="mr-9 font-medium hover:text-gray-700">
                   <a href="#">Blog</a>
                 </li>
@@ -47,9 +58,9 @@
                   </Link>
 
                   <template v-else>
-                    <inertia-link :href="route('login')" >
+                    <Link :href="route('login')" >
                       <Button> Sign in </Button>
-                    </inertia-link>
+                    </Link>
 
                     <Link
                       v-if="canRegister"
@@ -76,8 +87,13 @@
 
 <script setup>
 import Button from '@/components/ui/button/Button.vue'
-import { useSidebar } from '@/components/ui/sidebar'
 import { MenuIcon } from 'lucide-vue-next'
-const { toggleSidebar } = useSidebar()
+import { Link } from '@inertiajs/vue3'
+import { useSidebar } from '@/components/ui/sidebar'
+
+const { isOpen,
+  toggleSidebar } = useSidebar()
+
+console.log(isOpen)
 
 </script>

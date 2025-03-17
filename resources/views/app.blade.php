@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class=''>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,11 +16,6 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
-        @inertia        
-
-        <script 
-        src="https://widgets.leadconnectorhq.com/loader.js"  
-        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" 
-        data-widget-id="6791a86c46f09b3e3cabe181"></script>
+        @inertia
     </body>
 </html>

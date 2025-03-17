@@ -5,34 +5,37 @@ import {
 } from '@/components/ui/sidebar'
 import AppSidebar from '@/components/AppSidebar.vue'
 import { ref } from 'vue'
-import SidebarTrigger from '@/components/ui/sidebar/SidebarTrigger.vue'
 
-import SidebarFooter from '@/components/ui/sidebar/SidebarFooter.vue'
 import SidebarHeader from '@/components/ui/sidebar/SidebarHeader.vue'
+
 import PodcastPlayer from '@/components/PodcastPlayer/Index.vue'
+
 import MainNav from '@/Nav/MainNav.vue'
-const open = ref(false)
+import { useStorage } from '@vueuse/core'
+import LeadConnectorWidget from '@/components/LeadConnectorWidget.vue'
+
+const openPodcast = ref(true)
+const openSidebar = useStorage('openSidebar', false)
 </script>
 
 <template>
-  <SidebarProvider v-model:open="open">
+  <SidebarProvider :default-open="openSidebar" >
     <SidebarHeader />
 
     <AppSidebar />
 
-    <div class="flex flex-col">
-      <SidebarTrigger />
-
-      <main class="m-auto  max-w-7xl flex-1 px-4 py-8">
+    <div class="flex h-screen w-full flex-col ">
+      <main
+        class="">
         <MainNav />
 
         <slot />
       </main>
 
-      <PodcastPlayer />
+      <PodcastPlayer v-show="openPodcast" />
     </div>
-
-    <SidebarFooter />
   </SidebarProvider>
+
+  <LeadConnectorWidget v-if="true" />
 </template>
 

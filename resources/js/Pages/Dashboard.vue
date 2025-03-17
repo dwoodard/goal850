@@ -1,4 +1,5 @@
 <script setup>
+import AppLayout from '@/Layouts/AppLayout.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head } from '@inertiajs/vue3'
 
@@ -23,7 +24,7 @@ if (typeof window !== 'undefined') {
 <template>
   <Head title="Dashboard" />
 
-  <AuthenticatedLayout class=" text-white">
+  <AppLayout >
     <template #header>
       <h2>Dashboard</h2>
     </template>
@@ -61,5 +62,5 @@ if (typeof window !== 'undefined') {
         </div>
       </div>
     </div>
-  </AuthenticatedLayout>
+  </AppLayout>
 </template>
