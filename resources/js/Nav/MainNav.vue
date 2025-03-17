@@ -23,7 +23,10 @@
                   v-if="$page.props.auth.user"
                   class="mr-9 font-medium hover:text-gray-700">
                   <Link :href="route('dashboard')">
-                    Dashboard
+                    <Button
+                      :variant="route().current('dashboard') ? 'outline' : null">
+                      Dashboard
+                    </Button>
                   </Link>
                 </li>
 
