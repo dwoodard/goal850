@@ -65,7 +65,7 @@ const scrollToBottom = () => {
                 <div class="w-full p-2.5 md:w-auto">
                   <div class="block">
                     <Button size="lg" >
-                      Join Free for 30 Days
+                      Join Free for 7 Days
                     </Button>
                   </div>
                 </div>

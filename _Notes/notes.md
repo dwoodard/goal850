@@ -1,129 +1,6 @@
-# Goal850 - Go Highlevel Automation
+# Goal850
 
-in Go highlevel in automation here is a list of things you can do. (these are nodes that i can create an automated path, flowchart of things)
 
-here is a link: <https://help.gohighlevel.com/support/solutions/articles/155000002445-introduction-to-workflows-and-automations>
-
-## Nodes - (search if needed any of these)
-
-Contact
-Create Contact
-Find Contact
-Update contact field
-Add Contact Tag
-Remove Contact Tag
-Assign to user
-Remove Assigned User
-Enable/Disable DND
-Add to notes
-Copy Contact
-Edit Conversation
-Add Task
-Delete Contact
-Modify Contact Engagement Score
-Add Contact Followers
-Remove Contact Followers
-Communication
-Send email
-Send SMS
-Slack
-Call
-Voicemail
-Messenger
-Instagram DM
-Manual Action To SMS
-Manual Action To Call
-GMB Messaging
-Send internal notification
-Send Review Request
-Conversation AI
-Facebook Interactive Messenger
-beta
-Instagram Interactive Messenger
-beta
-Reply In Comments
-beta
-WhatsApp: Customer Service Window Check
-WhatsApp: Send Flows
-Send Live Chat Message
-Appointment Booking Conversation AI Bot
-beta
-Update Conversation AI Bot and Status
-Book Appointment
-Log External Call
-WhatsApp
-Send Data
-Webhook
-Custom Webhook
-Google Sheets
-Internal
-If / Else
-Wait
-Goal Event
-Split
-Update Custom Value
-Go To
-Date/Time Formatter
-Number Formatter
-Math Operation
-Set Event Start Date
-Add To Workflow
-Remove From Workflow
-Array Functions
-Drip
-Text Formatter
-Custom Code
-beta
-Workflow AI
-GPT powered by OpenAI
-Eliza
-Eliza AI Appointment Booking
-Send to Eliza Agent Platform
-Appointments
-Update appointment status
-Create Appointment Note
-Generate One Time Booking Link
-Opportunity
-Create/Update Opportunity
-Remove Opportunity
-Payments
-Stripe one time charge
-Send Invoice
-Send Estimate
-Send Documents & Contracts
-Marketing
-Add to Google Analytics
-Add to Google AdWords
-Facebook - Add to custom audience
-Facebook - Remove from custom audience
-Facebook - Conversion API
-Affiliate
-Add To Affiliate Manager
-Update Affiliate
-Add To Affiliate Campaign
-Remove From Affiliate Campaign
-Add Leads under an Affiliate
-Add manual sales for an Affiliate
-IVR
-Gather Input on Call
-SAY OR PLAY MESSAGE
-Connect to call
-End Call
-Record Voicemail
-Membership
-Course Grant Offer
-Course Revoke Offer
-Communities
-Smart Push Notification
-Grant Group Access
-Revoke Group Access
-Grant Private Channel Access
-Revoke Private Channel Access
-Grant Community Group Leaderboard Points
-Certificates
-Issue certificate
-
-Using Mermaid markdown to create a flowchart need for this.
 
 Project:
 
@@ -146,3 +23,114 @@ I'm not fully clear on the marketing strategy, but I know that I want to use go 
 
 useing shadcn-vue make a login with email password using those components
 
+## Registration (Wizard)
+
+### Step 0 - Landing Page
+
+- [ ] User can click on the "Get Started" button
+- [ ] User is redirected to the registration page
+
+
+### Wizard Step 1 - Registration
+
+- [ ] 1. (Wizard step 1) User can enter their email and password (with optional email new letter)
+  - [ ] 1.a email
+  - [ ] 1.b password
+  - [ ] 1.d first name
+  - [ ] 1.e last name
+  - [ ] 1.f phone number
+  - [ ] 1.g optional email newsletter
+
+#### Add to (Registration Drip Campaign)
+
+- [ ] ghl.1.a - create contact
+- [ ] ghl.1.b - add contact tag
+- [ ] ghl.1.c - starts a drip campaign (see: "Registration Drip Campaign")
+  - [ ] ghl.1.c.1 - send welcome email
+  
+### Wizard Step 2 - Payment
+
+- [ ] 2. (Wizard step 2) Select Plan and enter Credit Card
+- [ ] 2.a select a plan
+- [ ] 2.b apply discount code
+- [ ] 2.c enter credit card information
+
+
+#### Create Array Account
+
+#### Update (Registration Drip Campaign)
+
+- [ ] ghl.2.a - status update to "Customer"
+
+### Wizard Step 3 - Redirect to Dashboard
+
+- [ ] 3. Send to Welcome Page with simple next steps
+- [ ] 3.a send to welcome page
+  - [ ]3.a.1 Congrats on signing up
+    - [ ]3.a.2 Next steps
+      - [ ]3.a.3 Setup Array account
+  
+
+## Campaigns
+
+### Registration Drip Campaign
+
+- [ ] 1. (Day 1) Welcome email
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant System
+    participant Email
+    participant SMS
+    participant Team
+    
+    User->>System: Complete Registration
+    System->>Email: Send Welcome Email
+    
+    alt Email Opened
+        Email->>User: Welcome Email Delivered & Opened
+        System->>SMS: Send Follow-up SMS (after 2hrs)
+    else Email Not Opened
+        System->>Email: Send Reminder Email (after 6hrs)
+        System->>SMS: Send SMS Reminder (after 10hrs)
+    end
+    
+    alt User Responds to SMS
+        User->>SMS: Positive Response
+        System->>User: Send Messenger Thank You
+        System->>System: Tag as "Engaged User"
+        System->>Team: Notify Account Manager
+    else No Response
+        System->>System: Schedule Voicemail for Day 2
+        System->>System: Tag as "Needs Follow-up"
+        System->>Team: Create Manual Call Task
+    end
+    
+    Note over System: End Day 1 Sequence
+```
+
+
+### Day 1: Welcome Sequence Details
+
+1. **Initial Welcome Email** (Immediate)
+   - Personalized welcome message
+   - Account activation confirmation
+   - Quick overview of key features
+   - Clear CTA to complete profile
+
+2. **SMS Follow-up** (2 hours after email open OR 10 hours after registration if email not opened)
+   - Brief welcome message
+   - Link to mobile-friendly quick start guide
+   - Invitation to respond with questions
+
+3. **Engagement Follow-ups** (Based on response)
+   - If engaged: Send messenger thank you and assign to account manager
+   - If not engaged: Schedule voicemail for next day and create follow-up task
+
+4. **Internal Processes**
+   - Tag contacts based on engagement level
+   - Create appropriate team notifications
+   - Set up next day's automation path
+
+This approach uses multiple channels strategically rather than bombarding the user, and creates different paths based on engagement to maximize conversion while maintaining a positive user experience.

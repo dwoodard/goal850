@@ -87,6 +87,7 @@
 
   <svg
     v-if="variant === 'black'"
+    id="black"
     width="48"
     height="48"
     viewBox="0 0 48 48"
