@@ -36,30 +36,41 @@ class RegisteredUserController extends Controller
             'email' => strtolower($request->email),
         ]);
 
-        $data = $request->validate([
-            'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $step = $request->input('step');
 
-        $user = User::create($request->all());
+        if ($step === 0) {
+            $data = $request->validate([
+                'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $this->createGoHighLevelContact($user);
+            $user = User::create($data);
 
-        // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
-        $this->registerAsStripeCustomer($user);
+            event(new Registered($user));
+            // redirect back
 
-        // $user->createAsStripeCustomer();
+            return redirect()->back();
 
-        // (new App\Http\Controllers\Auth\UserRegistrationService)->handle($user);
+        } elseif ($step === 1) {
+            $user = User::find($request->session()->get('registration'));
+            dd(
+                $user,
+                $request->session()->get('registration'),
+            );
+            // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
+            $this->registerAsStripeCustomer($user);
+            Auth::login($user);
 
-        event(new Registered($user));
+            return redirect(route('dashboard', absolute: false));
+        }
 
-        Auth::login($user);
+        // redirect to the back to the same page (inertia)
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->back();
+
     }
 
     /*
@@ -69,7 +80,7 @@ class RegisteredUserController extends Controller
     {
         $user
             ->newSubscription('prod_RrgBQhJGRJHOxf', ['price_1QxwoiHIAHd68JddyMYe9yaI'])
-            ->trialDays(5)
+            ->trialDays(7)
             ->allowPromotionCodes()
             ->checkout([
                 'success_url' => route('dashboard'),

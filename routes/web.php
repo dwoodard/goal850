@@ -31,13 +31,22 @@ Route::get('/subscription-checkout', function (Request $request) {
         ->trialDays(5)
         ->allowPromotionCodes()
         ->checkout([
-            'success_url' => route('your-success-route'),
-            'cancel_url' => route('your-cancel-route'),
+            'success_url' => route('subscription-success'),
+            'cancel_url' => route('subscription-cancel'),
         ]);
 });
 
-Route::get('/billing-portal', function (Request $request) {
+// register success subscription route
+Route::get('/subscription-success', function (Request $request) {
+    return 'Subscription was successful';
+})->name('subscription-success');
 
+// register cancel subscription route
+Route::get('/subscription-cancel', function (Request $request) {
+    return 'Subscription was cancelled';
+})->name('subscription-cancel');
+
+Route::get('/billing-portal', function (Request $request) {
     return $request->user()->redirectToBillingPortal(route('dashboard'));
 });
 

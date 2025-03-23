@@ -64,9 +64,11 @@ const scrollToBottom = () => {
               <div class="-m-2.5 mb-20 flex flex-wrap">
                 <div class="w-full p-2.5 md:w-auto">
                   <div class="block">
-                    <Button size="lg" >
-                      Join Free for 7 Days
-                    </Button>
+                    <Link :href="route('register')">
+                      <Button size="lg" >
+                        Join Free for 7 Days
+                      </Button>
+                    </Link>
                   </div>
                 </div>
 
@@ -335,7 +337,7 @@ const scrollToBottom = () => {
                     With your Privacy subscripton.
                   </p>
 
-                  <Button class="mb-9" size="lg" >
+                  <Button class="mb-9" size="lg">
                     Free Credit Monitoring
                   </Button>
 
@@ -436,7 +438,9 @@ const scrollToBottom = () => {
                   <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Credit Ideas</a>
                 </li>
 
-                <li><a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Hustles </a></li>
+                <li>
+                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Hustles </a>
+                </li>
               </ul>
             </div>
 
@@ -458,7 +462,9 @@ const scrollToBottom = () => {
                   <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Contact Us</a>
                 </li>
 
-                <li><a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Pricing</a></li>
+                <li>
+                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Pricing</a>
+                </li>
               </ul>
             </div>
 
@@ -472,7 +478,7 @@ const scrollToBottom = () => {
                   Receive our free eBook and subscribe to our free newsletter filled with credit building tips as well as other financial wellness education.
                 </p>
 
-                <div ref="subscribeEmail"  class="mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring focus-within:ring-primary md:max-w-xl xl:pl-6">
+                <div ref="subscribeEmail"  class="focus-within:ring-primary mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring md:max-w-xl xl:pl-6">
                   <div class="flex flex-wrap items-center">
                     <div class="w-full xl:flex-1">
                       <input
@@ -538,7 +544,7 @@ const scrollToBottom = () => {
               </div>
 
               <div class="w-auto p-4">
-                <a class=" " href="#">
+                <a href="#">
                   <svg
                     width="16"
                     height="15"
@@ -633,8 +639,7 @@ const scrollToBottom = () => {
             </Link>
           </div>
 
-          <footer
-            class="py-16 text-center text-sm text-black dark:text-white/50">
+          <footer class="py-16 text-center text-sm text-black dark:text-white/50">
             <div>
               <a href="/about">About</a>
               |
@@ -651,8 +656,7 @@ const scrollToBottom = () => {
   </AppLayout>
 </template>
 
-<style
-  scoped>
+<style scoped>
 canvas {
   position: absolute;
   top: 0;
@@ -660,5 +664,4 @@ canvas {
   width: 100%;
   height: 100%;
 }
-
  </style>

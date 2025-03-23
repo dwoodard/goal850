@@ -108,8 +108,7 @@ import { MenuIcon } from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
 import { useSidebar } from '@/components/ui/sidebar'
 
-const { isOpen,
-  toggleSidebar } = useSidebar()
+const { isOpen, toggleSidebar } = useSidebar()
 
 console.log(isOpen)
 

@@ -14,7 +14,7 @@ import MainNav from '@/Nav/MainNav.vue'
 import { useStorage } from '@vueuse/core'
 import LeadConnectorWidget from '@/components/LeadConnectorWidget.vue'
 
-const openPodcast = ref(true)
+const openPodcast = ref(false)
 const openSidebar = useStorage('openSidebar', false)
 </script>
 

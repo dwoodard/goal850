@@ -39,7 +39,7 @@ import {
 </script>
 
 <template>
-  <Sidebar >
+  <Sidebar>
     <SidebarHeader>
       <div class="flex justify-between">
         <img class=" w-32" src="images/Goal-850-Web-Logo-BW.png" alt="Goal850 Logo">

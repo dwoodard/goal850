@@ -25,8 +25,8 @@ module.exports = {
   },
   'rules': {
     'semi': ['error', 'never'],
-    'modules-newlines/import-declaration-newline': 'warn',
-    'modules-newlines/export-declaration-newline': 'warn',
+    'modules-newlines/import-declaration-newline': 'off',
+    'modules-newlines/export-declaration-newline': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-explicit-any': 'off',
