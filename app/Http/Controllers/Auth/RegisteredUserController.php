@@ -30,15 +30,14 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        // transform phone number to 10 digits
-        $request->merge([
-            'phone' => preg_replace('/[^0-9]/', '', $request->phone),
-            'email' => strtolower($request->email),
-        ]);
-
         $step = $request->input('step');
 
         if ($step === 0) {
+            // transform phone number to 10 digits
+            $request->merge([
+                'phone' => preg_replace('/[^0-9]/', '', $request->phone),
+                'email' => strtolower($request->email),
+            ]);
             $data = $request->validate([
                 'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
                 'first_name' => 'required|string|max:255',
@@ -55,11 +54,12 @@ class RegisteredUserController extends Controller
             return redirect()->back();
 
         } elseif ($step === 1) {
-            $user = User::find($request->session()->get('registration'));
-            dd(
-                $user,
-                $request->session()->get('registration'),
-            );
+
+            // find by phone number or email
+            $user = User::where('phone', $request->phone)
+                ->orWhere('email', $request->email)
+                ->first();
+
             // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
             $this->registerAsStripeCustomer($user);
             Auth::login($user);
