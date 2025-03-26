@@ -44,7 +44,7 @@ const stepper = useStepper({
       !!validations.password_confirmation(form.password_confirmation)
   },
   'plan': {
-    title: 'Pick Plan',
+    title: 'Pick a Plan',
     isValid: () => true
   }
 })
@@ -230,15 +230,11 @@ function allStepsBeforeAreValid(index) {
 
             <div v-if="stepper.isCurrent('plan')">
               <div class="mt-6 space-y-8">
-                <h3 class="text-lg font-medium">
-                  Select a Subscription Plan
-                </h3>
-
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                   <!-- Basic Tier -->
                   <div
                     class="relative cursor-pointer rounded-lg border p-6 shadow-sm transition-all hover:shadow-md"
-                    :class="{ 'border-primary ring-primary ring-2': form.plan === 'basic', 'border-gray-200': form.plan !== 'basic' }"
+                    :class="{ 'border-primary ring-2 ring-primary': form.plan === 'basic', 'border-gray-200': form.plan !== 'basic' }"
                     @click="form.plan = 'basic'">
                     <div class="absolute right-4 top-4">
                       <Checkbox
@@ -299,7 +295,7 @@ function allStepsBeforeAreValid(index) {
                   <!-- Pro Tier -->
                   <div
                     class="relative cursor-pointer rounded-lg border p-6 shadow-sm transition-all hover:shadow-md"
-                    :class="{ 'border-primary ring-primary ring-2': form.plan === 'pro', 'border-gray-200': form.plan !== 'pro' }"
+                    :class="{ 'border-primary ring-2 ring-primary': form.plan === 'pro', 'border-gray-200': form.plan !== 'pro' }"
                     @click="form.plan = 'pro'">
                     <div class="absolute right-4 top-4">
                       <Checkbox
@@ -308,7 +304,7 @@ function allStepsBeforeAreValid(index) {
                         @change="form.plan = 'pro'"/>
                     </div>
 
-                    <div class="bg-primary/10 text-primary inline-block rounded-full px-3 py-1 text-xs font-medium">
+                    <div class="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                       Popular
                     </div>
 
@@ -380,7 +376,7 @@ function allStepsBeforeAreValid(index) {
                   <!-- Premium Tier -->
                   <div
                     class="relative cursor-pointer rounded-lg border p-6 shadow-sm transition-all hover:shadow-md"
-                    :class="{ 'border-primary ring-primary ring-2': form.plan === 'premium', 'border-gray-200': form.plan !== 'premium' }"
+                    :class="{ 'border-primary ring-2 ring-primary': form.plan === 'premium', 'border-gray-200': form.plan !== 'premium' }"
                     @click="form.plan = 'premium'">
                     <div class="absolute right-4 top-4">
                       <Checkbox

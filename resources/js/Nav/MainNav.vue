@@ -65,14 +65,40 @@
             <div class="hidden w-auto lg:block">
               <div class="inline-block">
                 <nav class="-mx-3 flex flex-1 justify-end">
-                  <Link
-                    v-if="$page.props.auth.user"
-                    :href="route('logout')"
-                    as="button"
-                    method="post"
-                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                    Log out
-                  </Link>
+                  <DropdownMenu
+                    v-if="$page.props.auth.user">
+                    <DropdownMenuTrigger as-child>
+                      <Avatar>
+                        <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
+
+                        <AvatarFallback>
+                          <!-- page.props.auth.user get first name and last name initials -->
+                          {{ UserInitials }}
+                        </AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+
+                      <DropdownMenuSeparator />
+
+                      <DropdownMenuItem>Profile</DropdownMenuItem>
+
+                      <DropdownMenuItem>Billing</DropdownMenuItem>
+
+                      <DropdownMenuItem>Team</DropdownMenuItem>
+
+                      <DropdownMenuItem>Subscription</DropdownMenuItem>
+
+                      <!-- add a logout -->
+                      <Link
+                        :href="route('logout')"
+                        method="post">
+                        Logout
+                      </Link>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
 
                   <template v-else>
                     <Link :href="route('login')" >
@@ -107,9 +133,28 @@ import Button from '@/components/ui/button/Button.vue'
 import { MenuIcon } from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
 import { useSidebar } from '@/components/ui/sidebar'
-
+import Avatar from '@/components/ui/avatar/Avatar.vue'
+import AvatarImage from '@/components/ui/avatar/AvatarImage.vue'
+import AvatarFallback from '@/components/ui/avatar/AvatarFallback.vue'
+import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue'
+import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue'
+import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue'
+import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue'
+import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue'
+import DropdownMenuItem from '@/components/ui/dropdown-menu/DropdownMenuItem.vue'
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 const { isOpen, toggleSidebar } = useSidebar()
 
+const $page = usePage()
+
 console.log(isOpen)
+
+const UserInitials = computed(() => {
+  if ($page.props.auth.user) {
+    return $page.props.auth.user.first_name.charAt(0) + $page.props.auth.user.last_name.charAt(0)
+  }
+  return ''
+})
 
 </script>

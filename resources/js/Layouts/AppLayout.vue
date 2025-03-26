@@ -36,6 +36,6 @@ const openSidebar = useStorage('openSidebar', false)
     </div>
   </SidebarProvider>
 
-  <LeadConnectorWidget v-if="true" />
+  <LeadConnectorWidget v-if="false" />
 </template>
 
