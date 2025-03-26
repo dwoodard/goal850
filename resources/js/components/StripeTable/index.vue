@@ -10,7 +10,6 @@ const stripeContainer = ref(null)
 
 // define prop
 const props = defineProps({
-
   email: {
     type: String,
     required: true
@@ -39,6 +38,8 @@ function mountStripeTable() {
     stripeElement.setAttribute('publishable-key', 'pk_test_51Qw5dVHIAHd68JddpIhfBLJlvepfwFuxBH1gyPBNHCbKTEp5u6D4cJ5kLSfRWdfziemCWczbOTe7W5g7ZgHsJxtp009WnOGaSs')
     // set email based on previous step
     stripeElement.setAttribute('customer-email', props.email)
+    // phone
+    stripeElement.setAttribute('phone-number', props.phone)
     stripeContainer.value.appendChild(stripeElement)
   }
 }

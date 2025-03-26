@@ -235,8 +235,7 @@ function allStepsBeforeAreValid(index) {
 
               <div v-if="stepper.isCurrent('plan')">
                 <div class="w-full max-w-5xl  ">
-                  <StripeTable
-                    :email="form.email"/>
+                  <StripeTable :email="form.email"/>
                 </div>
               </div>
 
