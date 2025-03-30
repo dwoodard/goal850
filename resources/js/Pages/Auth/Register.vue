@@ -3,7 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue'
 import {
   Head, Link, useForm
 } from '@inertiajs/vue3'
-import { ArrowRight } from 'lucide-vue-next'
+import { ArrowLeft, ArrowRight } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -99,13 +99,26 @@ function allStepsBeforeAreValid(index) {
     <Head title="Register" />
 
     <div>
-      <div class="flex flex-col gap-5 py-2">
-        <div
-          class="flex h-16 w-full items-center justify-center">
+      <div class="mx-auto flex w-[80%] flex-col gap-5 py-5">
+        <div class="flex justify-between">
           <Link :href="route('welcome')">
             <ApplicationLogo variant="icon"/>
           </Link>
+
+          <div class="flex justify-between">
+            <p class="text-sm text-gray-500">
+              <Link :href="route('welcome')" class="inline-flex items-center">
+                <ArrowLeft class="mr-2 size-4" /> Back
+              </Link>
+            </p>
+          </div>
         </div>
+
+        <p class="leading-relaxed text-gray-500">
+          Please complete the registration form by providing your details.
+          Next, select the plan that best meets your requirements.
+          Refer to the support section if further guidance is needed.
+        </p>
 
         <div class="rounded-lg p-8 shadow-lg">
           <div class="flex flex-wrap gap-5">
@@ -247,9 +260,9 @@ function allStepsBeforeAreValid(index) {
                   Next
                 </Button>
 
-              <!-- <Button v-if="stepper.isLast.value" :disabled="!stepper.current.value.isValid()">
-                Subscribe
-              </Button> -->
+                <!-- <Button v-if="stepper.isLast.value" :disabled="!stepper.current.value.isValid()">
+              Subscribe
+            </Button> -->
               </div>
             </div>
           </form>

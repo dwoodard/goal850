@@ -19,14 +19,13 @@ const openSidebar = useStorage('openSidebar', false)
 </script>
 
 <template>
-  <SidebarProvider :default-open="openSidebar" >
+  <SidebarProvider :default-open="openSidebar">
     <SidebarHeader />
 
     <AppSidebar />
 
-    <div class="flex h-screen w-full flex-col ">
-      <main
-        class="">
+    <div>
+      <main>
         <MainNav />
 
         <slot />

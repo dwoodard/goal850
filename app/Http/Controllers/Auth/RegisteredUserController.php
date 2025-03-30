@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
             ]);
 
             $user = User::create($data);
+            $this->createGoHighLevelContact($user);
 
             event(new Registered($user));
             // redirect back
