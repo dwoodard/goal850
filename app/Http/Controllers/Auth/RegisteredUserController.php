@@ -5,93 +5,100 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Stripe\Webhook;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): Response
     {
         return Inertia::render('Auth/Register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
+    {
+        $request->merge([
+            'phone' => preg_replace('/[^0-9]/', '', $request->phone),
+            'email' => strtolower($request->email),
+        ]);
+
+        $data = $request->validate([
+            'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'newsletter' => 'boolean',
+        ]);
+
+        $user = User::create($data);
+        $this->createGoHighLevelContact($user);
+
+        event(new Registered($user));
+
+        // Redirect back to the register page with props for the pricing table
+        return Inertia::render('Auth/Register', [
+            'showPricingTable' => true,
+            'userEmail' => $user->email,
+            'userId' => $user->id,
+            'status' => 'Registration successful! Please select a plan.',
+        ]);
+
+    }
+
+    public function handleWebhook(Request $request)
     {
 
-        $step = $request->input('step');
+         
 
-        if ($step === 0) {
-            // transform phone number to 10 digits
-            $request->merge([
-                'phone' => preg_replace('/[^0-9]/', '', $request->phone),
-                'email' => strtolower($request->email),
-            ]);
-            $data = $request->validate([
-                'phone' => 'required|numeric|digits:10|unique:'.User::class.',phone',
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            ]);
+        $endpointSecret = env('STRIPE_WEBHOOK_SECRET');
+        $payload = $request->getContent();
+        $sigHeader = $request->header('Stripe-Signature');
 
-            $user = User::create($data);
-            $this->createGoHighLevelContact($user);
+        
+        try {
+            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
 
-            event(new Registered($user));
-            // redirect back
+            switch ($event->type) {
+                case 'checkout.session.completed':
+                    $session = $event->data->object;
+                    $this->handleCheckoutSessionCompleted($session);
+                    break;
+                    // Add other event types as needed
+            }
 
-            return redirect()->back();
-
-        } elseif ($step === 1) {
-
-            // find by phone number or email
-            $user = User::where('phone', $request->phone)
-                ->orWhere('email', $request->email)
-                ->first();
-
-            // https://www.youtube.com/watch?v=2_BsWO5WRmU&t=889s
-            $this->registerAsStripeCustomer($user);
-            Auth::login($user);
-
-            return redirect(route('dashboard', absolute: false));
+            return response()->json(['status' => 'success'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
-
-        // redirect to the back to the same page (inertia)
-
-        return redirect()->back();
-
     }
 
-    /*
-        register as stripe customer
-        */
-    public function registerAsStripeCustomer($user): void
+    protected function handleCheckoutSessionCompleted($session)
     {
-        $user
-            ->newSubscription('prod_RrgBQhJGRJHOxf', ['price_1QxwoiHIAHd68JddyMYe9yaI'])
-            ->trialDays(7)
-            ->allowPromotionCodes()
-            ->checkout([
-                'success_url' => route('dashboard'),
-                'cancel_url' => route('welcome'),
+        $user = User::where('email', $session->customer_email)->first();
+
+        if ($user) {
+            $user->update([
+                'stripe_id' => $session->customer,
+                'stripe_subscription_id' => $session->subscription,
             ]);
+
+            $user->subscriptions()->create([
+                'name' => 'default',
+                'stripe_id' => $session->subscription,
+                'stripe_status' => 'active',
+                'stripe_price' => $session->display_items[0]->price->id,
+                'quantity' => 1,
+                'trial_ends_at' => now()->addDays(7),
+            ]);
+            Auth::login($user);
+        }
     }
 
-    /**
-     * Create a contact in Go HighLevel.
-     */
     protected function createGoHighLevelContact($user)
     {
         $client = new \GuzzleHttp\Client;
@@ -109,23 +116,18 @@ class RegisteredUserController extends Controller
                     'lastName' => $user->last_name,
                     'source' => 'Goal850 Registration',
                     'tags' => ['goal850'],
-
-                    // Custom fields
                     'customFields' => [
                         'goal850_id' => $user->id,
                     ],
-
                 ],
             ]);
 
             // Store GHL contact ID for later updates
             $ghlData = json_decode($response->getBody(), true);
-
             $user->update([
                 'ghl_contact_id' => $ghlData['contact']['id'],
                 'ghl_location_id' => $ghlData['contact']['locationId'],
             ]);
         }
-
     }
 }

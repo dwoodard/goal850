@@ -3,9 +3,9 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Core\Authentication\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Cashier\Http\Controllers\WebhookController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,30 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/subscription-checkout', function (Request $request) {
-    return $request->user()
-        ->newSubscription('default', 'price_basic_monthly')
-        ->trialDays(5)
-        ->allowPromotionCodes()
-        ->checkout([
-            'success_url' => route('subscription-success'),
-            'cancel_url' => route('subscription-cancel'),
-        ]);
-});
-
-// register success subscription route
-Route::get('/subscription-success', function (Request $request) {
-    return 'Subscription was successful';
-})->name('subscription-success');
-
-// register cancel subscription route
-Route::get('/subscription-cancel', function (Request $request) {
-    return 'Subscription was cancelled';
-})->name('subscription-cancel');
-
-Route::get('/billing-portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal(route('dashboard'));
-});
+// route post stripe/webhook
+Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 
 // Route::get('/settings', function () {
 //     return Inertia::render('Settings');
