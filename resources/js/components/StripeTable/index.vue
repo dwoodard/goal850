@@ -31,10 +31,16 @@ onMounted(() => {
   }
 })
 
+/*
+<stripe-pricing-table pricing-table-id="prctbl_1R9z2vHIAHd68JddfFGkGCn7"
+publishable-key="pk_test_51Qw5dVHIAHd68JddpIhfBLJlvepfwFuxBH1gyPBNHCbKTEp5u6D4cJ5kLSfRWdfziemCWczbOTe7W5g7ZgHsJxtp009WnOGaSs">
+</stripe-pricing-table>
+*/
+
 function mountStripeTable() {
   if (!stripeContainer.value.querySelector('stripe-pricing-table')) {
     const stripeElement = document.createElement('stripe-pricing-table')
-    stripeElement.setAttribute('pricing-table-id', 'prctbl_1R6kxXHIAHd68JddoXmjrhF8')
+    stripeElement.setAttribute('pricing-table-id', 'prctbl_1R9z2vHIAHd68JddfFGkGCn7')
     stripeElement.setAttribute('publishable-key', 'pk_test_51Qw5dVHIAHd68JddpIhfBLJlvepfwFuxBH1gyPBNHCbKTEp5u6D4cJ5kLSfRWdfziemCWczbOTe7W5g7ZgHsJxtp009WnOGaSs')
     // set email based on previous step
     stripeElement.setAttribute('customer-email', props.email)
