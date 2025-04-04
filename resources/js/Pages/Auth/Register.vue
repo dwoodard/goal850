@@ -78,7 +78,8 @@ function allStepsBeforeAreValid(index) {
   <GuestLayout>
     <Head title="Register" />
 
-    <div class="mx-auto flex w-[80%] flex-col gap-5 py-5">
+    <div
+      class="mx-auto flex max-w-2xl flex-col gap-5 py-5">
       <div class="flex justify-between">
         <Link :href="route('welcome')">
           <ApplicationLogo variant="icon"/>
@@ -90,8 +91,7 @@ function allStepsBeforeAreValid(index) {
       </div>
 
       <p class="leading-relaxed text-gray-500">
-        Please complete the registration form by providing your details.
-        Next, select the plan that best meets your requirements.
+        Enter your info and choose your plan.
       </p>
 
       <div class="rounded-lg p-8 shadow-lg">
