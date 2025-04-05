@@ -42,23 +42,23 @@ const validations = {
 
 const stepper = useStepper({
   'user-information': {
-    title: 'Your Details',
-    isValid: () =>
-      validations.email(form.email) &&
-      validations.phone(form.phone) &&
-      validations.first_name(form.first_name) &&
-      validations.last_name(form.last_name) &&
-      validations.password(form.password) &&
-      validations.password_confirmation(form.password_confirmation)
+    title: 'Your Details'
+    // isValid: () =>
+    //   validations?.email(form.email) &&
+    //   validations?.phone(form.phone) &&
+    //   validations?.first_name(form.first_name) &&
+    //   validations?.last_name(form.last_name) &&
+    //   validations?.password(form.password) &&
+    //   validations?.password_confirmation(form.password_confirmation)
   },
   'plan': {
-    title: 'Pick a Plan',
-    isValid: () => true
+    title: 'Pick a Plan'
+    // isValid: () => true
   }
 })
 
 function submit() {
-  if (!stepper.current.value.isValid()) return
+  // if (!stepper.current.value.isValid()) return
 
   if (stepper.isCurrent('user-information')) {
     form.post('/register', {
@@ -68,10 +68,6 @@ function submit() {
   }
 }
 
-function allStepsBeforeAreValid(index) {
-  return !Array.from({ length: index }, () => null)
-    .some((_, i) => !stepper.at(i)?.isValid())
-}
 </script>
 
 <template>
@@ -90,31 +86,11 @@ function allStepsBeforeAreValid(index) {
         </Link>
       </div>
 
-      <p class="leading-relaxed text-gray-500">
+      <p class="text-center leading-relaxed text-gray-500">
         Enter your info and choose your plan.
       </p>
 
       <div class="rounded-lg p-8 shadow-lg">
-        <div class="flex flex-wrap gap-5">
-          <div
-            v-for="(step, id, i) in stepper.steps.value"
-            :key="id"
-            v-motion
-            :initial="{ opacity: 0, y: -50 }"
-            :enter="{ opacity: 1, y: 0 }"
-            :delay="i * 200"
-            :duration="i * 500">
-            <Button
-              class="flex h-10 w-full items-center justify-between rounded-lg px-4 py-2"
-              :disabled="!allStepsBeforeAreValid(i) && stepper.isBefore(id)"
-              @click="() => { submit(); if (stepper.current.value.isValid()) stepper.goTo(id); }">
-              <span v-text="step.title" />
-
-              <ArrowRight class="size-4" />
-            </Button>
-          </div>
-        </div>
-
         <form class="mt-10" @submit.prevent="submit">
           <span class="text-lg font-bold" v-text="stepper.current.value.title" />
 
@@ -207,7 +183,7 @@ function allStepsBeforeAreValid(index) {
                 <Label for="newsletter">Subscribe to our newsletter</Label>
               </div>
 
-              <Button class="w-full" :disabled="!stepper.current.value.isValid()">
+              <Button class="w-full" >
                 Next
               </Button>
             </div>

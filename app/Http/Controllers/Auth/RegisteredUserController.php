@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
-use Stripe\Webhook;
 
 class RegisteredUserController extends Controller
 {
@@ -35,7 +34,17 @@ class RegisteredUserController extends Controller
             'newsletter' => 'boolean',
         ]);
 
+        // check validation for errors
+        if (! $data) {
+            // return error response
+            return Inertia::render('Auth/Register', [
+                'errors' => $request->errors(),
+                'status' => 'Registration failed! Please try again.',
+            ]);
+        }
+
         $user = User::create($data);
+        Auth::login($user);
         $this->createGoHighLevelContact($user);
 
         event(new Registered($user));
@@ -48,55 +57,6 @@ class RegisteredUserController extends Controller
             'status' => 'Registration successful! Please select a plan.',
         ]);
 
-    }
-
-    public function handleWebhook(Request $request)
-    {
-
-         
-
-        $endpointSecret = env('STRIPE_WEBHOOK_SECRET');
-        $payload = $request->getContent();
-        $sigHeader = $request->header('Stripe-Signature');
-
-        
-        try {
-            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
-
-            switch ($event->type) {
-                case 'checkout.session.completed':
-                    $session = $event->data->object;
-                    $this->handleCheckoutSessionCompleted($session);
-                    break;
-                    // Add other event types as needed
-            }
-
-            return response()->json(['status' => 'success'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
-    }
-
-    protected function handleCheckoutSessionCompleted($session)
-    {
-        $user = User::where('email', $session->customer_email)->first();
-
-        if ($user) {
-            $user->update([
-                'stripe_id' => $session->customer,
-                'stripe_subscription_id' => $session->subscription,
-            ]);
-
-            $user->subscriptions()->create([
-                'name' => 'default',
-                'stripe_id' => $session->subscription,
-                'stripe_status' => 'active',
-                'stripe_price' => $session->display_items[0]->price->id,
-                'quantity' => 1,
-                'trial_ends_at' => now()->addDays(7),
-            ]);
-            Auth::login($user);
-        }
     }
 
     protected function createGoHighLevelContact($user)

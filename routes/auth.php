@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\RegistrationStatusController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('register/success', [RegistrationStatusController::class, 'success'])->name('register.success');
+    Route::get('register/cancel', [RegistrationStatusController::class, 'cancel'])->name('register.cancel');
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

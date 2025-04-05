@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\StripeEventListener;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -22,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen(
+            StripeEventListener::class
+        );
+
         Cashier::useCustomerModel(User::class);
         Vite::prefetch(concurrency: 3);
     }
