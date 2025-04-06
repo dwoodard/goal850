@@ -23,6 +23,33 @@ class DatabaseSeeder extends Seeder
             'super' => true,
         ]);
 
+        // Not subscribed user
+        $user = User::factory()->create([
+            'first_name' => 'User',
+            'last_name' => 'NotSubscribed',
+            'email' => 'user@notsubscribed.com',
+            'password' => bcrypt('asdfasdf'),
+            'super' => false,
+        ]);
+
+        // Subscribed user (Active)
+        $user = User::factory()->create([
+            'first_name' => 'User',
+            'last_name' => 'isSubscribed',
+            'email' => 'user@subscribed.com',
+            'password' => bcrypt('asdfasdf'),
+            'super' => false,
+        ]);
+        $user->createAsStripeCustomer([
+            'email' => $user->email,
+        ]);
+
+        $user->newSubscription('prod_S2W1o3GAej7brB', 'price_1R9EpDHIAHd68JddloQlFrP0')
+            ->trialDays(10)
+            ->create('pm_card_visa', [
+                'email' => $user->email,
+            ]);
+
         $this->call(CollectionSeeder::class);
         $this->call(EntrySeeder::class);
     }

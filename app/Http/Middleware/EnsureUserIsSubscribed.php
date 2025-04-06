@@ -6,15 +6,17 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Subscribed
+class EnsureUserIsSubscribed
 {
     /**
      * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->user()?->subscribed()) {
-            // Redirect user to billing page and ask them to subscribe...
+        if ($request->user() && ! $request->user()->subscribed('default')) {
+            // This user is not a paying customer...
             return redirect('/billing');
         }
 
