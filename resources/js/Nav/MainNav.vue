@@ -32,7 +32,11 @@
 
                 <li
                   class="mr-9 font-medium hover:text-gray-700">
-                  <a href="#">Blog</a>
+                  <Button
+                    :variant="route().current('blog') ? 'outline' : null"
+                    href="#">
+                    Blog
+                  </Button>
                 </li>
 
                 <li
@@ -59,6 +63,13 @@
                   class="font-medium hover:text-gray-700">
                   <a href="#">Pricing</a>
                 </li>
+
+                <li>
+                  <component
+                    :is="openPodcast ? Megaphone : MegaphoneOff"
+                    class="size-6 cursor-pointer text-gray-700 hover:text-gray-900"
+                    @click="openPodcast = !openPodcast"/>
+                </li>
               </ul>
             </div>
 
@@ -79,24 +90,32 @@
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent>
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuLabel>
+                        {{ $page.props.auth.user.email }}
+                      </DropdownMenuLabel>
 
                       <DropdownMenuSeparator />
 
-                      <DropdownMenuItem>Profile</DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link :href="route('profile.edit')">
+                          Profile
+                        </Link>
+                      </DropdownMenuItem>
 
-                      <DropdownMenuItem>Billing</DropdownMenuItem>
-
-                      <DropdownMenuItem>Team</DropdownMenuItem>
-
-                      <DropdownMenuItem>Subscription</DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link :href="route('billing')">
+                          Billing
+                        </Link>
+                      </DropdownMenuItem>
 
                       <!-- add a logout -->
-                      <Link
-                        :href="route('logout')"
-                        method="post">
-                        Logout
-                      </Link>
+                      <DropdownMenuItem>
+                        <Link
+                          :href="route('logout')"
+                          method="post">
+                          Logout
+                        </Link>
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
 
@@ -130,7 +149,9 @@
 
 <script setup>
 import Button from '@/components/ui/button/Button.vue'
-import { MenuIcon } from 'lucide-vue-next'
+import {
+  Megaphone, MegaphoneOff, MenuIcon
+} from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
 import { useSidebar } from '@/components/ui/sidebar'
 import Avatar from '@/components/ui/avatar/Avatar.vue'
@@ -144,11 +165,10 @@ import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSep
 import DropdownMenuItem from '@/components/ui/dropdown-menu/DropdownMenuItem.vue'
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
-const { isOpen, toggleSidebar } = useSidebar()
-
+import { ref } from 'vue'
+const { toggleSidebar } = useSidebar()
+const openPodcast = ref(false)
 const $page = usePage()
-
-console.log(isOpen)
 
 const UserInitials = computed(() => {
   if ($page.props.auth.user) {

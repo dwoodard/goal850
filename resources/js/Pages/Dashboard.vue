@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -18,13 +17,12 @@ if (typeof window !== 'undefined') {
   script2.src = 'https://embed.array.io/cms/array-credit-overview.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD'
   document.head.appendChild(script2)
 }
-
 </script>
 
 <template>
   <Head title="Dashboard" />
 
-  <AppLayout >
+  <AppLayout>
     <template #header>
       <h2>Dashboard</h2>
     </template>
