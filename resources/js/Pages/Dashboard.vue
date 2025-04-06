@@ -38,8 +38,9 @@ if (typeof window !== 'undefined') {
 
     <div class="py-12">
       <div class="mx-6 px-5">
-        <div class="bg-sky-500">
-          You're logged in!
+        <div class="bg-sky-500 p-4 text-white">
+          <!-- check if user is logged in -->
+          {{props.user.first_name}} {{props.user.last_name}}
         </div>
 
         <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
@@ -56,17 +57,6 @@ if (typeof window !== 'undefined') {
 
               <p>Email: {{ props.user.email }}</p>
 
-              <!--
-              'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
-                'is_admin' => $user->is_admin,
-                'is_subscribed' => $user->subscription('prod_S2W1o3GAej7brB')->active(),
-                'stripe_status' => $user->subscription('prod_S2W1o3GAej7brB')->stripe_status,
-                'is_on_trial' => $user->subscription('prod_S2W1o3GAej7brB')->onTrial(),
-                'trial_ends_at' => $
-              -->
               <p>Is Admin: {{ props.user.is_admin ? 'Yes' : 'No' }}</p>
 
               <p>Is Subscribed: {{ props.user.is_subscribed ? 'Yes' : 'No' }}</p>
