@@ -28,6 +28,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@tsparticles/vue3": "^3.0.1",
         "@vueuse/core": "^12.8.2",
         "@vueuse/motion": "^2.2.6",
         "class-variance-authority": "^0.7.1",
@@ -36,6 +37,7 @@
         "radix-vue": "^1.9.12",
         "tailwind-merge": "^2.6.0",
         "tailwindcss-animate": "^1.0.7",
+        "tsparticles": "^3.8.1",
         "universal-cookie": "^7.2.2"
     }
 }
