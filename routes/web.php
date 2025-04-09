@@ -37,3 +37,6 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 // })->middleware('auth')->name('notifications');
 
 require __DIR__.'/auth.php';
+
+// Add a new routes file for debugging purposes
+require __DIR__.'/debug.php';
