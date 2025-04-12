@@ -36,7 +36,10 @@ const submit = () => {
   <div class="flex min-h-screen items-center justify-center bg-gray-50">
     <div class="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md">
       <div class="text-center">
-        <h2 class="text-3xl font-bold">Login</h2>
+        <h2 class="text-3xl font-bold">
+          Login
+        </h2>
+
         <p class="mt-2 text-sm text-gray-600">
           Enter your credentials to access your account
         </p>
@@ -49,14 +52,15 @@ const submit = () => {
             <label for="email" class="block text-sm font-medium text-gray-700">
               Email
             </label>
+
             <Input
               id="email"
               v-model="form.email"
               type="email"
               required
-              placeholder="m@example.com"
-            />
-            <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
+              placeholder="m@example.com"/>
+
+            <p v-if="form.errors.email" class="mt-1 text-sm text-red-500">
               {{ form.errors.email }}
             </p>
           </div>
@@ -66,14 +70,15 @@ const submit = () => {
             <label for="password" class="block text-sm font-medium text-gray-700">
               Password
             </label>
+
             <Input
               id="password"
               v-model="form.password"
               type="password"
               required
-              placeholder="••••••••"
-            />
-            <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
+              placeholder="••••••••"/>
+
+            <p v-if="form.errors.password" class="mt-1 text-sm text-red-500">
               {{ form.errors.password }}
             </p>
           </div>
@@ -84,8 +89,8 @@ const submit = () => {
               <Checkbox
                 id="remember"
                 v-model="form.remember"
-                class="mr-2"
-              />
+                class="mr-2"/>
+
               <label for="remember" class="text-sm text-gray-700">
                 Remember me
               </label>
@@ -94,8 +99,7 @@ const submit = () => {
             <Link
               v-if="canResetPassword"
               :href="route('password.request')"
-              class="text-sm text-primary hover:underline"
-            >
+              class="text-sm text-primary hover:underline">
               Forgot your password?
             </Link>
           </div>
@@ -105,8 +109,7 @@ const submit = () => {
         <Button
           type="submit"
           class="w-full"
-          :disabled="form.processing"
-        >
+          :disabled="form.processing">
           {{ form.processing ? 'Signing in...' : 'Sign in' }}
         </Button>
       </form>
@@ -116,8 +119,7 @@ const submit = () => {
           Don't have an account?
           <Link
             :href="route('register')"
-            class="text-primary hover:underline"
-          >
+            class="text-primary hover:underline">
             Sign up
           </Link>
         </p>
