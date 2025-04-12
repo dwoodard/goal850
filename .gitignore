@@ -24,3 +24,6 @@ yarn-error.log
 
 /public/vendor/statamic
 .DS_Store
+
+
+!/.vscode/mcp.json

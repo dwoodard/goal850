@@ -554,12 +554,6 @@ const scrollToBottom = () => {
           </main>
 
           <div>
-            <!-- <Link :href="route('checkout', { plan: 'price_1QxwoiHIAHd68JddyMYe9yaI' })">
-                        <Button class="w-40 h-10 flex items-center justify-between px-4 py-2 rounded-lg">
-                            Subscribe
-                        </Button>
-                    </Link> -->
-
             <Link :href="route('register')">
               <Button class="flex h-10 w-40 items-center justify-between rounded-lg px-4 py-2">
                 Subscribe
