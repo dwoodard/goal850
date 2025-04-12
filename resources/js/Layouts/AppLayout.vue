@@ -24,15 +24,13 @@ const openSidebar = useStorage('openSidebar', false)
 
     <AppSidebar />
 
-    <div>
-      <main>
-        <MainNav />
+    <main class="flex-1">
+      <MainNav />
 
-        <slot />
-      </main>
+      <slot />
+    </main>
 
-      <PodcastPlayer v-show="openPodcast" />
-    </div>
+    <PodcastPlayer v-show="openPodcast" />
   </SidebarProvider>
 
   <LeadConnectorWidget v-if="false" />
