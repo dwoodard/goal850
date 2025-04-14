@@ -25,4 +25,13 @@ class RegistrationRequest extends FormRequest
             ],
         ];
     }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        \Illuminate\Support\Facades\Log::error('Validation failed in RegistrationRequest', [
+            'errors' => $validator->errors()->toArray(),
+        ]);
+
+        parent::failedValidation($validator);
+    }
 }

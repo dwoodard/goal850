@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class RegistrationWizardController extends Controller
 {
@@ -23,53 +25,28 @@ class RegistrationWizardController extends Controller
     // store
     public function store(RegistrationRequest $request)
     {
+        $data = $request->validated();
 
-        $formName = $request->input('form_name');
+        $user = auth()->user();
 
-        unset($request['form_name']);
+        // Use the request data directly instead of saving to the user model
+        $response = $this->createArrayUser($user, $data['dob'], $data['ssn']);
 
-        // Validate the request data based on the form name
-        switch ($formName) {
-            case 'array_dob_ssn':
+        Log::info('Response from createArrayUser:', [
+            'status' => $response->status(),
+            'body' => $response->body(),
+        ]);
 
-                $data = $request->validate([
-                    'dob' => [
-                        'required',
-                        'date_format:Y-m-d',
-                        'date',
-                    ],
-                    'ssn' => [
-                        'required',
+        if ($response->successful()) {
+            $user->array_user_id = $response->json('userId');
+            $user->save();
 
-                        'numeric',
-                        'digits:9',
-                    ],
-                ]);
+            Log::info('User saved successfully with array_user_id:', ['array_user_id' => $user->array_user_id]);
 
-                // once validated, take this user and send the dob and ssn to the array api
-                $user = auth()->user();
-
-                // Use the request data directly instead of saving to the user model
-                $response = $this->createArrayUser($user, $data['dob'], $data['ssn']);
-
-                // the response should have the array_user_id
-                // save it to the user
-
-                if ($response->successful()) {
-                    $user->array_user_id = $response->json('id');
-                    $user->save();
-
-                    // redirect to dashboard inertia render
-                    return redirect()->route('dashboard');
-                }
-
-                break;
-
-                // Add more cases for other forms as needed
-            default:
-                return response()->json(['error' => 'Invalid form name'], 400);
+            return redirect()->route('dashboard');
         }
 
+        return response()->json(['error' => 'Failed to create Array user'], 500);
     }
 
     // createArrayUser function
