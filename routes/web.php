@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationWizardController;
 use Core\Authentication\Auth;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Cashier\Http\Controllers\WebhookController;
@@ -12,19 +14,24 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => false, // Route::has('register'),
     ]);
-})
-    ->name('welcome');
+})->name('welcome');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(\App\Http\Middleware\CheckUserRegistration::class)->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+});
 
 Route::middleware('auth')->group(function () {
+    Route::get('/registration', [RegistrationWizardController::class, 'index'])->name('registration.wizard');
+    Route::post('/registration', [RegistrationWizardController::class, 'store'])
+        ->middleware([HandlePrecognitiveRequests::class])
+        ->name('registration.wizard.store');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // billing
+    // Billing
     Route::get('/billing', function () {
         return Inertia::render('Billing/Index');
     })->name('billing');

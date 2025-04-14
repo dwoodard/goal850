@@ -76,4 +76,47 @@ class User extends Authenticatable
     {
         return $this->subscribed('default');
     }
+
+    public function hasCompletedStripe(): bool
+    {
+        // check if the user has a stripe id
+        if (! filled($this->stripe_id)) {
+            return false;
+        }
+
+        // check if the user has a stripe customer id
+        if (! $this->subscribed('default')) {
+            return false;
+        }
+
+        // check if the user has an active subscription
+        if (! $this->subscriptions('default')->active()->first()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function hasCompletedGhl(): bool
+    {
+        return filled($this->ghl_contact_id) && filled($this->ghl_location_id);
+    }
+
+    public function hasCompletedArrayUser(): bool
+    {
+        return filled($this->array_user_id);
+    }
+
+    public function hasCompletedArrayAuthentication(): bool
+    {
+        return filled($this->array_authentication_kba);
+    }
+
+    public function hasCompletedRegistration(): bool
+    {
+        return $this->hasCompletedStripe() &&
+               $this->hasCompletedGhl() &&
+               $this->hasCompletedArrayUser() &&
+               $this->hasCompletedArrayAuthentication();
+    }
 }

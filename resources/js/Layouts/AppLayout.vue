@@ -20,7 +20,9 @@ const openSidebar = useStorage('openSidebar', false)
 
 <template>
   <SidebarProvider :default-open="openSidebar">
-    <SidebarHeader />
+    <template #sidebarHeader>
+      <SidebarHeader />
+    </template>
 
     <AppSidebar />
 

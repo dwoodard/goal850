@@ -33,6 +33,7 @@
         "@vueuse/motion": "^2.2.6",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "laravel-precognition-vue-inertia": "^0.7.2",
         "lucide-vue-next": "^0.473.0",
         "radix-vue": "^1.9.12",
         "tailwind-merge": "^2.6.0",
