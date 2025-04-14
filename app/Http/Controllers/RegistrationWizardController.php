@@ -32,18 +32,14 @@ class RegistrationWizardController extends Controller
         // Use the request data directly instead of saving to the user model
         $response = $this->createArrayUser($user, $data['dob'], $data['ssn']);
 
-        Log::info('Response from createArrayUser:', [
-            'status' => $response->status(),
-            'body' => $response->body(),
-        ]);
+        
 
         if ($response->successful()) {
             $user->array_user_id = $response->json('userId');
             $user->save();
 
-            Log::info('User saved successfully with array_user_id:', ['array_user_id' => $user->array_user_id]);
+            
 
-            return redirect()->route('dashboard');
         }
 
         return response()->json(['error' => 'Failed to create Array user'], 500);

@@ -20,14 +20,12 @@
           <Input
             id="dob"
             v-model="form.dob"
-
             type="date"
             required
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            @change="form.validate('dob')"
-            @input="form.validate('dob')"/>
 
-          <div v-if="form.invalid('dob')" class="mt-2 text-sm text-red-500">
+            @change="submit"/>
+
+          <div v-if="form.errors.dob" class="mt-2 text-sm text-red-500">
             {{ form.errors.dob }}
           </div>
         </div>
@@ -40,11 +38,10 @@
             v-model="form.ssn"
             type="text"
             required
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"/>
 
-          <div
-            v-if="form.invalid('ssn')"
-            class="mt-2 text-sm text-red-500">
+            @change="submit"/>
+
+          <div v-if="form.errors.ssn" class="mt-2 text-sm text-red-500">
             {{ form.errors.ssn }}
           </div>
         </div>
@@ -65,10 +62,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import AppLayout from '@/Layouts/AppLayout.vue'
-// import { useForm } from '@inertiajs/vue3'
-import { useForm } from 'laravel-precognition-vue'
+import { useForm } from '@inertiajs/vue3'
 
-const form = useForm('post', route('registration.wizard.store'), {
+const form = useForm({
   form_name: 'array_dob_ssn',
   dob: '',
   ssn: ''
@@ -80,10 +76,12 @@ defineProps({
   }
 })
 
-const submit = () => form.submit({
-  preserveScroll: true,
-  onSuccess: () => form.reset()
-})
+const submit = () => {
+  form.post(route('registration.wizard.store'), {
+    preserveScroll: true,
+    onSuccess: () => form.reset()
+  })
+}
 
 </script>
 
