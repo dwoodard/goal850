@@ -16,10 +16,9 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::middleware(\App\Http\Middleware\CheckUserRegistration::class)->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(\App\Http\Middleware\CheckUserRegistration::class)->group(function () {});
 
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/registration', [RegistrationWizardController::class, 'index'])->name('registration.wizard');

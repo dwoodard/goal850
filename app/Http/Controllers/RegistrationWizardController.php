@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegistrationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class RegistrationWizardController extends Controller
 {
@@ -32,17 +31,22 @@ class RegistrationWizardController extends Controller
         // Use the request data directly instead of saving to the user model
         $response = $this->createArrayUser($user, $data['dob'], $data['ssn']);
 
-        
-
         if ($response->successful()) {
             $user->array_user_id = $response->json('userId');
+            $user->array_user_token = $response->json('authToken');
+            $user->array_client_key = $response->json('clientKey');
             $user->save();
 
-            
-
+            return response()->json([
+                'success' => true,
+                'message' => 'Array user created successfully',
+            ]);
         }
 
-        return response()->json(['error' => 'Failed to create Array user'], 500);
+        return response()->json([
+            'error' => 'Failed to create Array user',
+            'message' => $response->json('message'),
+        ], 500);
     }
 
     // createArrayUser function
