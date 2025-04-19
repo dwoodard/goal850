@@ -18,31 +18,20 @@ class CheckUserRegistration
         if (! $user) {
             return Redirect::route('login');
         }
-        // dd($user); // Does the user object look correct?
 
-        try {
-            if (! $user->hasCompletedStripe()) {
-                return Inertia::render('RegistrationWizard');
-            }
-        } catch (\Throwable $e) {
-            // ... (error handling) ...
-            return Inertia::render('Billing', [
-                'error' => 'Could not verify registration status. Please check your subscription.',
-            ]);
+        if (! $user->hasCompletedStripe()) {
+            // 🚧 Not completed Stripe? Go to billing
+            return Inertia::render('Billing/Index');
         }
 
-        $activeSubscription = $user->findActiveDefaultSubscription();
-
-        if (! $activeSubscription) {
-            Log::debug("CheckUserRegistration: User {$user->id} does not have an active default subscription, redirecting to billing.");
-
-            // Ensure the billing route exists
-            return Redirect::route('billing');
+        // 🚧 Hasn't completed Array user
+        if (! $user->hasCompletedArrayUser()) {
+            return Redirect::route('registration.wizard.user');
         }
 
-        // 🚧 Hasn't completed registration wizard
-        if (! $user->hasCompletedRegistration()) {
-            return Redirect::route('registration.wizard');
+        // 🚧 Hasn't completed Array KBA
+        if (! $user->hasCompletedArrayUserToken()) {
+            return Redirect::route('registration.wizard.kba');
         }
 
         return $next($request);

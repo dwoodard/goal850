@@ -8,7 +8,7 @@
               <Link href="/">
                 <img
                   class="w-32"
-                  src="images/G850-LOGO-WEB-w-Green.png"
+                  src="/images/G850-LOGO-WEB-w-Green.png"
                   alt="Goal850 Logo" >
               </Link>
             </div>

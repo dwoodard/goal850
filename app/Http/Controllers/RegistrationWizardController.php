@@ -9,8 +9,9 @@ use Inertia\Inertia;
 
 class RegistrationWizardController extends Controller
 {
-    public function index()
+    public function user()
     {
+
         // Get the authenticated user
         $user = auth()->user();
 
@@ -19,11 +20,23 @@ class RegistrationWizardController extends Controller
         ];
 
         // Return the Inertia view for the Registration Wizard
-        return inertia('RegistrationWizard/index', $data);
+        return inertia('RegistrationWizard/user', $data);
     }
 
-    // store
-    public function store(RegistrationRequest $request)
+    // KBA step
+    public function kba(Request $request)
+    {
+        $user = auth()->user();
+        $data = [
+            'user' => $user,
+        ];
+
+        // Return the Inertia view for the KBA step
+        return Inertia::render('RegistrationWizard/kba', $data);
+    }
+
+    // user store
+    public function userStore(RegistrationRequest $request)
     {
         $data = $request->validated();
 
@@ -46,8 +59,36 @@ class RegistrationWizardController extends Controller
         $user->array_user_id = $response->json('userId');
         $user->save();
 
-        return Inertia::render('Dashboard', []);
+        return redirect()->route('dashboard');
+    }
 
+    // kbaStore
+    public function kbaStore(Request $request)
+    {
+        $data = $request->validate([
+            'kba' => 'required|array',
+        ]);
+
+        $user = auth()->user();
+
+        // Use the request data directly instead of saving to the user model
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ])->post('https://sandbox.array.io/api/user/v2/kba', [
+            'appKey' => env('ARRAY_APP_KEY'),
+            'userId' => $user->array_user_id,
+            'answers' => $data['kba'],
+        ]);
+
+        if (! $response->successful()) {
+            return response()->json([
+                'error' => 'Failed to create Array user',
+                'message' => $response->json('message'),
+            ], 500);
+        }
+
+        return redirect()->route('dashboard');
     }
 
     // createArrayUser function

@@ -80,36 +80,8 @@ class User extends Authenticatable
     public function hasCompletedStripe(): bool
     {
         // check if the user has a stripe id
-        if (! filled($this->stripe_id)) {
-            Log::debug("User {$this->id}: hasCompletedStripe returning false (no stripe_id).");
+        return filled($this->stripe_id);
 
-            return false;
-        }
-
-        try {
-            // Use Cashier's built-in check. It verifies if a subscription
-            // named 'default' exists and is considered valid (active, trialing, etc.).
-            $isSubscribed = $this->findActiveDefaultSubscription() !== null;
-
-            if (! $isSubscribed) {
-                Log::debug("User {$this->id}: hasCompletedStripe returning false (subscribed('default') is false).");
-                // This is expected if they haven't subscribed or the subscription isn't 'valid'.
-            } else {
-                Log::debug("User {$this->id}: hasCompletedStripe check passed (subscribed('default') is true).");
-            }
-
-            return $isSubscribed;
-
-        } catch (\Throwable $e) {
-            // Log any unexpected error during the subscription check
-            Log::error("User {$this->id}: Error checking Stripe subscription status in hasCompletedStripe.", [
-                'message' => $e->getMessage(),
-                'exception' => $e, // Includes stack trace in log context
-            ]);
-
-            // Gracefully fail: If we can't check the subscription, assume not completed.
-            return false;
-        }
     }
 
     public function hasCompletedGhl(): bool
@@ -122,39 +94,16 @@ class User extends Authenticatable
         return filled($this->array_user_id);
     }
 
-    public function hasCompletedArrayAuthentication(): bool
+    public function hasCompletedArrayUserToken(): bool
     {
-        return filled($this->array_authentication_kba);
+        return filled($this->array_user_token);
     }
 
     public function hasCompletedRegistration(): bool
     {
-        return $this->hasCompletedStripe() &&
-               $this->hasCompletedGhl() &&
+        return $this->hasCompletedGhl() &&
+               $this->hasCompletedStripe() &&
                $this->hasCompletedArrayUser() &&
-               $this->hasCompletedArrayAuthentication();
-    }
-
-    /**
-     * Helper to get the active default subscription, handling potential errors.
-     * Used by the middleware.
-     */
-    public function findActiveDefaultSubscription(): ?\Laravel\Cashier\Subscription
-    {
-        try {
-            // Note: `active()` checks for stripe_status == 'active'.
-            // If you also want to allow 'trialing', you might use
-            return $this->subscription('default')?->valid() ? $this->subscription('default') : null;
-
-            // However, usually `active()` is what you want for access control.
-            return $this->subscriptions('default')->active()->first();
-        } catch (\Throwable $e) {
-            Log::error("User {$this->id}: Error querying active default subscription.", [
-                'message' => $e->getMessage(),
-                'exception' => $e,
-            ]);
-
-            return null; // Return null if query fails
-        }
+               $this->hasCompletedArrayUserToken();
     }
 }

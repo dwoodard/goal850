@@ -21,10 +21,16 @@ Route::middleware(\App\Http\Middleware\CheckUserRegistration::class)->group(func
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/registration', [RegistrationWizardController::class, 'index'])->name('registration.wizard');
-    Route::post('/registration', [RegistrationWizardController::class, 'store'])
+    Route::get('/registration/user', [RegistrationWizardController::class, 'user'])->name('registration.wizard.user');
+    Route::get('/registration/kba', [RegistrationWizardController::class, 'kba'])->name('registration.wizard.kba');
+
+    Route::post('/registration/user/store', [RegistrationWizardController::class, 'userStore'])
         ->middleware([HandlePrecognitiveRequests::class])
-        ->name('registration.wizard.store');
+        ->name('registration.wizard.user.store');
+
+    Route::post('/registration/kba/store', [RegistrationWizardController::class, 'kbaStore'])
+        ->middleware([HandlePrecognitiveRequests::class])
+        ->name('registration.wizard.kba.store');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

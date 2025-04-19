@@ -1,7 +1,6 @@
 <script setup>
 import {
   Calendar,
-  ChevronDown,
   Folder,
   Home,
   Inbox,
