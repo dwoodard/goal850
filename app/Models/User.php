@@ -144,7 +144,8 @@ class User extends Authenticatable
         try {
             // Note: `active()` checks for stripe_status == 'active'.
             // If you also want to allow 'trialing', you might use
-            // return $this->subscription('default')?->valid() ? $this->subscription('default') : null;
+            return $this->subscription('default')?->valid() ? $this->subscription('default') : null;
+
             // However, usually `active()` is what you want for access control.
             return $this->subscriptions('default')->active()->first();
         } catch (\Throwable $e) {
