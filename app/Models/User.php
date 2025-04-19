@@ -80,8 +80,17 @@ class User extends Authenticatable
     public function hasCompletedStripe(): bool
     {
         // check if the user has a stripe id
-        return filled($this->stripe_id);
+        $hasID = filled($this->stripe_id);
 
+        // how do i know if the user is active or not?
+
+        // list all subscriptions
+        $subscriptions = $this->subscriptions;
+        $hasAnyActive = $subscriptions->contains(function ($subscription) {
+            return $subscription->active();
+        });
+
+        return $hasID && $hasAnyActive;
     }
 
     public function hasCompletedGhl(): bool

@@ -77,7 +77,7 @@ defineProps({
 })
 
 const submit = () => {
-  form.post(route('registration.wizard.store'), {
+  form.post(route('registration.wizard.user.store'), {
     preserveScroll: true,
     onSuccess: () => form.reset()
   })

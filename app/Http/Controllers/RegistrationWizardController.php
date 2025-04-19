@@ -65,28 +65,14 @@ class RegistrationWizardController extends Controller
     // kbaStore
     public function kbaStore(Request $request)
     {
-        $data = $request->validate([
-            'kba' => 'required|array',
+        $request->validate([
+            'user-token' => 'required',
         ]);
 
-        $user = auth()->user();
-
-        // Use the request data directly instead of saving to the user model
-        $response = Http::withHeaders([
-            'accept' => 'application/json',
-            'content-type' => 'application/json',
-        ])->post('https://sandbox.array.io/api/user/v2/kba', [
-            'appKey' => env('ARRAY_APP_KEY'),
-            'userId' => $user->array_user_id,
-            'answers' => $data['kba'],
+        $userToken = $request->input('user-token');
+        auth()->user()->update([
+            'array_user_token' => $userToken,
         ]);
-
-        if (! $response->successful()) {
-            return response()->json([
-                'error' => 'Failed to create Array user',
-                'message' => $response->json('message'),
-            ], 500);
-        }
 
         return redirect()->route('dashboard');
     }
@@ -97,7 +83,7 @@ class RegistrationWizardController extends Controller
         return Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json',
-        ])->post('https://sandbox.array.io/api/user/v2', [
+        ])->post(env('ARRAY_API_URL').'/api/user/v2', [
             'appKey' => env('ARRAY_APP_KEY'),
             'dob' => $dob,
             'ssn' => $ssn,

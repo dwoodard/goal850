@@ -32,22 +32,18 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user()
-                ? array_merge($request->user()->only(
-                    'id',
-                    'first_name',
-                    'last_name',
-                    'email'
-                ), [
+                'user' => $request->user() ? array_merge($request->user()->only('id', 'first_name', 'last_name', 'email'), [
                     'is_admin' => $request->user()->is_admin,
                 ])
                 : null,
             ],
 
-            // share the Array app key from config/services.php
-            'arrayAppKey' => config('services.array.app_key'),
+            'array' => [
+                'appKey' => config('array.app_key'),
+                'apiUrl' => config('array.api_url'),
+                'apiToken' => config('array.api_token'),
+            ],
 
-            // share the current app environment
             'appEnv' => app()->environment(),
         ];
     }

@@ -16,7 +16,10 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::middleware(\App\Http\Middleware\CheckUserRegistration::class)->group(function () {
+Route::middleware([
+    \App\Http\Middleware\CheckUserRegistration::class,
+    \App\Http\Middleware\ArrayTokenCheck::class,
+])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
@@ -29,7 +32,6 @@ Route::middleware('auth')->group(function () {
         ->name('registration.wizard.user.store');
 
     Route::post('/registration/kba/store', [RegistrationWizardController::class, 'kbaStore'])
-        ->middleware([HandlePrecognitiveRequests::class])
         ->name('registration.wizard.kba.store');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

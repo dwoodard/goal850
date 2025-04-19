@@ -27,20 +27,13 @@ if (typeof window !== 'undefined') {
       <h2>Dashboard</h2>
     </template>
 
-    <div>
-      <!--
-        a wizard that walks the user through the rest of the registration process
-          all these will be checks and not show if all checks are true
-
-        Checks needed:
-        - has stripe customer id and current plan
-        - has go high level id
-        - has array id and token
-          - if not ask for dob and ssn
-            - send to array to create user and get token
-            - handle response and store token
-      -->
-      [RegistratonWizard]
+    <div class=" flex flex-col justify-center">
+      <array-credit-overview
+        class="bg-white"
+        appKey="3F03D20E-5311-43D8-8A76-E4B5D77793BD"
+        userToken="AD45C4BF-5C0A-40B3-8A53-ED29D091FA11"
+        apiUrl="https://mock.array.io"
+        sandbox="true"/>
     </div>
 
     <div class=" flex flex-col justify-center">
@@ -74,14 +67,6 @@ if (typeof window !== 'undefined') {
               <p>Email: {{ props.user.email }}</p>
 
               <p>Is Admin: {{ props.user.is_admin ? 'Yes' : 'No' }}</p>
-
-              <p>Is Subscribed: {{ props.user.is_subscribed ? 'Yes' : 'No' }}</p>
-
-              <p>Stripe Status: {{ props.user.stripe_status }}</p>
-
-              <p>Is on Trial: {{ props.user.is_on_trial ? 'Yes' : 'No' }}</p>
-
-              <p>Trial Ends At: {{ props.user.trial_ends_at }}</p>
             </div>
           </div>
         </div>

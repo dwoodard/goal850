@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <template #header>
-      <h2>Security Questions</h2>
+      <h2>KBA</h2>
     </template>
 
     <AuthenticationKBA
