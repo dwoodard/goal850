@@ -17,7 +17,10 @@ const page = usePage()
     </template>
 
     <div>
-      {{ page.props.auth.user.first_name }} {{ page.props.auth.user.last_name }}
+      <label>
+        first: {{ page.props.auth.user.first_name }}
+        last: {{ page.props.auth.user.last_name }}
+      </label>
 
       <p>Billing page</p>
 
