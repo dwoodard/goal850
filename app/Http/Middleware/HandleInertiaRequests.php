@@ -44,7 +44,11 @@ class HandleInertiaRequests extends Middleware
                 : null,
             ],
 
-            'env' => config('app.env'),
+            // share the Array app key from config/services.php
+            'arrayAppKey' => config('services.array.app_key'),
+
+            // share the current app environment
+            'appEnv' => app()->environment(),
         ];
     }
 }

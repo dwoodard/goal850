@@ -5,26 +5,24 @@
     :apiUrl="apiUrl"
     :sandbox="sandbox"
     showResultPages="true"/>
-  {{ this.props }}
 </template>
 
 <script setup>
 import { useArrayScripts } from '@/composables/useArrayScripts'
 
+import { usePage } from '@inertiajs/vue3'
+const page = usePage()
+const env = import.meta.env.VITE_APP_ENV
+const appKey = import.meta.env.VITE_ARRAY_APP_KEY
+
 defineProps({
   userId: { type: String, required: true },
   apiUrl: { type: String, default: 'https://mock.array.io' },
   sandbox: { type: Boolean, default: function(){
-
-    // if env prod return false
-    props.env === 'production' ? false : true
-
     return true
-  } },
-  appKey: { type: String, required: true }
+  } }
+  // appKey: { type: String, required: true }
 })
 useArrayScripts('authentication-kba')
-
-const appKey = import.meta.env.VITE_ARRAY_APP_KEY
 
 </script>
