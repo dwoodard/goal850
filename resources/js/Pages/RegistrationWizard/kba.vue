@@ -1,23 +1,13 @@
 <template>
   <AppLayout>
-    <div class="mx-auto mb-10 max-w-2xl space-y-6">
-      <h2 class="text-2xl font-bold text-gray-800">
-        Please answer the following security questions
-      </h2>
+    <template #header>
+      <h2>Security Questions</h2>
+    </template>
 
-      <p>
-        This information is required to verify your identity. Please answer the questions based on your personal records.
-      </p>
-    </div>
-
-    <div
-      class="mx-auto max-w-2xl rounded-md bg-white p-6 shadow-md">
-      <!--  -->
-      <AuthenticationKBA
-        :userId="user.id"
-        :sandbox="true"
-        showResultPages="true"/>
-    </div>
+    <AuthenticationKBA
+      :userId="user.array_user_id"
+      :sandbox="true"
+      showResultPages="true"/>
   </AppLayout>
 </template>
 

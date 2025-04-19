@@ -43,6 +43,8 @@ class HandleInertiaRequests extends Middleware
                 ])
                 : null,
             ],
+
+            'env' => config('app.env'),
         ];
     }
 }
