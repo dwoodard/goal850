@@ -6,6 +6,7 @@ import {
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
+import PipMarketing from '@/array/PipMarketing.vue'
 // import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
@@ -32,148 +33,66 @@ const scrollToBottom = () => {
   <AppLayout>
     <Head title="Welcome" />
 
-    <section>
-      <div class="overflow-hidden pt-16">
-        <div class="container mx-auto px-4">
-          <div class="-m-8 flex flex-wrap">
-            <div class="w-full p-8 md:w-1/2">
-              <h1
-                v-motion
-                :initial="{
-                  x: -800,
-                  opacity: 0,
-                }"
-                :enter="{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-
-                    type: 'spring',
-                    stiffness: '300',
-                    delay: 500,
-                  },
-                }"
-                class="lg:text-10xl font-heading mb-6 text-6xl font-bold leading-none md:max-w-xl md:text-8xl">
-                Perfect credit starts here.
-              </h1>
-
-              <p class="mb-11 text-lg font-medium text-gray-900 md:max-w-md">
-                Begin by protecting your online privacy from dark web hackers for as little as .26 cents a day. Free credit monitoring included with your privacy plan.
-              </p>
-
-              <div class="-m-2.5 mb-20 flex flex-wrap">
-                <div class="w-full p-2.5 md:w-auto">
-                  <div class="block">
-                    <Link :href="route('register')">
-                      <Button size="lg" >
-                        Join Free for 7 Days
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-
-                <div class="w-full p-2.5 md:w-auto">
-                  <Button size="lg" variant="outline" @click="scrollToBottom">
-                    Get your free e-Book
-                  </Button>
-                </div>
-              </div>
-
-              <p class="mb-6 text-sm font-semibold uppercase text-gray-500">
-                IN 2023 U.S. DATA BREACHES OVERALL IMPACTED OVER 350 MILLION INDIVIDUALS. COMPANIES THAT HAVE BEEN COMPROMISED IN THE PAST INCLUDE:
-              </p>
-
-              <div class="-m-3 flex flex-wrap">
-                <div class="w-auto p-3">
-                  <img src="images/Stolen-Data-Infographic.png" alt="">
-                </div>
-
-                <div class="w-auto p-3"/>
-
-                <div class="w-auto p-3"/>
-              </div>
-            </div>
-
+    <section class="overflow-auto bg-[#32383F] md:-mb-10 lg:max-h-[480px] ">
+      <div class="container mx-auto px-4  lg:px-10">
+        <div class="-mt-14 flex flex-wrap justify-between lg:items-center ">
+          <div class="w-full pt-10  md:w-1/2 md:px-10">
             <div
+              v-motion
+              :initial="{ opacity: 0, x: -25, }"
+              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000, }, }"
+              :variants="{ custom: { scale: 2 } }"
+              :delay="200"
+              :duration="2400">
+              <h2 class="mb-4 text-4xl font-bold text-white">
+                Did you apply for a loan online?
+              </h2>
 
-              class="w-full p-8 md:w-1/2">
-              <img
-                v-motion
-                :initial="{
-                  opacity: 0,
-                  y: 100,
-                }"
-                :enter="{
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    type: 'spring',
-                    stiffness: '300',
-                    delay: 1000,
-                  },
-                }"
-                :variants="{ custom: { scale: 2 } }"
-                :delay="200"
+              <p class="text-bold mb-4 text-2xl  text-white">
+                Your personal and banking info may be exposed.
+              </p>
 
-                :duration="1200"
-                src="images/GOAT-Mascot.png"
-                alt="">
+              <p class="text-sm text-white">
+                Up to 98% of consumers have their information exposed on Data Broker and People Search sites—putting their privacy and security at risk.
+              </p>
             </div>
           </div>
+
+          <img
+            v-motion
+            :initial="{ opacity: 0, x: 25, }"
+            :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000, }, }"
+            :variants="{ custom: { scale: 2 } }"
+            :delay="200"
+            :duration="2400"
+            src="images/GOAT-Mascot.png"
+            alt="GOAT Mascot"
+            class="relative mx-auto mt-20 h-auto w-full object-contain md:w-1/2 lg:mt-0 lg:max-w-[500px] lg:object-cover lg:object-right"
+            style="bottom: 40px; max-height: 450px;">
         </div>
       </div>
     </section>
 
-    <section class="overflow-hidden bg-white pb-40 pt-24">
-      <div class="container mx-auto px-4">
-        <h2 class="xl:text-10xl font-heading tracking-px-n mb-20 text-center text-6xl font-bold leading-none md:text-8xl">
-          Our solutions
+    <section
+      class="relative overflow-hidden bg-white "
+      style="background-image: url('flaro-assets/images/pricing/gradient6.svg'); background-size: cover; background-position: center;">
+      <!--  -->
+      <div class="py-16 text-center">
+        <h2 class="text-4xl font-bold text-gray-800">
+          Protect your personal information.
         </h2>
 
-        <div class="-m-16 flex flex-wrap md:-m-3">
-          <div class="w-full p-16 md:w-1/3 md:p-3">
-            <div class="rounded-4xl h-96 bg-gray-100 px-10 pt-11 text-center">
-              <h3 class="font-heading mb-3 text-xl font-bold leading-normal">
-                Privacy Protection
-              </h3>
+        <p class="mt-4 text-2xl text-gray-600">
+          Start with our free Privacy scan.
+        </p>
 
-              <p class="mb-10 font-medium leading-relaxed text-gray-600">
-                Prevent identity thieves from impersonating you and ruining your credit.  Learn more
-              </p>
-
-              <img class="shadow-3xl mx-auto h-72 transform rounded-3xl object-cover transition duration-1000 ease-in-out hover:translate-y-3" src="images/Privacy-Protection.png" alt="">
-            </div>
-          </div>
-
-          <div class="w-full p-16 md:w-1/3 md:p-3">
-            <div class="rounded-4xl h-96 bg-gray-100 px-10 pt-11 text-center">
-              <h3 class="font-heading mb-3 text-xl font-bold leading-normal">
-                Free Credit Monitoring
-              </h3>
-
-              <p class="mb-10 font-medium leading-relaxed text-gray-600">
-                The best way to start improving your credit is by monitoring it and learning what affects it most.  Learn more
-              </p>
-
-              <img class="shadow-3xl mx-auto h-72 transform rounded-3xl object-cover transition duration-1000 ease-in-out hover:translate-y-3" src="images/Credit-monitor.png" alt="">
-            </div>
-          </div>
-
-          <div class="w-full p-16 md:w-1/3 md:p-3">
-            <div class="rounded-4xl h-96 bg-gray-100 px-10 pt-11 text-center">
-              <h3 class="font-heading mb-3 text-xl font-bold leading-normal">
-                Financial Education
-              </h3>
-
-              <p class="mb-10 font-medium leading-relaxed text-gray-600">
-                Free tools, an amazing blog, an AI podcast that is crazy informative, and much more.  Learn more
-              </p>
-
-              <img class="shadow-3xl mx-auto h-72 transform rounded-3xl object-cover transition duration-1000 ease-in-out hover:translate-y-3" src="images/Financial-Eduaction.png" alt="">
-            </div>
-          </div>
-        </div>
+        <PipMarketing />
       </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#32383F] py-32">
+      <!--  -->
+      pricing
     </section>
 
     <section class="relative overflow-hidden bg-white py-32">

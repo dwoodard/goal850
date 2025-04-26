@@ -1,8 +1,8 @@
 <script setup>
-import { cn } from '@/lib/utils';
-import { NavigationMenuRoot, useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
-import NavigationMenuViewport from './NavigationMenuViewport.vue';
+import { cn } from '@/lib/utils'
+import { NavigationMenuRoot, useForwardPropsEmits } from 'radix-vue'
+import { computed } from 'vue'
+import NavigationMenuViewport from './NavigationMenuViewport.vue'
 
 const props = defineProps({
   modelValue: { type: String, required: false },
@@ -15,18 +15,18 @@ const props = defineProps({
   disableHoverTrigger: { type: Boolean, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
-  class: { type: null, required: false },
-});
+  class: { type: null, required: false }
+})
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue'])
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
@@ -37,9 +37,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         'relative z-10 flex max-w-max flex-1 items-center justify-center',
         props.class,
       )
-    "
-  >
+    ">
     <slot />
+
     <NavigationMenuViewport />
   </NavigationMenuRoot>
 </template>

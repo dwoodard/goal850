@@ -7,7 +7,7 @@
             <div class="mr-14 w-auto">
               <Link href="/">
                 <img
-                  class="w-96"
+                  class="w-40 lg:w-96"
                   src="/images/G850-LOGO-WEB-w-Green.png"
                   alt="Goal850 Logo" >
               </Link>
@@ -17,9 +17,9 @@
 
         <div class="w-auto">
           <div class="flex flex-wrap items-center">
-            <div class="hidden w-auto lg:block">
+            <div class="hidden w-auto  lg:block">
               <!-- Guest Menu -->
-              <ul v-if="!$page.props.auth.user" class="flex items-center space-x-8">
+              <ul v-if="!$page.props.auth.user" class="flex items-center space-x-8 ">
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
