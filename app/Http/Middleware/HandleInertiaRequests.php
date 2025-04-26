@@ -40,8 +40,8 @@ class HandleInertiaRequests extends Middleware
 
             'array' => [
                 'appKey' => config('array.app_key'),
-                'apiUrl' => config('array.api_url'),
-                'apiToken' => config('array.api_token'),
+                'apiUrl' => env('ARRAY_API_URL'),
+                'sandbox' => env('ARRAY_SANDBOX') === 'true',
             ],
 
             'appEnv' => app()->environment(),
