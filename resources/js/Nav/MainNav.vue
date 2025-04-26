@@ -7,7 +7,7 @@
             <div class="mr-14 w-auto">
               <Link href="/">
                 <img
-                  class="w-32"
+                  class="w-96"
                   src="/images/G850-LOGO-WEB-w-Green.png"
                   alt="Goal850 Logo" >
               </Link>
@@ -18,10 +18,40 @@
         <div class="w-auto">
           <div class="flex flex-wrap items-center">
             <div class="hidden w-auto lg:block">
-              <ul class="mr-16 flex items-center">
+              <!-- Guest Menu -->
+              <ul v-if="!$page.props.auth.user" class="flex items-center space-x-8">
+                <li class="font-semibold hover:drop-shadow-lg ">
+                  <a href="#">Pricing</a>
+                </li>
+
                 <li
-                  v-if="$page.props.auth.user"
-                  class="mr-9 font-medium hover:text-gray-700">
+                  class="font-semibold
+                ">
+                  <a href="#">Products</a>
+                </li>
+
+                <li
+                  class="font-semibold
+                ">
+                  <a href="#">Education</a>
+                </li>
+
+                <li
+                  class="font-semibold
+                ">
+                  <a href="#">Resources</a>
+                </li>
+
+                <li>
+                  <Link :href="route('login')" >
+                    <Button> Secure Log In </Button>
+                  </Link>
+                </li>
+              </ul>
+
+              <!-- User Menu -->
+              <ul v-if="$page.props.auth.user" class="flex items-center space-x-8">
+                <li class="font-medium ">
                   <Link :href="route('dashboard')">
                     <Button
                       :variant="route().current('dashboard') ? 'outline' : null">
@@ -30,110 +60,65 @@
                   </Link>
                 </li>
 
-                <li
-                  class="mr-9 font-medium hover:text-gray-700">
-                  <Button
-                    :variant="route().current('blog') ? 'outline' : null"
-                    href="#">
-                    Blog
-                  </Button>
-                </li>
-
-                <li
-                  v-if="$page.props.auth.user"
-                  class="mr-9 font-medium hover:text-gray-700">
-                  <a href="#">Tools</a>
-                </li>
-
-                <li
-                  v-if="!$page.props.auth.user"
-                  class="mr-9 font-medium hover:text-gray-700">
-                  <a href="#">Solutions</a>
-                </li>
-
-                <li
-                  v-if="!$page.props.auth.user"
-                  class="mr-9 font-medium hover:text-gray-700">
-                  <a href="#">Resources</a>
-                </li>
-
-                <!-- don't show if auth user-->
-                <li
-                  v-if="!$page.props.auth.user"
-                  class="font-medium hover:text-gray-700">
-                  <a href="#">Pricing</a>
-                </li>
-
                 <li>
                   <component
                     :is="openPodcast ? Megaphone : MegaphoneOff"
                     class="size-6 cursor-pointer text-gray-700 hover:text-gray-900"
                     @click="openPodcast = !openPodcast"/>
                 </li>
+
+                <li>
+                  <div class="inline-block">
+                    <nav class="-mx-3 flex flex-1 justify-end">
+                      <DropdownMenu
+                        v-if="$page.props.auth.user">
+                        <DropdownMenuTrigger as-child>
+                          <Avatar>
+                            <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
+
+                            <AvatarFallback>
+                              <!-- page.props.auth.user get first name and last name initials -->
+                              {{ UserInitials }}
+                            </AvatarFallback>
+                          </Avatar>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>
+                            {{ $page.props.auth.user.email }}
+                          </DropdownMenuLabel>
+
+                          <DropdownMenuSeparator />
+
+                          <DropdownMenuItem>
+                            <Link :href="route('profile.edit')">
+                              Profile
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem>
+                            <Link :href="route('billing')">
+                              Billing
+                            </Link>
+                          </DropdownMenuItem>
+
+                          <!-- add a logout -->
+                          <DropdownMenuItem>
+                            <Link
+                              :href="route('logout')"
+                              method="post">
+                              Logout
+                            </Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </nav>
+                  </div>
+                </li>
               </ul>
             </div>
 
-            <div class="hidden w-auto lg:block">
-              <div class="inline-block">
-                <nav class="-mx-3 flex flex-1 justify-end">
-                  <DropdownMenu
-                    v-if="$page.props.auth.user">
-                    <DropdownMenuTrigger as-child>
-                      <Avatar>
-                        <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
-
-                        <AvatarFallback>
-                          <!-- page.props.auth.user get first name and last name initials -->
-                          {{ UserInitials }}
-                        </AvatarFallback>
-                      </Avatar>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>
-                        {{ $page.props.auth.user.email }}
-                      </DropdownMenuLabel>
-
-                      <DropdownMenuSeparator />
-
-                      <DropdownMenuItem>
-                        <Link :href="route('profile.edit')">
-                          Profile
-                        </Link>
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem>
-                        <Link :href="route('billing')">
-                          Billing
-                        </Link>
-                      </DropdownMenuItem>
-
-                      <!-- add a logout -->
-                      <DropdownMenuItem>
-                        <Link
-                          :href="route('logout')"
-                          method="post">
-                          Logout
-                        </Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-
-                  <template v-else>
-                    <Link :href="route('login')" >
-                      <Button> Sign in </Button>
-                    </Link>
-
-                    <Link
-                      v-if="canRegister"
-                      :href="route('register')"
-                      class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                      Register
-                    </Link>
-                  </template>
-                </nav>
-              </div>
-            </div>
+            <div class="hidden w-auto lg:block"/>
 
             <div class="w-auto lg:hidden">
               <button @click="toggleSidebar">
