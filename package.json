@@ -2,6 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "preinstall": "npx only-allow pnpm",
         "build": "vite build",
         "dev": "vite",
         "lint": "eslint resources/js --fix"
