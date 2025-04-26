@@ -24,7 +24,7 @@ class ArrayTokenCheck
             'accept' => 'application/json',
             'content-type' => 'application/json',
             'x-array-server-token' => env('ARRAY_API_TOKEN'),
-            'x-array-user-token' => $user->array_user_token,
+            // 'x-array-user-token' => $user->array_user_token,
         ])->get(env('ARRAY_API_URL').'/api/user/v2?userId='.$user->array_user_id);
 
         $authenticated = $response->json('authenticated');
@@ -35,7 +35,7 @@ class ArrayTokenCheck
             $response = Http::withHeaders([
                 'accept' => 'application/json',
                 'content-type' => 'application/json',
-                'x-array-server-token' => env('ARRAY_API_TOKEN'),
+                'x-array-user-token' => $user->array_user_token,
             ])
                 ->post(env('ARRAY_API_URL').'/api/authenticate/v2/usertoken', [
                     'appKey' => env('ARRAY_APP_KEY'),

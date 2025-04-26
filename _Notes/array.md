@@ -23,3 +23,8 @@ what is the `apiUrl="<https://mock.array.io>"`` actually url?
 ```
 
 ---
+
+
+
+<https://docs.array.com/docs/sandbox-identities#thomas-devos>
+<https://docs.array.com/docs/sandbox-identities#donald-blair>
