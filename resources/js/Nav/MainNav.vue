@@ -195,70 +195,131 @@
 
               <!-- User Menu -->
               <ul v-if="$page.props.auth.user" class="flex items-center space-x-8">
-                <li class="font-medium ">
-                  <Link :href="route('dashboard')">
-                    <Button
-                      :variant="route().current('dashboard') ? 'outline' : null">
-                      Dashboard
-                    </Button>
-                  </Link>
-                </li>
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Dashboard</NavigationMenuTrigger>
 
-                <li>
-                  <component
-                    :is="openPodcast ? Megaphone : MegaphoneOff"
-                    class="size-6 cursor-pointer text-gray-700 hover:text-gray-900"
-                    @click="openPodcast = !openPodcast"/>
-                </li>
+                      <NavigationMenuContent>
+                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/dashboard/overview"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Overview</div>
 
-                <li>
-                  <div class="inline-block">
-                    <nav class="-mx-3 flex flex-1 justify-end">
-                      <DropdownMenu
-                        v-if="$page.props.auth.user">
-                        <DropdownMenuTrigger as-child>
-                          <Avatar>
-                            <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  View your dashboard overview and recent activity.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
 
-                            <AvatarFallback>
-                              <!-- page.props.auth.user get first name and last name initials -->
-                              {{ UserInitials }}
-                            </AvatarFallback>
-                          </Avatar>
-                        </DropdownMenuTrigger>
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/dashboard/settings"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Settings</div>
 
-                        <DropdownMenuContent>
-                          <DropdownMenuLabel>
-                            {{ $page.props.auth.user.email }}
-                          </DropdownMenuLabel>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Manage your account and preferences.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
 
-                          <DropdownMenuSeparator />
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Podcast</NavigationMenuTrigger>
 
-                          <DropdownMenuItem>
-                            <Link :href="route('profile.edit')">
-                              Profile
-                            </Link>
-                          </DropdownMenuItem>
+                      <NavigationMenuContent>
+                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/podcast/latest"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Latest Episodes</div>
 
-                          <DropdownMenuItem>
-                            <Link :href="route('billing')">
-                              Billing
-                            </Link>
-                          </DropdownMenuItem>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Listen to the latest podcast episodes.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
 
-                          <!-- add a logout -->
-                          <DropdownMenuItem>
-                            <Link
-                              :href="route('logout')"
-                              method="post">
-                              Logout
-                            </Link>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </nav>
-                  </div>
-                </li>
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/podcast/subscribe"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Subscribe</div>
+
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Stay updated with new episodes.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Account</NavigationMenuTrigger>
+
+                      <NavigationMenuContent>
+                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/profile"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Profile</div>
+
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Edit your profile information.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/billing"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Billing</div>
+
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Manage your billing and subscriptions.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/logout"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Logout</div>
+
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Sign out of your account.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
               </ul>
             </div>
 
@@ -301,6 +362,7 @@ import NavigationMenuItem from '@/components/ui/navigation-menu/NavigationMenuIt
 import NavigationMenuTrigger from '@/components/ui/navigation-menu/NavigationMenuTrigger.vue'
 import NavigationMenuContent from '@/components/ui/navigation-menu/NavigationMenuContent.vue'
 import NavigationMenuLink from '@/components/ui/navigation-menu/NavigationMenuLink.vue'
+import Toggle from '@/components/ui/toggle/Toggle.vue'
 const { toggleSidebar } = useSidebar()
 const openPodcast = ref(false)
 const $page = usePage()
