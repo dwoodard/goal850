@@ -1,12 +1,7 @@
 <template>
   <div>
-    <!-- <array-credit-overview
-      class="bg-white"
-      :appKey="appKey"
-      :userToken="userToken"
-      :apiUrl="apiUrl"
-      :sandbox="sandbox"/> -->
     <array-credit-overview
+      class="bg-white"
       :appKey="appKey"
       :userToken="userToken"
       :apiUrl="apiUrl"
