@@ -48,9 +48,12 @@
                           <li>
                             <NavigationMenuLink as-child>
                               <a
-                                href="/pricing/monthly"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Monthly Plan</div>
+                                href="#pricing"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                @click.prevent="scrollTo($event)">
+                                <div class="text-sm font-medium leading-none">
+                                  Monthly Plan
+                                </div>
 
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Flexible monthly subscription for short-term needs.
@@ -62,8 +65,9 @@
                           <li>
                             <NavigationMenuLink as-child>
                               <a
-                                href="/pricing/yearly"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                href="#pricing"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                @click.prevent="scrollTo($event)">
                                 <div class="text-sm font-medium leading-none">Yearly Plan</div>
 
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
@@ -339,20 +343,10 @@
 
 <script setup>
 import Button from '@/components/ui/button/Button.vue'
-import {
-  Megaphone, MegaphoneOff, MenuIcon
-} from 'lucide-vue-next'
+import { MenuIcon } from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
 import { useSidebar } from '@/components/ui/sidebar'
-import Avatar from '@/components/ui/avatar/Avatar.vue'
-import AvatarImage from '@/components/ui/avatar/AvatarImage.vue'
-import AvatarFallback from '@/components/ui/avatar/AvatarFallback.vue'
-import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue'
-import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue'
-import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue'
-import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue'
-import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue'
-import DropdownMenuItem from '@/components/ui/dropdown-menu/DropdownMenuItem.vue'
+
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
@@ -362,7 +356,6 @@ import NavigationMenuItem from '@/components/ui/navigation-menu/NavigationMenuIt
 import NavigationMenuTrigger from '@/components/ui/navigation-menu/NavigationMenuTrigger.vue'
 import NavigationMenuContent from '@/components/ui/navigation-menu/NavigationMenuContent.vue'
 import NavigationMenuLink from '@/components/ui/navigation-menu/NavigationMenuLink.vue'
-import Toggle from '@/components/ui/toggle/Toggle.vue'
 const { toggleSidebar } = useSidebar()
 const openPodcast = ref(false)
 const $page = usePage()
@@ -373,5 +366,22 @@ const UserInitials = computed(() => {
   }
   return ''
 })
+
+const scrollTo = (event) => {
+  event.preventDefault()
+
+  let link = event.target
+  while (link && link.tagName !== 'A') {
+    link = link.parentElement
+  }
+
+  if (!link) return
+
+  const targetId = link.getAttribute('href')?.substring(1)
+  const targetElement = document.getElementById(targetId)
+  if (targetElement) {
+    targetElement.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 </script>

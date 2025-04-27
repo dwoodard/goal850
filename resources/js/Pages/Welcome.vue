@@ -22,10 +22,6 @@ defineProps({
 
 const subscribeEmail = ref(null)
 
-const scrollToBottom = () => {
-  subscribeEmail.value?.scrollIntoView({ behavior: 'smooth' })
-}
-
 // Use the composable for particles
 // const { canvasRef } = useParticles(50)
 
@@ -93,6 +89,8 @@ const scrollToBottom = () => {
         <PipMarketing />
       </div>
     </section>
+
+    <a id="pricing" class="text-primary hover:underline"/>
 
     <section class="relative flex  justify-center overflow-hidden bg-[#32383F] py-32">
       <div class="container mx-auto max-w-6xl px-4">
