@@ -20,7 +20,7 @@ import { onMounted } from 'vue'
 onMounted(() => {
   window.addEventListener('array-event', function arrayEvent(arrayEvent) {
 
-    console.info('arrayEvent', arrayEvent.detail.event, arrayEvent.detail.metadata)
+    // console.info('arrayEvent', arrayEvent.detail.event, arrayEvent.detail.metadata)
 
     if (arrayEvent.detail.event === 'signup') {
       console.log('Pip Marketing signup:', arrayEvent.detail.metadata)

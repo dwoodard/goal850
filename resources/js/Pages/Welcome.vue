@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
 import PipMarketing from '@/array/PipMarketing.vue'
+import PipDashboard from '@/array/PipDashboard.vue'
+import CreditOverview from '@/array/CreditOverview.vue'
 // import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
@@ -43,7 +45,7 @@ const scrollToBottom = () => {
               :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000 } }"
               :variants="{ custom: { scale: 2 } }"
               :delay="200"
-              :duration="2400">
+              :duration="1000">
               <h2 class="mb-4 text-4xl font-bold text-white">
                 Did you apply for a loan online?
               </h2>
@@ -260,7 +262,65 @@ const scrollToBottom = () => {
       </div>
     </section>
 
-    <section class="overflow-hidden bg-white pt-24">
+    <section
+      class="bg-gray-100 lg:p-40">
+      <div class="rounded-lg bg-gray-50 p-8 text-center shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-gray-800">
+          Identity Protection
+        </h3>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Safeguard your identity with up to <span class="font-semibold text-primary">$1M</span> in theft reimbursement, full-service restoration, and real-time monitoring to detect and prevent fraud across your financial, social, and personal records.
+        </p>
+      </div>
+
+      <div
+        class="bg-white   outline-1 outline-gray-200">
+        <PipDashboard />
+      </div>
+
+      <div class="flex justify-center py-10">
+        <Link
+          as="button"
+          :href="route('register')"
+          class="mb-4 w-full max-w-lg">
+          <H3 class="mb-4 text-2xl font-bold text-gray-800">
+            Get Identity Protection
+          </H3>
+
+          <Button class="p-8 text-lg">
+            Get Identity Protection
+          </Button>
+        </Link>
+      </div>
+    </section>
+
+    <section>
+      <div class=" bg-gray-50 p-8 text-center shadow-md">
+        <h3 class="mb-4 text-2xl font-bold text-gray-800">
+          Credit Monitoring
+        </h3>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Monitoring your credit regularly helps you catch identity theft early, track your financial progress, and ensure accuracy in your credit reports, empowering you to protect and improve your credit score.
+        </p>
+      </div>
+
+      <CreditOverview />
+
+      <div
+        class="m-10">
+        <div class="  text-center">
+          <Link :href="route('register')" class=" text-lg font-bold text-primary hover:underline">
+            <Button class="p-8 text-lg">
+              Get Credit Monitoring
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+
+    <footer class="overflow-hidden bg-[#32383F] pt-24 text-white">
       <div class="container mx-auto px-4">
         <div class="border-b pb-20">
           <div class="-m-8 flex flex-wrap">
@@ -390,77 +450,7 @@ const scrollToBottom = () => {
       </div>
 
       <canvas ref="canvasRef" class="pointer-events-none fixed inset-0 z-0" />
-    </section>
-
-    <div class="hidden bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-      <div class="relative flex min-h-screen flex-col items-center selection:bg-[#FF2D20] selection:text-white">
-        <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-          <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-            <div class="flex lg:col-start-2 lg:justify-center">
-              <h1>Goal 850</h1>
-            </div>
-
-            <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
-              <Link
-                v-if="$page.props.auth.user"
-                as="button"
-                :href="route('dashboard')"
-                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                Dashboard
-              </Link>
-
-              <Link
-                v-if="$page.props.auth.user"
-                :href="route('logout')"
-                as="button"
-                method="post"
-                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                Log out
-              </Link>
-
-              <template v-else>
-                <Link
-                  :href="route('login')"
-                  class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                  Log in
-                </Link>
-
-                <Link
-                  v-if="canRegister"
-                  :href="route('register')"
-                  class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                  Register
-                </Link>
-              </template>
-            </nav>
-          </header>
-
-          <main class="mt-6">
-            <div>Welcome details</div>
-          </main>
-
-          <div>
-            <Link :href="route('register')">
-              <Button class="flex h-10 w-40 items-center justify-between rounded-lg px-4 py-2">
-                Subscribe
-              </Button>
-            </Link>
-          </div>
-
-          <footer class="py-16 text-center text-sm text-black dark:text-white/50">
-            <div>
-              <a href="/about">About</a>
-              |
-              <a href="/privacy-policy">Privacy Policy</a>
-              |
-              <a href="/terms-of-service">Terms of Service</a>
-              |
-              <a href="/contact">Contact</a>
-            </div>
-          </footer>
-        </div>
-      </div>
-    </div>
+    </footer>
   </AppLayout>
 </template>
 
