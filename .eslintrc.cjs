@@ -89,7 +89,11 @@ module.exports = {
     }],
     'vue/no-v-text-v-html-on-component': 'off',
     'vue/padding-line-between-tags': ['error', [
-      { 'blankLine': 'always', 'prev': '*', 'next': '*' }
+      {
+        'blankLine': 'consistent',
+        'prev': '*',
+        'next': '*'
+      }
     ]],
     'vue/html-self-closing': ['error', {
       'html': {

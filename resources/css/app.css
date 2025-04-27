@@ -16,9 +16,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
+    --primary-hex: #5eb446;
     --primary: 107 44% 49%;
     --primary-foreground: 355.7 100% 97.3%;
 
+    --secondary-hex: #f2f2f2;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
 

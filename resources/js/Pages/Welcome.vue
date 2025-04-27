@@ -17,12 +17,10 @@ defineProps({
   canRegister: {
     type: Boolean
   }
-
 })
 
 const subscribeEmail = ref(null)
 
-// Use the composable for particles
 // const { canvasRef } = useParticles(50)
 
 </script>
@@ -31,22 +29,20 @@ const subscribeEmail = ref(null)
   <AppLayout>
     <Head title="Welcome" />
 
-    <section class=" bg-[#32383F] md:-mb-10 lg:max-h-[380px]">
+    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[380px]">
       <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:px-40">
         <div class="w-full lg:w-1/2">
           <div class=" ">
             <div
               v-motion
-              :initial="{ opacity: 0, x: -25 }"
-              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000 } }"
-              :variants="{ custom: { scale: 2 } }"
-              :delay="200"
-              :duration="1000">
+              :initial="{ opacity: 0, x: -150 }"
+              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :delay="100">
               <h2 class="mb-4 text-4xl font-bold text-white">
                 Did you apply for a loan online?
               </h2>
 
-              <p class="text-bold mb-4 text-2xl text-white">
+              <p class="mb-4 text-2xl text-white">
                 Your personal and banking info may be exposed.
               </p>
 
@@ -57,15 +53,14 @@ const subscribeEmail = ref(null)
           </div>
         </div>
 
-        <div class="w-full lg:w-1/2 lg:justify-end">
+        <div class="">
           <div class="flex justify-center  lg:w-96 lg:justify-end">
             <img
               v-motion
-              :initial="{ opacity: 0, x: 25 }"
-              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000 } }"
-              :variants="{ custom: { scale: 2 } }"
-              :delay="200"
-              :duration="2400"
+              :initial="{ opacity: 0, x: 150 }"
+              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :delay="100"
+
               src="images/GOAT-Mascot.png"
               alt="GOAT Mascot"
               class="mt-12 h-96  lg:-mt-20 lg:h-96">
@@ -90,9 +85,11 @@ const subscribeEmail = ref(null)
       </div>
     </section>
 
-    <a id="pricing" class="text-primary hover:underline"/>
-
     <section class="relative flex  justify-center overflow-hidden bg-[#32383F] py-32">
+      <a id="pricing">
+        <!--  Pricing-->
+      </a>
+
       <div class="container mx-auto max-w-6xl px-4">
         <div class="flex flex-col justify-between gap-10 lg:flex-row">
           <!-- Left side: Heading and Testimonial -->
@@ -165,10 +162,10 @@ const subscribeEmail = ref(null)
               </ul>
             </div>
 
-            <div class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
+            <div class="border-primary relative w-full max-w-sm rounded-lg border-2 bg-white p-8 pt-16">
               <!-- MOST POPULAR Badge floating above -->
               <div class="absolute inset-x-0 top-0">
-                <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-[.6em] text-white">
+                <span class="bg-primary block w-full py-2 text-center text-sm font-bold uppercase tracking-[.6em] text-white">
                   Most Popular
                 </span>
               </div>
@@ -267,7 +264,7 @@ const subscribeEmail = ref(null)
         </h3>
 
         <p class="text-lg leading-relaxed text-gray-600">
-          Safeguard your identity with up to <span class="font-semibold text-primary">$1M</span> in theft reimbursement, full-service restoration, and real-time monitoring to detect and prevent fraud across your financial, social, and personal records.
+          Safeguard your identity with up to <span class="text-primary font-semibold">$1M</span> in theft reimbursement, full-service restoration, and real-time monitoring to detect and prevent fraud across your financial, social, and personal records.
         </p>
       </div>
 
@@ -281,9 +278,9 @@ const subscribeEmail = ref(null)
           as="button"
           :href="route('register')"
           class="mb-4 w-full max-w-lg">
-          <H3 class="mb-4 text-2xl font-bold text-gray-800">
+          <h3 class="mb-4 text-2xl font-bold text-gray-800">
             Get Identity Protection
-          </H3>
+          </h3>
 
           <Button class="p-8 text-lg">
             Get Identity Protection
@@ -308,7 +305,7 @@ const subscribeEmail = ref(null)
       </div>
 
       <div class="p-10 text-center">
-        <Link :href="route('register')" class=" text-lg font-bold text-primary hover:underline">
+        <Link :href="route('register')" class=" text-primary text-lg font-bold hover:underline">
           <Button class="p-8 text-lg">
             Get Credit Monitoring
           </Button>
@@ -420,7 +417,7 @@ const subscribeEmail = ref(null)
                   Receive our free eBook and subscribe to our free newsletter filled with credit building tips as well as other financial wellness education.
                 </p>
 
-                <div ref="subscribeEmail" class="mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring focus-within:ring-primary md:max-w-xl xl:pl-6">
+                <div ref="subscribeEmail" class="focus-within:ring-primary mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring md:max-w-xl xl:pl-6">
                   <div class="flex flex-wrap items-center">
                     <div class="w-full xl:flex-1">
                       <input
@@ -445,7 +442,7 @@ const subscribeEmail = ref(null)
         </div>
       </div>
 
-      <canvas ref="canvasRef" class="pointer-events-none fixed inset-0 z-0" />
+      <!-- <canvas ref="canvasRef" class="pointer-events-none fixed inset-0 z-0" /> -->
     </footer>
   </AppLayout>
 </template>

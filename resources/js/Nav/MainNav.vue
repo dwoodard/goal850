@@ -30,7 +30,7 @@
                           <li class="row-span-3">
                             <NavigationMenuLink as-child>
                               <a
-                                class="flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                class="from-muted/50 to-muted flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none focus:shadow-md"
                                 href="#pricing">
                                 <img src="/images/pricing-icon.svg" class="size-6">
 
@@ -38,7 +38,7 @@
                                   Pricing Details
                                 </div>
 
-                                <p class="text-sm leading-tight text-muted-foreground">
+                                <p class="text-muted-foreground text-sm leading-tight">
                                   Explore our pricing plans and find the best fit for your needs.
                                 </p>
                               </a>
@@ -49,13 +49,13 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="#pricing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors"
                                 @click.prevent="scrollTo($event)">
                                 <div class="text-sm font-medium leading-none">
                                   Monthly Plan
                                 </div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Flexible monthly subscription for short-term needs.
                                 </p>
                               </a>
@@ -66,11 +66,11 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="#pricing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors"
                                 @click.prevent="scrollTo($event)">
                                 <div class="text-sm font-medium leading-none">Yearly Plan</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Save more with an annual subscription.
                                 </p>
                               </a>
@@ -89,10 +89,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/products/product1"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Product 1</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Description of Product 1.
                                 </p>
                               </a>
@@ -103,10 +103,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/products/product2"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Product 2</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Description of Product 2.
                                 </p>
                               </a>
@@ -125,10 +125,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/education/tutorials"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Tutorials</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Step-by-step guides to help you get started.
                                 </p>
                               </a>
@@ -139,10 +139,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/education/webinars"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Webinars</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Join live sessions with experts.
                                 </p>
                               </a>
@@ -161,10 +161,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/resources/blog"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Blog</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Read our latest articles and updates.
                                 </p>
                               </a>
@@ -175,10 +175,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/resources/faq"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">FAQ</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Frequently asked questions.
                                 </p>
                               </a>
@@ -210,10 +210,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/dashboard/overview"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Overview</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   View your dashboard overview and recent activity.
                                 </p>
                               </a>
@@ -224,10 +224,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/dashboard/settings"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Settings</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Manage your account and preferences.
                                 </p>
                               </a>
@@ -246,10 +246,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/podcast/latest"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Latest Episodes</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Listen to the latest podcast episodes.
                                 </p>
                               </a>
@@ -260,10 +260,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/podcast/subscribe"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Subscribe</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Stay updated with new episodes.
                                 </p>
                               </a>
@@ -282,10 +282,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/profile"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Profile</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Edit your profile information.
                                 </p>
                               </a>
@@ -296,10 +296,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/billing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Billing</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Manage your billing and subscriptions.
                                 </p>
                               </a>
@@ -310,10 +310,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/logout"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
                                 <div class="text-sm font-medium leading-none">Logout</div>
 
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
                                   Sign out of your account.
                                 </p>
                               </a>
@@ -345,18 +345,22 @@
 import Button from '@/components/ui/button/Button.vue'
 import { MenuIcon } from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
-import { useSidebar } from '@/components/ui/sidebar'
+// import { useSidebar } from '@/components/ui/sidebar'
 
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
+
+// Navigation Menu
 import NavigationMenu from '@/components/ui/navigation-menu/NavigationMenu.vue'
 import NavigationMenuList from '@/components/ui/navigation-menu/NavigationMenuList.vue'
 import NavigationMenuItem from '@/components/ui/navigation-menu/NavigationMenuItem.vue'
 import NavigationMenuTrigger from '@/components/ui/navigation-menu/NavigationMenuTrigger.vue'
 import NavigationMenuContent from '@/components/ui/navigation-menu/NavigationMenuContent.vue'
 import NavigationMenuLink from '@/components/ui/navigation-menu/NavigationMenuLink.vue'
-const { toggleSidebar } = useSidebar()
+
+// -----------------------------------------------------------------------------
+// const { toggleSidebar } = useSidebar()
 const openPodcast = ref(false)
 const $page = usePage()
 

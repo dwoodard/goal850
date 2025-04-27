@@ -28,3 +28,11 @@ what is the `apiUrl="<https://mock.array.io>"`` actually url?
 
 <https://docs.array.com/docs/sandbox-identities#thomas-devos>
 <https://docs.array.com/docs/sandbox-identities#donald-blair>
+
+
+---
+
+<!-- resources/js/array/PipMarketing.vue -->
+
+termsOfUseHref="<https://www.array.com>"
+privacyPolicyHref="<https://www.array.com>"
