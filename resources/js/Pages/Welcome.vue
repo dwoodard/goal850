@@ -33,14 +33,14 @@ const scrollToBottom = () => {
   <AppLayout>
     <Head title="Welcome" />
 
-    <section class="overflow-auto bg-[#32383F] md:-mb-10 lg:max-h-[480px] ">
-      <div class="container mx-auto px-4  lg:px-10">
-        <div class="-mt-14 flex flex-wrap justify-between lg:items-center ">
-          <div class="w-full pt-10  md:w-1/2 md:px-10">
+    <section class=" bg-[#32383F] md:-mb-10 lg:max-h-[380px]">
+      <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:px-40">
+        <div class="w-full lg:w-1/2">
+          <div class=" ">
             <div
               v-motion
-              :initial="{ opacity: 0, x: -25, }"
-              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000, }, }"
+              :initial="{ opacity: 0, x: -25 }"
+              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000 } }"
               :variants="{ custom: { scale: 2 } }"
               :delay="200"
               :duration="2400">
@@ -48,7 +48,7 @@ const scrollToBottom = () => {
                 Did you apply for a loan online?
               </h2>
 
-              <p class="text-bold mb-4 text-2xl  text-white">
+              <p class="text-bold mb-4 text-2xl text-white">
                 Your personal and banking info may be exposed.
               </p>
 
@@ -57,18 +57,21 @@ const scrollToBottom = () => {
               </p>
             </div>
           </div>
+        </div>
 
-          <img
-            v-motion
-            :initial="{ opacity: 0, x: 25, }"
-            :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000, }, }"
-            :variants="{ custom: { scale: 2 } }"
-            :delay="200"
-            :duration="2400"
-            src="images/GOAT-Mascot.png"
-            alt="GOAT Mascot"
-            class="relative mx-auto mt-20 h-auto w-full object-contain md:w-1/2 lg:mt-0 lg:max-w-[500px] lg:object-cover lg:object-right"
-            style="bottom: 40px; max-height: 450px;">
+        <div class="w-full lg:w-1/2 lg:justify-end">
+          <div class="flex justify-center  lg:w-96 lg:justify-end">
+            <img
+              v-motion
+              :initial="{ opacity: 0, x: 25 }"
+              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '25', delay: 1000 } }"
+              :variants="{ custom: { scale: 2 } }"
+              :delay="200"
+              :duration="2400"
+              src="images/GOAT-Mascot.png"
+              alt="GOAT Mascot"
+              class="mt-12 h-96  lg:-mt-20 lg:h-96">
+          </div>
         </div>
       </div>
     </section>
@@ -98,7 +101,7 @@ const scrollToBottom = () => {
     <section class="relative overflow-hidden bg-white py-32">
       <img class="absolute bottom-0 right-0" src="flaro-assets/images/pricing/gradient6.svg" alt="">
 
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto p-10 px-4">
         <div class="-m-8 flex flex-wrap">
           <div class="w-full p-8 md:w-1/2">
             <div class="flex h-full flex-col justify-between md:max-w-md">
