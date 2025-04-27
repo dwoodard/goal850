@@ -39,9 +39,12 @@ class HandleInertiaRequests extends Middleware
             ],
 
             'array' => [
-                'appKey' => config('array.app_key'),
+                'appKey' => env('ARRAY_APP_KEY'),
                 'apiUrl' => env('ARRAY_API_URL'),
-                'sandbox' => env('ARRAY_SANDBOX') === 'true',
+                'userToken' => auth()->user()
+                    ? auth()->user()->array_user_token
+                    : 'AD45C4BF-5C0A-40B3-8A53-ED29D091FA11',
+                'sandbox' => env('ARRAY_SANDBOX', app()->isLocal()),
             ],
 
             'appEnv' => app()->environment(),
