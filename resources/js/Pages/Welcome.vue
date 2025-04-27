@@ -81,7 +81,6 @@ const scrollToBottom = () => {
     <section
       class="relative overflow-hidden bg-white "
       style="background-image: url('flaro-assets/images/pricing/gradient6.svg'); background-size: cover; background-position: center;">
-      <!--  -->
       <div class="py-16 text-center">
         <h2 class="text-4xl font-bold text-gray-800">
           Protect your personal information.
@@ -295,8 +294,8 @@ const scrollToBottom = () => {
       </div>
     </section>
 
-    <section>
-      <div class=" bg-gray-50 p-8 text-center shadow-md">
+    <section class="bg-gray-50">
+      <div class="  p-8 text-center  ">
         <h3 class="mb-4 text-2xl font-bold text-gray-800">
           Credit Monitoring
         </h3>
@@ -306,17 +305,16 @@ const scrollToBottom = () => {
         </p>
       </div>
 
-      <CreditOverview />
+      <div class="p-100 bg-gray-50">
+        <CreditOverview />
+      </div>
 
-      <div
-        class="m-10">
-        <div class="  text-center">
-          <Link :href="route('register')" class=" text-lg font-bold text-primary hover:underline">
-            <Button class="p-8 text-lg">
-              Get Credit Monitoring
-            </Button>
-          </Link>
-        </div>
+      <div class="p-10 text-center">
+        <Link :href="route('register')" class=" text-lg font-bold text-primary hover:underline">
+          <Button class="p-8 text-lg">
+            Get Credit Monitoring
+          </Button>
+        </Link>
       </div>
     </section>
 
@@ -455,11 +453,5 @@ const scrollToBottom = () => {
 </template>
 
 <style scoped>
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+
  </style>
