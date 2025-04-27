@@ -185,7 +185,7 @@
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                      <Link :href="route('login')" class="inline-flex items-center">
+                      <Link :href="route('login')">
                         <Button>Secure Log In</Button>
                       </Link>
                     </NavigationMenuItem>

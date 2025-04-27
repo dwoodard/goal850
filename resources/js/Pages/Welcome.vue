@@ -93,9 +93,173 @@ const scrollToBottom = () => {
       </div>
     </section>
 
-    <section class="relative overflow-hidden bg-[#32383F] py-32">
-      <!--  -->
-      pricing
+    <section class="relative flex items-center justify-center overflow-hidden bg-[#32383F] py-32">
+      <div class="container mx-auto max-w-6xl px-4">
+        <div class="flex flex-col items-center justify-between gap-10 lg:flex-row">
+          <!-- Left side: Heading and Testimonial -->
+          <div class="max-w-md text-white">
+            <h2 class="mb-6 text-4xl font-bold">
+              Affordable pricing plans
+            </h2>
+
+            <div class="relative pl-10">
+              <div class="absolute left-0 top-0 text-6xl leading-none text-green-400">
+                &ldquo;
+              </div>
+
+              <p class="mb-6 text-lg leading-relaxed">
+                Do like I did and protect yourself from hackers, spammers, and thieves. Your privacy, identity, credit, and finances deserve it!
+              </p>
+
+              <p class="mt-4 text-sm font-semibold">
+                AJ --<br>Happy Customer
+              </p>
+            </div>
+          </div>
+
+          <!-- Right side: Pricing Plans -->
+          <div class="flex flex-col gap-8 lg:flex-row">
+            <!-- Basic Plan -->
+            <div class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
+              <h3 class="mb-4 text-center text-xl font-semibold">
+                Privacy Protection
+              </h3>
+
+              <div class="mb-4 flex items-center justify-between">
+                <div class="text-3xl font-bold">
+                  $9<sup class="text-sm">99</sup>
+
+                  <span class="text-base font-normal">/mo</span>
+                </div>
+
+                <div class="text-3xl font-bold">
+                  $99<span class="text-base font-normal">/yr</span>
+                </div>
+              </div>
+
+              <p class="mb-6 text-center text-sm text-gray-600">
+                Monthly subscription, cancel anytime.
+              </p>
+
+              <Link
+                as="button"
+                :href="route('register')"
+                class="mb-4 w-full">
+                <Button>
+                  Get 7 Days Free Trial
+                </Button>
+              </Link>
+
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>Free Credit Monitoring</li>
+
+                <li>Dark Web Monitoring</li>
+
+                <li>Basic Identity Theft Protection</li>
+
+                <li>Spam Protection</li>
+
+                <li>Hacker Protection</li>
+
+                <li>Stalker Protection</li>
+
+                <li>Data Theft Prevention</li>
+              </ul>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
+              <!-- MOST POPULAR Badge floating above -->
+              <div class="absolute inset-x-0 top-0">
+                <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
+                  Most Popular
+                </span>
+              </div>
+
+              <h3 class="mb-4 text-center text-xl font-semibold">
+                Privacy & Identity
+              </h3>
+
+              <div class="mb-4 flex items-center justify-between">
+                <div class="text-3xl font-bold">
+                  $19<sup class="text-sm">99</sup>
+
+                  <span class="text-base font-normal">/mo</span>
+                </div>
+
+                <div class="text-3xl font-bold">
+                  $199<span class="text-base font-normal">/yr</span>
+                </div>
+              </div>
+
+              <p class="mb-6 text-center text-sm text-gray-600">
+                Monthly subscription, cancel anytime.
+              </p>
+
+              <Link
+                as="button"
+                :href="route('register')"
+                class="mb-4 w-full">
+                <Button>
+                  Get 7 Days Free Trial
+                </Button>
+              </Link>
+
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>Free Credit Monitoring</li>
+
+                <li>Dark Web Monitoring</li>
+
+                <li>Basic Identity Theft Protection</li>
+
+                <li>Spam Protection</li>
+
+                <li>Hacker Protection</li>
+
+                <li>Stalker Protection</li>
+
+                <li>Data Theft Prevention</li>
+
+                <li class="font-bold">
+                  $1M Identity Theft Protection
+                </li>
+
+                <li class="font-bold">
+                  SSN Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Change of Address
+                </li>
+
+                <li class="font-bold">
+                  Account Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Social Media Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Telecom Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Court Records Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Home Title Monitoring
+                </li>
+
+                <li class="font-bold">
+                  Auto Title Monitoring
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="relative overflow-hidden bg-white py-32">
