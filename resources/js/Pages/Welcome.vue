@@ -93,9 +93,9 @@ const scrollToBottom = () => {
       </div>
     </section>
 
-    <section class="relative flex items-center justify-center overflow-hidden bg-[#32383F] py-32">
+    <section class="relative flex  justify-center overflow-hidden bg-[#32383F] py-32">
       <div class="container mx-auto max-w-6xl px-4">
-        <div class="flex flex-col items-center justify-between gap-10 lg:flex-row">
+        <div class="flex flex-col justify-between gap-10 lg:flex-row">
           <!-- Left side: Heading and Testimonial -->
           <div class="max-w-md text-white">
             <h2 class="mb-6 text-4xl font-bold">
@@ -103,7 +103,7 @@ const scrollToBottom = () => {
             </h2>
 
             <div class="relative pl-10">
-              <div class="absolute left-0 top-0 text-6xl leading-none text-green-400">
+              <div class="absolute -top-4 left-0 text-[80px] leading-none text-green-400">
                 &ldquo;
               </div>
 
@@ -118,8 +118,7 @@ const scrollToBottom = () => {
           </div>
 
           <!-- Right side: Pricing Plans -->
-          <div class="flex flex-col gap-8 lg:flex-row">
-            <!-- Basic Plan -->
+          <div class="flex flex-col  gap-8 lg:flex-row" >
             <div class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
               <h3 class="mb-4 text-center text-xl font-semibold">
                 Privacy Protection
@@ -167,11 +166,10 @@ const scrollToBottom = () => {
               </ul>
             </div>
 
-            <!-- Premium Plan -->
             <div class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
               <!-- MOST POPULAR Badge floating above -->
               <div class="absolute inset-x-0 top-0">
-                <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
+                <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-[.6em] text-white">
                   Most Popular
                 </span>
               </div>
@@ -256,204 +254,6 @@ const scrollToBottom = () => {
                   Auto Title Monitoring
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="relative overflow-hidden bg-white py-32">
-      <img class="absolute bottom-0 right-0" src="flaro-assets/images/pricing/gradient6.svg" alt="">
-
-      <div class="container mx-auto p-10 px-4">
-        <div class="-m-8 flex flex-wrap">
-          <div class="w-full p-8 md:w-1/2">
-            <div class="flex h-full flex-col justify-between md:max-w-md">
-              <div>
-                <h2 class="xl:text-10xl font-heading tracking-px-n mb-8 text-6xl font-bold leading-none md:text-8xl">
-                  Affordable pricing plans
-                </h2>
-
-                <p class="mb-16 font-medium leading-relaxed text-gray-600">
-                  Amet minim mollit non deserunt ullamco an aliqua dolor elit officia consequat duis.Amet minim mollit non deserunt ullamco est sit aliqua.
-                </p>
-              </div>
-
-              <div>
-                <h3 class="mb-3 font-semibold text-gray-900">
-                  Soon to be trusted by 1M+ customers
-                </h3>
-
-                <div class="-m-1 flex flex-wrap items-center">
-                  <div class="w-auto p-1">
-                    <div class="-m-0.5 flex flex-wrap">
-                      <div class="w-auto p-0.5">
-                        <svg
-                          width="17"
-                          height="16"
-                          viewbox="0 0 17 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.707 1.21267C8.02812 0.224357 9.42632 0.224357 9.74744 1.21267L10.8948 4.74387C11.0384 5.18586 11.4503 5.48511 11.915 5.48511H15.6279C16.6671 5.48511 17.0992 6.81488 16.2585 7.42569L13.2547 9.60809C12.8787 9.88126 12.7214 10.3654 12.865 10.8074L14.0123 14.3386C14.3335 15.327 13.2023 16.1488 12.3616 15.538L9.35775 13.3556C8.98178 13.0824 8.47266 13.0824 8.09669 13.3556L5.09287 15.538C4.25216 16.1488 3.12099 15.327 3.44211 14.3386L4.58947 10.8074C4.73308 10.3654 4.57575 9.88126 4.19978 9.60809L1.19596 7.42569C0.355248 6.81488 0.787317 5.48511 1.82649 5.48511H5.53942C6.00415 5.48511 6.41603 5.18586 6.55964 4.74387L7.707 1.21267Z" fill="#6366F1"/>
-                        </svg>
-                      </div>
-
-                      <div class="w-auto p-0.5">
-                        <svg
-                          width="17"
-                          height="16"
-                          viewbox="0 0 17 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.707 1.21267C8.02812 0.224357 9.42632 0.224357 9.74744 1.21267L10.8948 4.74387C11.0384 5.18586 11.4503 5.48511 11.915 5.48511H15.6279C16.6671 5.48511 17.0992 6.81488 16.2585 7.42569L13.2547 9.60809C12.8787 9.88126 12.7214 10.3654 12.865 10.8074L14.0123 14.3386C14.3335 15.327 13.2023 16.1488 12.3616 15.538L9.35775 13.3556C8.98178 13.0824 8.47266 13.0824 8.09669 13.3556L5.09287 15.538C4.25216 16.1488 3.12099 15.327 3.44211 14.3386L4.58947 10.8074C4.73308 10.3654 4.57575 9.88126 4.19978 9.60809L1.19596 7.42569C0.355248 6.81488 0.787317 5.48511 1.82649 5.48511H5.53942C6.00415 5.48511 6.41603 5.18586 6.55964 4.74387L7.707 1.21267Z" fill="#6366F1"/>
-                        </svg>
-                      </div>
-
-                      <div class="w-auto p-0.5">
-                        <svg
-                          width="17"
-                          height="16"
-                          viewbox="0 0 17 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.707 1.21267C8.02812 0.224357 9.42632 0.224357 9.74744 1.21267L10.8948 4.74387C11.0384 5.18586 11.4503 5.48511 11.915 5.48511H15.6279C16.6671 5.48511 17.0992 6.81488 16.2585 7.42569L13.2547 9.60809C12.8787 9.88126 12.7214 10.3654 12.865 10.8074L14.0123 14.3386C14.3335 15.327 13.2023 16.1488 12.3616 15.538L9.35775 13.3556C8.98178 13.0824 8.47266 13.0824 8.09669 13.3556L5.09287 15.538C4.25216 16.1488 3.12099 15.327 3.44211 14.3386L4.58947 10.8074C4.73308 10.3654 4.57575 9.88126 4.19978 9.60809L1.19596 7.42569C0.355248 6.81488 0.787317 5.48511 1.82649 5.48511H5.53942C6.00415 5.48511 6.41603 5.18586 6.55964 4.74387L7.707 1.21267Z" fill="#6366F1"/>
-                        </svg>
-                      </div>
-
-                      <div class="w-auto p-0.5">
-                        <svg
-                          width="17"
-                          height="16"
-                          viewbox="0 0 17 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.707 1.21267C8.02812 0.224357 9.42632 0.224357 9.74744 1.21267L10.8948 4.74387C11.0384 5.18586 11.4503 5.48511 11.915 5.48511H15.6279C16.6671 5.48511 17.0992 6.81488 16.2585 7.42569L13.2547 9.60809C12.8787 9.88126 12.7214 10.3654 12.865 10.8074L14.0123 14.3386C14.3335 15.327 13.2023 16.1488 12.3616 15.538L9.35775 13.3556C8.98178 13.0824 8.47266 13.0824 8.09669 13.3556L5.09287 15.538C4.25216 16.1488 3.12099 15.327 3.44211 14.3386L4.58947 10.8074C4.73308 10.3654 4.57575 9.88126 4.19978 9.60809L1.19596 7.42569C0.355248 6.81488 0.787317 5.48511 1.82649 5.48511H5.53942C6.00415 5.48511 6.41603 5.18586 6.55964 4.74387L7.707 1.21267Z" fill="#6366F1"/>
-                        </svg>
-                      </div>
-
-                      <div class="w-auto p-0.5">
-                        <svg
-                          width="17"
-                          height="16"
-                          viewbox="0 0 17 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.707 1.21267C8.02812 0.224357 9.42632 0.224357 9.74744 1.21267L10.8948 4.74387C11.0384 5.18586 11.4503 5.48511 11.915 5.48511H15.6279C16.6671 5.48511 17.0992 6.81488 16.2585 7.42569L13.2547 9.60809C12.8787 9.88126 12.7214 10.3654 12.865 10.8074L14.0123 14.3386C14.3335 15.327 13.2023 16.1488 12.3616 15.538L9.35775 13.3556C8.98178 13.0824 8.47266 13.0824 8.09669 13.3556L5.09287 15.538C4.25216 16.1488 3.12099 15.327 3.44211 14.3386L4.58947 10.8074C4.73308 10.3654 4.57575 9.88126 4.19978 9.60809L1.19596 7.42569C0.355248 6.81488 0.787317 5.48511 1.82649 5.48511H5.53942C6.00415 5.48511 6.41603 5.18586 6.55964 4.74387L7.707 1.21267Z" fill="#6366F1"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="w-auto p-1">
-                    <div class="-m-0.5 flex flex-wrap">
-                      <div class="w-auto p-0.5">
-                        <p class="font-bold text-gray-900">
-                          4.2/5
-                        </p>
-                      </div>
-
-                      <div class="w-auto p-0.5">
-                        <p class="font-medium text-gray-600">
-                          (45k Reviews)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-full p-8 md:w-1/2">
-            <div class="-m-3 flex flex-wrap">
-              <div class="w-full p-3 xl:w-1/2">
-                <div class="border-blueGray100 h-full rounded-xl border bg-white bg-opacity-80 px-8 py-7" style="backdrop-filter: blur(46px);">
-                  <span class="mb-2 inline-block font-medium leading-relaxed">Privacy Protection</span>
-
-                  <h3 class="font-heading tracking-px-n mb-3 text-6xl font-bold leading-tight md:text-7xl">
-                    $7.99
-                  </h3>
-
-                  <p
-                    class="mb-12 w-full text-base font-medium leading-relaxed text-gray-600 sm:text-lg md:min-h-16 md:text-xl lg:text-2xl ">
-                    Monthly subscription, cancel anytime.
-                  </p>
-
-                  <Button class="shadow-4xl mb-9" size="lg">
-                    Get 30 Days Free Trial
-                  </Button>
-
-                  <h3 class="mb-5 font-semibold leading-normal">
-                    What’s included:
-                  </h3>
-
-                  <ul>
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Dark Web Monitoring
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Spammer Prevention
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Hacker Prevention
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Stalker Prevention
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Prevent your data from being sold
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="w-full p-3 xl:w-1/2">
-                <div class="border-blueGray100 h-full rounded-xl border bg-white bg-opacity-80 px-8 py-7" style="backdrop-filter: blur(46px);">
-                  <span class="mb-2 inline-block font-medium leading-relaxed">Credit Monitoring</span>
-
-                  <h3 class="font-heading tracking-px-n mb-3 text-6xl font-bold leading-tight md:text-7xl">
-                    Free
-                  </h3>
-
-                  <p class="mb-12 font-medium leading-relaxed text-gray-600 sm:text-lg md:min-h-16 md:text-xl lg:text-2xl ">
-                    With your Privacy subscripton.
-                  </p>
-
-                  <Button class="mb-9" size="lg">
-                    Free Credit Monitoring
-                  </Button>
-
-                  <h3 class="mb-5 font-semibold leading-normal">
-                    What’s included:
-                  </h3>
-
-                  <ul>
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Credit Bureau Monitor
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Score Simulator
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Debt Analysis
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Score Factors
-                    </li>
-
-                    <li class="mb-1.5 font-medium leading-normal text-gray-600">
-                      Credit Alerts
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
         </div>
