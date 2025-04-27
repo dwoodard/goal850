@@ -20,7 +20,8 @@ Route::middleware([
     \App\Http\Middleware\CheckUserRegistration::class,
     \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
+    Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware('auth')->group(function () {
