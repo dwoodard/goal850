@@ -47,7 +47,7 @@ const showingNavigationDropdown = ref(false)
                       <button
                         type="button"
                         class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
-                        {{ $page.props.auth.user.name }}
+                        {{ $page.props.user.name }}
 
                         <svg
                           class="-me-0.5 ms-2 size-4"
@@ -66,7 +66,7 @@ const showingNavigationDropdown = ref(false)
                   <template #content>
                     <a
                       v-if="
-                        $page.props.auth.user.is_admin
+                        $page.props.user.is_admin
                       "
                       href="/cp"
                       class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:bg-gray-700">
@@ -150,11 +150,11 @@ const showingNavigationDropdown = ref(false)
             <div class="px-4">
               <div
                 class="text-base font-medium text-gray-800 dark:text-gray-200">
-                {{ $page.props.auth.user.name }}
+                {{ $page.props.user.name }}
               </div>
 
               <div class="text-sm font-medium text-gray-500">
-                {{ $page.props.auth.user.email }}
+                {{ $page.props.user.email }}
               </div>
             </div>
 

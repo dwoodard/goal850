@@ -29,21 +29,25 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = auth()->user();
+
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user() ? array_merge($request->user()->only('id', 'first_name', 'last_name', 'email'), [
-                    'is_admin' => $request->user()->is_admin,
+
+            'user' => $user ? array_merge($user
+                ->only('id', 'first_name', 'last_name', 'email', 'array_user_id', 'array_user_token'), [
+                    'is_admin' => $user->is_admin,
+                    'is_subscribed' => $user?->subscription('prod_S2W1o3GAej7brB')?->active(),
+                    'stripe_status' => $user?->subscription('prod_S2W1o3GAej7brB')?->stripe_status,
+                    'is_on_trial' => $user?->subscription('prod_S2W1o3GAej7brB')?->onTrial(),
+                    'trial_ends_at' => $user?->subscription('prod_S2W1o3GAej7brB')?->trial_ends_at?->format('Y-m-d H:i:s'),
+                    'array_user_token' => $user->array_user_token,
                 ])
-                : null,
-            ],
+            : null,
 
             'array' => [
                 'appKey' => env('ARRAY_APP_KEY'),
                 'apiUrl' => env('ARRAY_API_URL'),
-                'userToken' => auth()->user()
-                    ? auth()->user()->array_user_token
-                    : 'AD45C4BF-5C0A-40B3-8A53-ED29D091FA11',
                 'sandbox' => env('ARRAY_SANDBOX', app()->isLocal()),
             ],
 

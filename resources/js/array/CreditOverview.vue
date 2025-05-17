@@ -1,11 +1,10 @@
 <template>
   <div>
     <array-credit-overview
-      class="bg-white"
-      :appKey="appKey"
-      :userToken="userToken"
-      :apiUrl="apiUrl"
-      :sandbox="sandbox"/>
+      :appKey="props?.array?.appKey"
+      :userToken="props?.user?.array_user_token"
+      :apiUrl="props?.array?.apiUrl"
+      :sandbox="props?.array?.sandbox"/>
   </div>
 </template>
 
@@ -14,10 +13,6 @@ import { useArrayScripts } from '@/composables/useArrayScripts'
 import { usePage } from '@inertiajs/vue3'
 
 const { props } = usePage()
-const appKey = props.array.appKey
-const userToken = props.array.userToken
-const apiUrl = props.array.apiUrl
-const sandbox = props.appEnv === 'local'
 
 useArrayScripts('credit-overview')
 </script>

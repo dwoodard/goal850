@@ -5,7 +5,7 @@
 import { ref } from 'vue'
 
 import MainNav from '@/Nav/MainNav.vue'
-import PodcastPlayer from '@/components/PodcastPlayer/Index.vue'
+// import PodcastPlayer from '@/components/PodcastPlayer/Index.vue'
 import LeadConnectorWidget from '@/components/LeadConnectorWidget.vue'
 
 // import { useStorage } from '@vueuse/core'
@@ -22,7 +22,7 @@ const openPodcast = ref(false)
   </main>
 
   <div>
-    <PodcastPlayer v-show="openPodcast" />
+    <!-- <PodcastPlayer v-show="openPodcast" /> -->
     <LeadConnectorWidget v-if="false" />
   </div>
 

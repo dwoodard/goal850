@@ -19,7 +19,7 @@
           <div class="flex flex-wrap items-center">
             <div class="hidden w-auto  lg:block">
               <!-- Guest Menu -->
-              <ul v-if="!$page.props.auth.user" class="flex items-center space-x-8 ">
+              <ul v-if="!$page.props.user" class="flex items-center space-x-8 ">
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
@@ -30,7 +30,7 @@
                           <li class="row-span-3">
                             <NavigationMenuLink as-child>
                               <a
-                                class="from-muted/50 to-muted flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none focus:shadow-md"
+                                class="flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                                 href="#pricing">
                                 <img src="/images/pricing-icon.svg" class="size-6">
 
@@ -38,7 +38,7 @@
                                   Pricing Details
                                 </div>
 
-                                <p class="text-muted-foreground text-sm leading-tight">
+                                <p class="text-sm leading-tight text-muted-foreground">
                                   Explore our pricing plans and find the best fit for your needs.
                                 </p>
                               </a>
@@ -49,13 +49,13 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="#pricing"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 @click.prevent="scrollTo($event)">
                                 <div class="text-sm font-medium leading-none">
                                   Monthly Plan
                                 </div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Flexible monthly subscription for short-term needs.
                                 </p>
                               </a>
@@ -66,11 +66,11 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="#pricing"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 @click.prevent="scrollTo($event)">
                                 <div class="text-sm font-medium leading-none">Yearly Plan</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Save more with an annual subscription.
                                 </p>
                               </a>
@@ -89,10 +89,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/products/product1"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Product 1</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Description of Product 1.
                                 </p>
                               </a>
@@ -103,10 +103,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/products/product2"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Product 2</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Description of Product 2.
                                 </p>
                               </a>
@@ -125,10 +125,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/education/tutorials"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Tutorials</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Step-by-step guides to help you get started.
                                 </p>
                               </a>
@@ -139,10 +139,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/education/webinars"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Webinars</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Join live sessions with experts.
                                 </p>
                               </a>
@@ -161,10 +161,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/resources/blog"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Blog</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Read our latest articles and updates.
                                 </p>
                               </a>
@@ -175,10 +175,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/resources/faq"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">FAQ</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Frequently asked questions.
                                 </p>
                               </a>
@@ -198,7 +198,7 @@
               </ul>
 
               <!-- User Menu -->
-              <ul v-if="$page.props.auth.user" class="flex items-center space-x-8">
+              <ul v-if="$page.props.user" class="flex items-center space-x-8">
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
@@ -210,10 +210,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/dashboard/overview"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Overview</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   View your dashboard overview and recent activity.
                                 </p>
                               </a>
@@ -224,10 +224,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/dashboard/settings"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Settings</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Manage your account and preferences.
                                 </p>
                               </a>
@@ -246,10 +246,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/podcast/latest"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Latest Episodes</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Listen to the latest podcast episodes.
                                 </p>
                               </a>
@@ -260,10 +260,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/podcast/subscribe"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Subscribe</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Stay updated with new episodes.
                                 </p>
                               </a>
@@ -282,10 +282,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/profile"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Profile</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Edit your profile information.
                                 </p>
                               </a>
@@ -296,10 +296,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/billing"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Billing</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Manage your billing and subscriptions.
                                 </p>
                               </a>
@@ -310,10 +310,10 @@
                             <NavigationMenuLink as-child>
                               <a
                                 href="/logout"
-                                class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors">
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Logout</div>
 
-                                <p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Sign out of your account.
                                 </p>
                               </a>
@@ -365,8 +365,8 @@ const openPodcast = ref(false)
 const $page = usePage()
 
 const UserInitials = computed(() => {
-  if ($page.props.auth.user) {
-    return $page.props.auth.user.first_name.charAt(0) + $page.props.auth.user.last_name.charAt(0)
+  if ($page.props.user) {
+    return $page.props.user.first_name.charAt(0) + $page.props.user.last_name.charAt(0)
   }
   return ''
 })

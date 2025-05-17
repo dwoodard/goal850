@@ -13,6 +13,6 @@ const page = usePage()
   <Head title="Billing" />
 
   <AppLayout>
-    <StripeTable :email="page.props.auth.user.email"/>
+    <StripeTable :email="page.props.user.email"/>
   </AppLayout>
 </template>

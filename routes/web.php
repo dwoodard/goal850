@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware([
+    'auth',
     \App\Http\Middleware\CheckUserRegistration::class,
     \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
