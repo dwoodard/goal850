@@ -6,7 +6,6 @@ import {
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
-import PipMarketing from '@/array/PipMarketing.vue'
 import PipDashboard from '@/array/PipDashboard.vue'
 import CreditOverview from '@/array/CreditOverview.vue'
 // import { useParticles } from '@/composables/useParticles.js'
@@ -275,7 +274,7 @@ const subscribeEmail = ref(null)
 
       <div
         class="bg-white   outline-1 outline-gray-200">
-        <PipDashboard />
+        <!-- <PipDashboard /> -->
       </div>
 
       <div class="flex justify-center py-10">
@@ -306,7 +305,7 @@ const subscribeEmail = ref(null)
       </div>
 
       <div class="p-100 bg-gray-50">
-        <CreditOverview />
+        <!-- <CreditOverview /> -->
       </div>
 
       <div class="p-10 text-center">

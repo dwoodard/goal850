@@ -1,13 +1,13 @@
 <template>
   <div>
     <array-pip-marketing
-      appKey="A0ADD6AD-8182-4D66-8F13-78AA2B716899"
+      :appKey="appKey"
       apiUrl="https://array.io"
       sandbox="false"
-      signupHref="/register"
-      termsOfUseHref="https://www.array.com"
-      privacyPolicyHref="https://www.array.com"
-      brandName="Array"/>
+      signupHref="/billing"
+      termsOfUseHref="https://www.goal850.com/terms-of-use"
+      privacyPolicyHref="https://www.goal850.com/privacy-policy"
+      brandName="Goal 850"/>
   </div>
 </template>
 
@@ -16,6 +16,10 @@ import { useArrayScripts } from '@/composables/useArrayScripts'
 
 // add a mount hook to check if the script is loaded
 import { onMounted } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+const page = usePage()
+const appKey = page.props.array.appKey
 
 onMounted(() => {
   window.addEventListener('array-event', function arrayEvent(arrayEvent) {
