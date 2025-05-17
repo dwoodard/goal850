@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PrivacyScanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationWizardController;
 use Core\Authentication\Auth;
@@ -10,15 +11,16 @@ use Inertia\Inertia;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => false, // Route::has('register'),
-    ]);
+    return Inertia::render('Welcome');
 })->name('welcome');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/privacy-scan', [PrivacyScanController::class, 'index'])->name('privacy.scan');
+});
+
 Route::middleware([
-    \App\Http\Middleware\CheckUserRegistration::class,
-    \App\Http\Middleware\ArrayTokenCheck::class,
+    // \App\Http\Middleware\CheckUserRegistration::class,
+    // \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
     Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
     Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');

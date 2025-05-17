@@ -39,16 +39,23 @@ const subscribeEmail = ref(null)
               :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
               :delay="100">
               <h2 class="mb-4 text-4xl font-bold text-white">
-                Did you apply for a loan online?
+                <div>Monitor. Protect.</div>
+                <div>Build. Your credit.</div>
               </h2>
 
               <p class="mb-4 text-2xl text-white">
-                Your personal and banking info may be exposed.
+                Access your free credit score. Track
+                your progress and get alerts. 100%
+                free, no strings attached.
               </p>
 
-              <p class="text-sm text-white">
-                Up to 98% of consumers have their information exposed on Data Broker and People Search sites—putting their privacy and security at risk.
-              </p>
+              <Link
+                as="button"
+                :href="route('register', { intent: 'privacy.scan' })">
+                <Button>
+                  Sign up for FREE credit monitoring
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -80,8 +87,6 @@ const subscribeEmail = ref(null)
         <p class="mt-4 text-2xl text-gray-600">
           Start with our free Privacy scan.
         </p>
-
-        <PipMarketing />
       </div>
     </section>
 
@@ -138,7 +143,7 @@ const subscribeEmail = ref(null)
 
               <Link
                 as="button"
-                :href="route('register')"
+                :href="route('register', { intent: 'payment' })"
                 class="mb-4 w-full">
                 <Button>
                   Get 7 Days Free Trial
@@ -192,7 +197,7 @@ const subscribeEmail = ref(null)
 
               <Link
                 as="button"
-                :href="route('register')"
+                :href="route('register', { intent: 'payment' })"
                 class="mb-4 w-full">
                 <Button>
                   Get 7 Days Free Trial

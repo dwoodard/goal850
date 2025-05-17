@@ -15,6 +15,10 @@ class RegisteredUserController extends Controller
 {
     public function create(): Response
     {
+        if (request()->query('intent')) {
+            session(['intent' => request()->query('intent')]);
+        }
+
         return Inertia::render('Auth/Register');
     }
 
@@ -48,6 +52,10 @@ class RegisteredUserController extends Controller
         $this->createGoHighLevelContact($user);
 
         event(new Registered($user));
+
+        if (session('intent') === 'privacy.scan') {
+            return redirect()->route('privacy.scan');
+        }
 
         // Redirect back to the register page with props for the pricing table
         return Inertia::render('Auth/Register', [

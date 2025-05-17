@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import StripeTable from '@/components/StripeTable/index.vue'
 
 //get page props
 
@@ -12,19 +13,6 @@ const page = usePage()
   <Head title="Billing" />
 
   <AppLayout>
-    <template #header>
-      <h2>Billing</h2>
-    </template>
-
-    <div>
-      <label>
-        first: {{ page.props.auth.user.first_name }}
-        last: {{ page.props.auth.user.last_name }}
-      </label>
-
-      <p>Billing page</p>
-
-      <p>Here you can manage your billing information.</p>
-    </div>
+    <StripeTable :email="page.props.auth.user.email"/>
   </AppLayout>
 </template>
