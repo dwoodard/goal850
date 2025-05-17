@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware([
-    // \App\Http\Middleware\CheckUserRegistration::class,
-    // \App\Http\Middleware\ArrayTokenCheck::class,
+    \App\Http\Middleware\CheckUserRegistration::class,
+    \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
     Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
     Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');

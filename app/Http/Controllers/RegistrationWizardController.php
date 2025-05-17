@@ -20,7 +20,7 @@ class RegistrationWizardController extends Controller
         ];
 
         // Return the Inertia view for the Registration Wizard
-        return inertia('RegistrationWizard/user', $data);
+        return Inertia::render('RegistrationWizard/user', $data);
     }
 
     // KBA step
@@ -38,6 +38,7 @@ class RegistrationWizardController extends Controller
     // user store
     public function userStore(RegistrationRequest $request)
     {
+
         $data = $request->validated();
 
         $user = auth()->user();
@@ -50,10 +51,10 @@ class RegistrationWizardController extends Controller
         );
 
         if (! $response->successful()) {
-            return response()->json([
-                'error' => 'Failed to create Array user',
-                'message' => $response->json('message'),
-            ], 500);
+            return Inertia::render('RegistrationWizard/user', [
+                'errors' => ['api_error' => 'Failed to create Array user. Please try again.'],
+                'user' => $user,
+            ]);
         }
 
         $user->array_user_id = $response->json('userId');
@@ -80,10 +81,13 @@ class RegistrationWizardController extends Controller
     // createArrayUser function
     private function createArrayUser($user, $dob, $ssn)
     {
-        return Http::withHeaders([
+
+        $arrayUrl = env('APP_ENV') === 'local' ? 'https://sandbox.array.io' : env('ARRAY_API_URL');
+
+        $response = Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json',
-        ])->post(env('ARRAY_API_URL').'/api/user/v2', [
+        ])->post($arrayUrl.'/api/user/v2', [
             'appKey' => env('ARRAY_APP_KEY'),
             'dob' => $dob,
             'ssn' => $ssn,
@@ -92,5 +96,9 @@ class RegistrationWizardController extends Controller
             'emailAddress' => $user->email,
             'phoneNumber' => $user->phone,
         ]);
+
+        
+
+        return $response;
     }
 }
