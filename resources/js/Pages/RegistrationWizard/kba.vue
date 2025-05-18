@@ -4,10 +4,7 @@
       <h2>KBA</h2>
     </template>
 
-    <AuthenticationKBA
-      :userId="user.array_user_id"
-      :sandbox="true"
-      showResultPages="true"/>
+    <AuthenticationKBA />
   </AppLayout>
 </template>
 
@@ -20,7 +17,6 @@ defineProps({
   user: {
     type: Object
   }
-
 })
 
 </script>
@@ -28,3 +24,4 @@ defineProps({
 <style scoped>
 /* Add any specific styles if needed */
 </style>
+

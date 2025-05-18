@@ -25,7 +25,7 @@ if (typeof window !== 'undefined') {
 </script>
 
 <template>
-  <Head title="Dashboard" />
+  <Head title="Privacy Scan" />
 
   <AppLayout>
     <template #header>

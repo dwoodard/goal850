@@ -1,9 +1,22 @@
 <?php
 
+use App\Http\Controllers\CreditAlertsController;
+use App\Http\Controllers\CreditDebtAnalysisController;
+use App\Http\Controllers\CreditProtectionController;
+use App\Http\Controllers\CreditReportController;
+use App\Http\Controllers\CreditScoreCoachController;
+use App\Http\Controllers\CreditScoreController;
+use App\Http\Controllers\CreditScoreDetailsController;
+use App\Http\Controllers\CreditScoreInsightsController;
+use App\Http\Controllers\CreditScoreSimulatorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IdentityProtectController;
+use App\Http\Controllers\NeighborhoodWatchController;
 use App\Http\Controllers\PrivacyScanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationWizardController;
+use App\Http\Controllers\StudentLoanNavigatorController;
+use App\Http\Controllers\SubscriptionManagerController;
 use Core\Authentication\Auth;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +38,19 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
     Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/credit-report', [CreditReportController::class, 'index'])->name('credit.report');
+    Route::get('/credit-score-details', [CreditScoreDetailsController::class, 'index'])->name('credit.score.details');
+    Route::get('/credit-protection-controller', [CreditProtectionController::class, 'index'])->name('credit.protection');
+    Route::get('/credit-debt-analysis', [CreditDebtAnalysisController::class, 'index'])->name('credit.debt.analysis');
+    Route::get('/credit-score-insights', [CreditScoreInsightsController::class, 'index'])->name('credit.score.insights');
+    Route::get('/credit-score-simulator', [CreditScoreSimulatorController::class, 'index'])->name('credit.score.simulator');
+    Route::get('/credit-score-coach', [CreditScoreCoachController::class, 'index'])->name('credit.score.coach');
+    Route::get('/credit-score', [CreditScoreController::class, 'index'])->name('credit.score');
+    Route::get('/credit-alerts', [CreditAlertsController::class, 'index'])->name('credit.alerts');
+    Route::get('/identity-protect', [IdentityProtectController::class, 'index'])->name('identity.protect');
+    Route::get('/neighborhood-watch', [NeighborhoodWatchController::class, 'index'])->name('neighborhood.watch');
+    Route::get('/subscription-manager', [SubscriptionManagerController::class, 'index'])->name('subscription.manager');
+    Route::get('/student-loan-navigator', [StudentLoanNavigatorController::class, 'index'])->name('student.loan.navigator');
 });
 
 Route::middleware('auth')->group(function () {

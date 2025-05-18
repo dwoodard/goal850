@@ -222,15 +222,17 @@
 
                           <li>
                             <NavigationMenuLink as-child>
-                              <a
-                                href="/dashboard/settings"
+                              <Link
+                                :href="route('credit.report')"
                                 class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Settings</div>
+                                <div class="text-sm font-medium leading-none">
+                                  Credit Report
+                                </div>
 
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Manage your account and preferences.
+                                  Access your credit report details and insights.
                                 </p>
-                              </a>
+                              </Link>
                             </NavigationMenuLink>
                           </li>
                         </ul>
@@ -301,6 +303,20 @@
 
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   Manage your billing and subscriptions.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <a
+                                href="/dashboard/settings"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">Settings</div>
+
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Manage your account and preferences.
                                 </p>
                               </a>
                             </NavigationMenuLink>
