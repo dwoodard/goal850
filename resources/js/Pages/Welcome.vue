@@ -27,7 +27,7 @@ const subscribeEmail = ref(null)
     <Head title="Welcome" />
 
     <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[480px] ">
-      <div class="bg-[url('/images/Glogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
+      <div class="bg-[url('/images/GLogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
         <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
           <div class="w-full lg:w-1/2">
             <div class="">
