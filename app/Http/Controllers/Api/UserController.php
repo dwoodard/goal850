@@ -27,6 +27,9 @@ class UserController extends Controller
     {
         // Update an existing user
         $user = User::findOrFail($id);
+        $request->validate([
+            'last_privacy_scan' => 'nullable|date',
+        ]);
         $user->update($request->all());
 
         return response()->json($user);
