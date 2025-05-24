@@ -6,8 +6,6 @@ import {
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref } from 'vue'
-import PipDashboard from '@/array/PipDashboard.vue'
-import CreditOverview from '@/array/CreditOverview.vue'
 // import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
@@ -28,48 +26,46 @@ const subscribeEmail = ref(null)
   <AppLayout>
     <Head title="Welcome" />
 
-    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[380px]">
-      <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
-        <div class="w-full lg:w-1/2">
-          <div class=" ">
-            <div
-              v-motion
-              :initial="{ opacity: 0, x: -150 }"
-              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
-              :delay="100">
-              <h2 class="mb-4 text-4xl font-bold text-white">
-                <div>Monitor. Protect.</div>
-                <div>Build. Your credit.</div>
-              </h2>
-
-              <p class="mb-4 text-2xl text-white">
-                Access your free credit score. Track
-                your progress and get alerts. 100%
-                free, no strings attached.
-              </p>
-
-              <Link
-                as="button"
-                :href="route('register', { intent: 'privacy.scan' })">
-                <Button>
-                  Sign up for FREE credit monitoring
-                </Button>
-              </Link>
+    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[380px] ">
+      <div class="bg-[url('/images/Glogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
+        <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
+          <div class="w-full lg:w-1/2">
+            <div class="">
+              <div
+                v-motion
+                :initial="{ opacity: 0, x: -150 }"
+                :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+                :delay="100">
+                <h2 class="mb-4 text-4xl font-bold text-white">
+                  <div>Monitor. Protect.</div>
+                  <div>Build. Your credit.</div>
+                </h2>
+                <p class="mb-4 text-2xl text-white">
+                  Access your free credit score. Track
+                  your progress and get alerts. 100%
+                  free, no strings attached.
+                </p>
+                <Link
+                  as="button"
+                  :href="route('register', { intent: 'privacy.scan' })">
+                  <Button>
+                    Sign up for FREE credit monitoring
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="">
-          <div class="flex justify-center  lg:w-96 lg:justify-end">
-            <img
-              v-motion
-              :initial="{ opacity: 0, x: 150 }"
-              :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
-              :delay="100"
-
-              src="images/GOAT-Mascot.png"
-              alt="GOAT Mascot"
-              class="mt-12 h-96  lg:-mt-20 lg:h-96">
+          <div class="">
+            <div class="flex justify-center  lg:w-96 lg:justify-end">
+              <img
+                v-motion
+                :initial="{ opacity: 0, x: 150 }"
+                :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+                :delay="100"
+                src="images/GOAT-Mascot.png"
+                alt="GOAT Mascot"
+                class="mt-12 h-96  lg:-mt-20 lg:h-96">
+            </div>
           </div>
         </div>
       </div>
