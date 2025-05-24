@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArrayTokenCheck
@@ -19,6 +20,16 @@ class ArrayTokenCheck
 
         // check users array user token to see if it is valid
         $user = $request->user();
+
+        // 🚧 Hasn't completed Array user
+        if (! $user->hasCompletedArrayUser()) {
+            return Redirect::route('registration.wizard.user');
+        }
+
+        // 🚧 Hasn't completed Array KBA
+        if (! $user->hasCompletedArrayUserToken()) {
+            return Redirect::route('registration.wizard.kba');
+        }
 
         $response = Http::withHeaders([
             'accept' => 'application/json',

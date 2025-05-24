@@ -12,8 +12,17 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { FileTextIcon } from 'lucide-vue-next'
+import PipMarketing from '@/array/PipMarketing.vue'
+import PipDashboard from '@/array/PipDashboard.vue'
 
 const { props } = usePage()
+
+defineProps({
+  can_privacy_scan: {
+    type: Boolean,
+    default: false
+  }
+})
 
 </script>
 
@@ -28,6 +37,28 @@ const { props } = usePage()
     <div class="flex flex-col justify-center ">
       <CreditOverview :user="props.user" />
     </div>
+
+    <section
+      v-if="can_privacy_scan"
+      class="relative overflow-hidden bg-white ">
+      <div class="py-16 text-center">
+        <div v-if="has_stripe_id" class="mt-8">
+          <PipDashboard />
+        </div>
+
+        <div v-else>
+          <h2 class="text-4xl font-bold text-gray-800">
+            Protect your personal information.
+          </h2>
+
+          <p class="mt-4 text-2xl text-gray-600">
+            Start with our free Privacy scan.
+          </p>
+
+          <PipMarketing />
+        </div>
+      </div>
+    </section>
 
     <div class="m-10 mx-auto max-w-7xl p-3">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">

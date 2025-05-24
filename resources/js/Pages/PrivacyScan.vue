@@ -33,8 +33,7 @@ if (typeof window !== 'undefined') {
     </template>
 
     <section
-      class="relative overflow-hidden bg-white "
-      style="background-image: url('flaro-assets/images/pricing/gradient6.svg'); background-size: cover; background-position: center;">
+      class="relative overflow-hidden bg-white ">
       <div class="py-16 text-center">
         <h2 class="text-4xl font-bold text-gray-800">
           Protect your personal information.

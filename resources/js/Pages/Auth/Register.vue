@@ -27,7 +27,7 @@ const form = useForm({
   last_name: '',
   password: '',
   password_confirmation: '',
-  newsletter: true
+  tcpa: false
 })
 
 // Field validation
@@ -37,7 +37,8 @@ const validations = {
   first_name: (value) => !!value,
   last_name: (value) => !!value,
   password: (value) => !!value && value.length >= 6,
-  password_confirmation: (value) => value === form.password
+  password_confirmation: (value) => value === form.password,
+  tcpa: (value) => value === true
 }
 
 const stepper = useStepper({
@@ -177,10 +178,19 @@ function submit() {
                 </p>
               </div>
 
-              <div class="mb-4 flex items-center">
-                <Checkbox id="newsletter" v-model:checked="form.newsletter" class="mr-2"/>
+              <!-- TCPA Opt-In -->
+              <div class="mb-4 flex flex-col ">
+                <div>
+                  <Checkbox id="tcpa" v-model:checked="form.tcpa" class="mr-2"/>
 
-                <Label for="newsletter">Subscribe to our newsletter</Label>
+                  <Label for="tcpa">
+                    I agree to receive calls and texts regarding my account and services, including by automated technology, as described in the <a href="/terms" target="_blank" class="text-blue-600 underline">Terms & Conditions</a>.
+                  </Label>
+                </div>
+
+                <p v-if="form.errors.tcpa" class="mt-1 text-sm text-red-500">
+                  {{ form.errors.tcpa }}
+                </p>
               </div>
 
               <Button class="w-full" >

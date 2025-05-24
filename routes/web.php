@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\CreditAlertsController;
 use App\Http\Controllers\CreditDebtAnalysisController;
 use App\Http\Controllers\CreditProtectionController;
@@ -27,8 +28,20 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');
 
+Route::get('/dashboard', fn () => redirect()->route('dashboard.overview'))
+    ->middleware('auth')
+    ->name('dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/privacy-scan', [PrivacyScanController::class, 'index'])->name('privacy.scan');
+});
+
+Route::middleware([
+    'auth',
+    \App\Http\Middleware\ArrayTokenCheck::class,
+])->group(function () {
+    Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard.overview');
+
 });
 
 Route::middleware([
@@ -36,8 +49,6 @@ Route::middleware([
     \App\Http\Middleware\CheckUserRegistration::class,
     \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
-    Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
-    Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/credit-report', [CreditReportController::class, 'index'])->name('credit.report');
     Route::get('/credit-score-details', [CreditScoreDetailsController::class, 'index'])->name('credit.score.details');
     Route::get('/credit-protection-controller', [CreditProtectionController::class, 'index'])->name('credit.protection');
@@ -72,6 +83,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/billing', function () {
         return Inertia::render('Billing/Index');
     })->name('billing');
+
+    // User
+    Route::get('/user', function () {
+        return Inertia::render('User/Index');
+    })->name('user.index');
 });
 
 // route post stripe/webhook
@@ -84,6 +100,9 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 // Route::get('/notifications', function () {
 //     return Inertia::render('Notifications');
 // })->middleware('auth')->name('notifications');
+
+// API routes (fix this)
+Route::resource('api/user', UserController::class);
 
 require __DIR__.'/auth.php';
 

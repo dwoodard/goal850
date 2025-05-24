@@ -31,7 +31,20 @@ onMounted(() => {
     }
 
     if (arrayEvent.detail.event === 'pip-free-scan') {
-      console.log('Pip Marketing pip-free-scan:', arrayEvent.detail.metadata)
+      console.log('Pip Marketing pip-free-scan:', {
+        'metadata': arrayEvent.detail.metadata,
+        'route': `/api/user/${page.props.user.id}`
+      })
+
+      // save a date on the user model
+      axios.post(`/api/user/${page.props.user.id}`, {
+        _method: 'PUT',
+        last_privacy_scan: new Date().toISOString()
+      }).then(response => {
+        console.log('User last_privacy_scan updated:', response.data)
+      }).catch(error => {
+        console.error('Error updating user last_privacy_scan:', error)
+      })
     }
 
     if (arrayEvent.detail.event === 'pip-free-first-results-returned') {

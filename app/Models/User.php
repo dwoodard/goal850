@@ -29,6 +29,7 @@ class User extends Authenticatable
         'ghl_location_id',
         'array_user_id',
         'array_user_token',
+        'last_privacy_scan',
         'last_login',
         'login_count',
         'last_ip',
@@ -60,6 +61,7 @@ class User extends Authenticatable
             'login_count' => 'integer',
             'last_ip' => 'string',
             'user_agent' => 'string',
+            'last_privacy_scan' => 'datetime',
         ];
     }
 
@@ -91,6 +93,15 @@ class User extends Authenticatable
         });
 
         return $hasID && $hasAnyActive;
+    }
+
+    public function canPrivacyScan(): bool
+    {
+        // check when the last time privacy scan was run
+        $lastScan = $this->last_privacy_scan;
+
+        // return true if the last scan was more than 14 days ago or never run
+        return ! $lastScan || $lastScan->diffInDays(now()) > 14;
     }
 
     public function hasCompletedGhl(): bool
