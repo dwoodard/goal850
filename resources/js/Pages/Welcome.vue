@@ -26,7 +26,7 @@ const subscribeEmail = ref(null)
   <AppLayout>
     <Head title="Welcome" />
 
-    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[380px] ">
+    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[480px] ">
       <div class="bg-[url('/images/Glogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
         <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
           <div class="w-full lg:w-1/2">
@@ -79,21 +79,55 @@ const subscribeEmail = ref(null)
           Your credit matters. Free tools. Real results.
         </h2>
 
-        <div class="flex">
-          <div class="w-1/2">
+        <div class="mt-6 flex flex-col justify-center p-10 lg:flex-row ">
+          <div class="lg:w-1/2">
             <video
               v-motion
               :initial="{ opacity: 0, y: -50 }"
               :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
               :delay="100"
-              class="mx-auto mt-8 h-64 w-full rounded-lg shadow-lg"
+              class="mx-auto mt-8  w-full rounded-lg shadow-lg"
               controls
-              src="/videos/credit-monitoring.mp4"/>
+              src="/videos/goal850_promo.mp4"/>
           </div>
-          <div class="w-1/2">
-            <p class="mt-4 text-2xl text-gray-600">
-              Get personalized credit monitoring alerts.
-            </p>
+          <div class="lg:w-1/2">
+            <div class="mx-auto mt-8 max-w-lg text-left">
+              <p class="mt-4 text-2xl font-semibold text-gray-600">
+                <span class="font-black">Free credit monitoring</span> is your first step to financial GOATness. Sign up today and you’ll get all this for free.*
+              </p>
+              <ul class="mt-6 space-y-3 text-left text-lg text-gray-900">
+                <li class="flex items-center">
+                  <span class="mr-2 text-green-500">✔</span>
+                  Full Credit Report &amp; Score
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-2 text-green-500">✔</span>
+                  Real-Time Score Tracker &amp; Alerts
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-2 text-green-500">✔</span>
+                  Personalized Debt Analysis &amp; Insights
+                </li>
+                <li class="flex items-center">
+                  <span class="mr-2 text-green-500">✔</span>
+                  100% Free — No Strings Attached
+                </li>
+                <li class="flex items-center font-semibold">
+                  <span class="mr-2 text-green-500">🎁</span>
+                  BONUS Free Privacy Scan ($20 value!)
+                </li>
+              </ul>
+              <div class="mt-6 flex justify-center">
+                <Link
+                  as="button"
+                  :href="route('register', { intent: 'privacy.scan' })"
+                  class="mb-4 w-full">
+                  <Button>
+                    Sign up for credit FREE monitoring
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
