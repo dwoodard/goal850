@@ -76,12 +76,26 @@ const subscribeEmail = ref(null)
       style="background-image: url('flaro-assets/images/pricing/gradient6.svg'); background-size: cover; background-position: center;">
       <div class="py-16 text-center">
         <h2 class="text-4xl font-bold text-gray-800">
-          Protect your personal information.
+          Your credit matters. Free tools. Real results.
         </h2>
 
-        <p class="mt-4 text-2xl text-gray-600">
-          Start with our free Privacy scan.
-        </p>
+        <div class="flex">
+          <div class="w-1/2">
+            <video
+              v-motion
+              :initial="{ opacity: 0, y: -50 }"
+              :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :delay="100"
+              class="mx-auto mt-8 h-64 w-full rounded-lg shadow-lg"
+              controls
+              src="/videos/credit-monitoring.mp4"/>
+          </div>
+          <div class="w-1/2">
+            <p class="mt-4 text-2xl text-gray-600">
+              Get personalized credit monitoring alerts.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
