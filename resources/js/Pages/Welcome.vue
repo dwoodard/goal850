@@ -5,7 +5,8 @@ import {
 } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+
 // import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
@@ -17,6 +18,38 @@ defineProps({
 })
 
 const subscribeEmail = ref(null)
+
+const videoRef = ref(null)
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && videoRef.value) {
+        videoRef.value.muted = true // required for autoplay
+
+        const playPromise = videoRef.value.play()
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('✅ autoplay succeeded')
+            })
+            .catch(() => {
+              console.log('❌ autoplay was blocked')
+              // Optionally show a "Tap to Play" overlay
+            })
+        }
+      }
+
+    },
+    {
+      threshold: 0.5 // play when 50% in view
+    }
+  )
+
+  if (videoRef.value) {
+    observer.observe(videoRef.value)
+  }
+})
 
 // const { canvasRef } = useParticles(50)
 
@@ -81,12 +114,16 @@ const subscribeEmail = ref(null)
         <div class="mt-6 flex flex-col justify-center p-10 lg:flex-row ">
           <div class="lg:w-1/2">
             <video
+              ref="videoRef"
               v-motion
               :initial="{ opacity: 0, y: -50 }"
-              :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, delay: 250 } }"
               :delay="100"
-              class="mx-auto mt-8  w-full rounded-lg shadow-lg"
+              class="mx-auto mt-8 w-full rounded-lg shadow-lg"
               controls
+              muted
+              playsinline
+              preload="metadata"
               src="/videos/goal850_promo.mp4"/>
           </div>
           <div class="lg:w-1/2">
