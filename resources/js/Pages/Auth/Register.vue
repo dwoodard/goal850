@@ -180,11 +180,13 @@ function submit() {
 
               <!-- TCPA Opt-In -->
               <div class="mb-4 flex flex-col ">
-                <div>
+                <div class="flex items-start">
                   <Checkbox id="tcpa" v-model:checked="form.tcpa" class="mr-2"/>
 
                   <Label for="tcpa">
-                    I agree to receive calls and texts regarding my account and services, including by automated technology, as described in the <a href="/terms" target="_blank" class="text-blue-600 underline">Terms & Conditions</a>.
+                    <p class="mt-1 text-[0.62rem] leading-relaxed text-gray-900">
+                      I agree to receive messages from Goal 850 about credit-related offers, including some from trusted third-party partners, by email, text, or phone (including automated messages). Msg & data rates may apply. I can opt out anytime. <a href="/terms" target="_blank" class="text-primary underline">Terms & Conditions</a>
+                    </p>
                   </Label>
                 </div>
 

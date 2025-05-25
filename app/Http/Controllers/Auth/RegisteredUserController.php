@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'tcpa' => 'required|accepted',
+            'tcpa' => 'accepted',
         ], [
             'phone.required' => 'Phone number is required.',
             'phone.numeric' => 'Phone number must be numeric.',
@@ -48,7 +48,6 @@ class RegisteredUserController extends Controller
             'email.unique' => 'This email is already registered.',
             'password.required' => 'Password is required.',
             'password.confirmed' => 'Passwords do not match.',
-            'tcpa.required' => 'You must accept the terms and conditions.',
             'tcpa.accepted' => 'You must accept the terms and conditions.',
 
         ]);

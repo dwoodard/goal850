@@ -101,6 +101,9 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 //     return Inertia::render('Notifications');
 // })->middleware('auth')->name('notifications');
 
+Route::get('/privacy', \App\Http\Controllers\PrivacyController::class)->name('privacy');
+Route::get('/terms', \App\Http\Controllers\TermsController::class)->name('terms');
+
 // API routes (fix this)
 Route::resource('api/user', UserController::class);
 
