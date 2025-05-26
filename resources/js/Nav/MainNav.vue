@@ -257,10 +257,21 @@
 
                       <NavigationMenuContent>
                         <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                          <!-- /podcast -->
+                          <li>
+                            <a href="/podcasts/">
+                              <div class="text-sm font-medium leading-none">All Episodes</div>
+
+                              <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                Browse all podcast episodes.
+                              </p>
+                            </a>
+                          </li>
+
                           <li>
                             <NavigationMenuLink as-child>
                               <a
-                                href="/podcast/latest"
+                                href="/podcasts/latest"
                                 class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Latest Episodes</div>
 
@@ -274,7 +285,7 @@
                           <li>
                             <NavigationMenuLink as-child>
                               <a
-                                href="/podcast/subscribe"
+                                href="/podcasts/subscribe"
                                 class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                                 <div class="text-sm font-medium leading-none">Subscribe</div>
 

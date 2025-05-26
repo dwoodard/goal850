@@ -101,6 +101,9 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 //     return Inertia::render('Notifications');
 // })->middleware('auth')->name('notifications');
 
+Route::resource('podcasts', \App\Http\Controllers\PodcastController::class);
+Route::get('/podcasts/latest', [\App\Http\Controllers\PodcastController::class, 'latest'])->name('podcasts.latest');
+
 // resources/faq
 Route::prefix('resources')->group(function () {
     Route::get('/faq', function () {
