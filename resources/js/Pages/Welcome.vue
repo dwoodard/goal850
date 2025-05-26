@@ -63,24 +63,26 @@ onMounted(() => {
     <section class=" bg-[#32383F]">
       <div class=" container ">
         <div class="bg-[url('/images/GLogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
-          <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
-            <div class="w-full lg:w-1/2">
-              <div class="">
+          <div class="grid grid-cols-1 gap-12 pt-12 sm:grid-cols-2">
+            <div class=" ">
+              <div class="grid grid-flow-row gap-3  ">
                 <div
                   v-motion
                   :initial="{ opacity: 0, x: -150 }"
                   :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
-                  :delay="100">
-                  <h2 class="mb-4 text-4xl font-bold text-white">
+                  :delay="100"
+                  class="flex flex-col items-start gap-2 lg:gap-6">
+                  <h2 class=" text-3xl font-bold text-white ">
                     <div>Monitor. Protect.</div>
                     <div>Build. Your credit.</div>
                   </h2>
-                  <p class="mb-4 text-2xl text-white">
+                  <p class=" text-xl text-white">
                     Access your free credit score. Track
                     your progress and get alerts. 100%
                     free, no strings attached.
                   </p>
                   <Link
+                    class="align-self-end "
                     as="button"
                     :href="route('register', { intent: 'privacy.scan' })">
                     <Button>
@@ -90,17 +92,16 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <div class="">
-              <div class="flex justify-center  lg:w-96 lg:justify-end">
-                <img
-                  v-motion
-                  :initial="{ opacity: 0, x: 150 }"
-                  :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
-                  :delay="100"
-                  src="images/GOAT-Mascot.png"
-                  alt="GOAT Mascot"
-                  class="mt-12 h-96  lg:-mt-20 lg:h-96">
-              </div>
+
+            <div class="flex items-center justify-center lg:justify-end">
+              <img
+                v-motion
+                :initial="{ opacity: 0, x: 150 }"
+                :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+                :delay="100"
+                src="images/GOAT-Mascot.png"
+                alt="GOAT Mascot"
+                class="mt-12 h-96  lg:-mt-20 lg:h-96">
             </div>
           </div>
         </div>
@@ -281,11 +282,10 @@ onMounted(() => {
           <!-- logo -->
         </div>
       </div>
+      <a id="pricing"/>
     </section>
 
     <section class="bg-[#32383F] py-32">
-      <a id="pricing"/>
-
       <div class="container mx-auto   px-4">
         <div class="flex flex-col justify-between gap-10 lg:flex-row">
           <!-- Left side: Heading and Testimonial -->
@@ -310,8 +310,14 @@ onMounted(() => {
           </div>
 
           <!-- Right side: Pricing Plans -->
-          <div class="flex flex-col  gap-8 lg:flex-row" >
-            <div class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
+          <div
+            class="flex flex-col  gap-8 lg:flex-row" >
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: -50 }"
+              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100' } }"
+              :delay="300"
+              class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
               <h3 class="mb-4 text-center text-xl font-semibold">
                 Privacy Protection
               </h3>
@@ -319,7 +325,6 @@ onMounted(() => {
               <div class="mb-4 flex items-center justify-between">
                 <div class="text-3xl font-bold">
                   $9<sup class="text-sm">99</sup>
-
                   <span class="text-base font-normal">/mo</span>
                 </div>
 
@@ -358,7 +363,12 @@ onMounted(() => {
               </ul>
             </div>
 
-            <div class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: -50 }"
+              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :delay="200"
+              class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
               <!-- MOST POPULAR Badge floating above -->
               <div class="absolute inset-x-0 top-0">
                 <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-[.6em] text-white">
