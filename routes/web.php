@@ -101,6 +101,26 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 //     return Inertia::render('Notifications');
 // })->middleware('auth')->name('notifications');
 
+// resources/faq
+Route::prefix('resources')->group(function () {
+    Route::get('/faq', function () {
+        return Inertia::render('Faq/Index');
+    })->name('faq.index');
+});
+
+// education
+Route::prefix('education')->group(function () {
+    // tutorials
+    Route::get('/tutorials', function () {
+        return Inertia::render('Education/Tutorials');
+    })->name('education.tutorials');
+    // webinars
+    Route::get('/webinars', function () {
+        return Inertia::render('Education/Webinars');
+    })->name('education.webinars');
+
+});
+
 Route::get('/privacy', \App\Http\Controllers\PrivacyController::class)->name('privacy');
 Route::get('/terms', \App\Http\Controllers\TermsController::class)->name('terms');
 
