@@ -82,7 +82,7 @@ class RegistrationWizardController extends Controller
     private function createArrayUser($user, $dob, $ssn)
     {
 
-        $arrayUrl = env('APP_ENV') === 'local' ? 'https://sandbox.array.io' : env('ARRAY_API_URL');
+        $arrayUrl = config('array.api_url');
 
         $response = Http::withHeaders([
             'accept' => 'application/json',
@@ -96,8 +96,6 @@ class RegistrationWizardController extends Controller
             'emailAddress' => $user->email,
             'phoneNumber' => $user->phone,
         ]);
-
-        
 
         return $response;
     }

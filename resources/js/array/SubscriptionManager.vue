@@ -3,7 +3,7 @@
     <array-subscription-manager
       :appKey="props?.array?.appKey"
       :userToken="props?.user?.array_user_token"
-      :apiUrl="props?.array?.apiUrl"
+      :apiUrl="props?.array?.apiComponentUrl"
       :sandbox="props?.array?.sandbox"
       provider="plaid"
       mode="premium"/>

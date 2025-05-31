@@ -48,6 +48,7 @@ class HandleInertiaRequests extends Middleware
             'array' => [
                 'appKey' => env('ARRAY_APP_KEY'),
                 'apiUrl' => env('ARRAY_API_URL'),
+                'apiComponentUrl' => env('ARRAY_COMPONENT_URL'),
                 'sandbox' => env('ARRAY_SANDBOX', app()->isLocal()),
             ],
 
