@@ -1,7 +1,10 @@
 import { onMounted } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 
 export function useArrayScripts(componentName) {
-  const key = import.meta.env.VITE_ARRAY_APP_KEY
+  const page = usePage()
+  const appKey = page.props.array.appKey
+
   function load(src) {
     if (!document.querySelector(`script[src="${src}"]`)) {
       const s = document.createElement('script')
@@ -11,7 +14,7 @@ export function useArrayScripts(componentName) {
   }
   onMounted(() => {
     const base = 'https://embed.array.io/cms'
-    load(`${base}/array-web-component.js?appKey=${key}`)
-    load(`${base}/array-${componentName}.js?appKey=${key}`)
+    load(`${base}/array-web-component.js?appKey=${appKey}`)
+    load(`${base}/array-${componentName}.js?appKey=${appKey}`)
   })
 }
