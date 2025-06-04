@@ -47,7 +47,11 @@ class RegistrationWizardController extends Controller
         $response = $this->createArrayUser(
             $user,
             $data['dob'],
-            $data['ssn']
+            $data['ssn'],
+            $data['street'],
+            $data['city'],
+            $data['state'],
+            $data['zip']
         );
 
         if (! $response->successful()) {
@@ -81,9 +85,8 @@ class RegistrationWizardController extends Controller
     }
 
     // createArrayUser function
-    private function createArrayUser($user, $dob, $ssn)
+    private function createArrayUser($user, $dob, $ssn, $street, $city, $state, $zip)
     {
-
         $arrayUrl = config('array.api_url');
 
         $response = Http::withHeaders([
@@ -93,6 +96,12 @@ class RegistrationWizardController extends Controller
             'appKey' => env('ARRAY_APP_KEY'),
             'dob' => $dob,
             'ssn' => $ssn,
+            'address' => [
+                'street' => $street,
+                'city' => $city,
+                'state' => $state,
+                'zip' => $zip,
+            ],
             'firstName' => $user->first_name,
             'lastName' => $user->last_name,
             'emailAddress' => $user->email,

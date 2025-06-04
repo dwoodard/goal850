@@ -23,6 +23,26 @@ class RegistrationRequest extends FormRequest
                 'string',
                 'size:9',
             ],
+            'street' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'city' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'state' => [
+                'required',
+                'string',
+                'size:2',
+            ],
+            'zip' => [
+                'required',
+                'string',
+                'size:5',
+            ],
         ];
     }
 
