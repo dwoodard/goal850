@@ -43,13 +43,17 @@ class ArrayTokenCheck
         $response = Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json',
-            'x-array-user-token' => $user->array_user_token,
+            'x-array-server-token' => config('array.api_token'),
         ])
             ->post(config('array.api_url').'/api/authenticate/v2/usertoken', [
                 'appKey' => config('array.app_key'),
                 'userId' => $user->array_user_id,
-                'ttlInMinutes' => 3306,
+                'ttlInMinutes' => 60,
             ]);
+
+        dd(
+            $response->json()
+        );
 
         $token = $response->json('userToken');
 
