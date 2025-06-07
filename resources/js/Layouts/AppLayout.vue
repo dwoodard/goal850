@@ -23,7 +23,7 @@ const openPodcast = ref(false)
 
   <div>
     <!-- <PodcastPlayer v-show="openPodcast" /> -->
-    <LeadConnectorWidget v-if="false" />
+    <LeadConnectorWidget v-if="true" />
   </div>
 
   <!-- <SidebarProvider :default-open="openSidebar">

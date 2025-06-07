@@ -76,7 +76,7 @@ function submit() {
     <Head title="Register" />
 
     <div
-      class="mx-auto flex max-w-2xl flex-col gap-5 py-5">
+      class="mx-auto flex max-w-6xl flex-col gap-5 py-5">
       <div class="flex justify-between">
         <Link :href="route('welcome')">
           <ApplicationLogo variant="icon"/>
@@ -87,13 +87,11 @@ function submit() {
         </Link>
       </div>
 
-      <p class="text-center leading-relaxed text-gray-500">
-        Enter your info and choose your plan.
-      </p>
-
       <div class="rounded-lg p-8 shadow-lg">
         <form class="mt-10" @submit.prevent="submit">
-          <span class="text-lg font-bold" v-text="stepper.current.value.title" />
+          <!-- <div class="mb-6 flex justify-center">
+            <span class="text-lg font-bold" v-text="stepper.current.value.title" />
+          </div> -->
 
           <div class="mt-2 flex flex-col justify-center gap-2">
             <div v-if="stepper.isCurrent('user-information')">

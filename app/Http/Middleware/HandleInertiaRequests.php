@@ -52,6 +52,15 @@ class HandleInertiaRequests extends Middleware
                 'sandbox' => env('ARRAY_SANDBOX', app()->isLocal()),
             ],
 
+            'stripe' => [
+                'publishableKey' => config('stripe.publishable_key'),
+                'pricingTableId' => config('stripe.pricing_table_id'),
+                'plans' => [
+                    'privacy_credit_monitoring' => config('stripe.plans.privacy_credit_monitoring'),
+                    'full_protection' => config('stripe.plans.full_protection'),
+                ],
+            ],
+
             'appEnv' => app()->environment(),
         ];
     }

@@ -62,6 +62,8 @@ class RegisteredUserController extends Controller
         }
 
         $user = User::create($data);
+        // refresh user in database
+        $user->refresh();
         Auth::login($user);
         $this->createGoHighLevelContact($user);
 
@@ -74,8 +76,7 @@ class RegisteredUserController extends Controller
         // Redirect back to the register page with props for the pricing table
         return Inertia::render('Auth/Register', [
             'showPricingTable' => true,
-            'userEmail' => $user->email,
-            'userId' => $user->id,
+            'user' => $user,
             'status' => 'Registration successful! Please select a plan.',
         ]);
 
