@@ -88,11 +88,7 @@ class RegistrationWizardController extends Controller
     private function createArrayUser($user, $dob, $ssn, $street, $city, $state, $zip)
     {
         $arrayUrl = config('array.api_url');
-
-        $response = Http::withHeaders([
-            'accept' => 'application/json',
-            'content-type' => 'application/json',
-        ])->post($arrayUrl.'/api/user/v2', [
+        $data = [
             'appKey' => env('ARRAY_APP_KEY'),
             'dob' => $dob,
             'ssn' => $ssn,
@@ -106,7 +102,20 @@ class RegistrationWizardController extends Controller
             'lastName' => $user->last_name,
             'emailAddress' => $user->email,
             'phoneNumber' => $user->phone,
-        ]);
+        ];
+
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ])->post($arrayUrl.'/api/user/v2', $data);
+
+        if ($response->failed()) {
+            \Illuminate\Support\Facades\Log::error('Array API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'data' => $data,
+            ]);
+        }
 
         return $response;
     }

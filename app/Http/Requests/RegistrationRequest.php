@@ -26,7 +26,6 @@ class RegistrationRequest extends FormRequest
             'street' => [
                 'required',
                 'string',
-                'max:255',
             ],
             'city' => [
                 'required',
