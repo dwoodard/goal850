@@ -51,10 +51,6 @@ class ArrayTokenCheck
                 'ttlInMinutes' => 60,
             ]);
 
-        dd(
-            $response->json()
-        );
-
         $token = $response->json('userToken');
 
         if ($token) {
