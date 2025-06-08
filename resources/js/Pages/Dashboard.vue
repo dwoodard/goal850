@@ -82,7 +82,7 @@ defineProps({
         </Link>
 
         <!-- Credit Score Details -->
-        <Link :href="route('credit.score.details')">
+        <!-- <Link :href="route('credit.score.details')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -98,10 +98,10 @@ defineProps({
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!-- Credit Protection -->
-        <Link :href="route('credit.protection')">
+        <!-- <Link :href="route('credit.protection')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -117,7 +117,7 @@ defineProps({
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!-- Credit Debt Analysis -->
         <Link :href="route('credit.debt.analysis')">
@@ -177,7 +177,7 @@ defineProps({
         </Link>
 
         <!--Credit Score Coach -->
-        <Link :href="route('credit.score.coach')">
+        <!-- <Link :href="route('credit.score.coach')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -193,7 +193,7 @@ defineProps({
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!--Credit Score Tracker -->
         <Link :href="route('credit.score')">
@@ -272,7 +272,7 @@ defineProps({
         </Link>
 
         <!--Subscription Manager -->
-        <Link :href="route('subscription.manager')">
+        <!-- <Link :href="route('subscription.manager')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -288,7 +288,8 @@ defineProps({
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
+
         <!--Privacy Scan -->
         <Link :href="route('privacy.scan')">
           <Card class="transition-shadow duration-300 hover:border-primary">
