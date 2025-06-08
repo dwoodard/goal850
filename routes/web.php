@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdentityProtectController;
 use App\Http\Controllers\NeighborhoodWatchController;
 use App\Http\Controllers\PipScanController;
+use App\Http\Controllers\PipStandaloneController;
 use App\Http\Controllers\PrivacyScanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationWizardController;
@@ -64,6 +65,7 @@ Route::middleware([
     Route::get('/subscription-manager', [SubscriptionManagerController::class, 'index'])->name('subscription.manager');
     Route::get('/student-loan-navigator', [StudentLoanNavigatorController::class, 'index'])->name('student.loan.navigator');
     Route::get('/pip-scan', [PipScanController::class, 'index'])->name('pip.scan');
+    Route::get('/pip-standalone', [PipStandaloneController::class, 'index'])->name('pip.standalone');
 
 });
 

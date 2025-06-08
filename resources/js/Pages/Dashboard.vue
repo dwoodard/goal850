@@ -310,7 +310,7 @@ defineProps({
         </Link>
 
         <!--Personal Info Protection -->
-        <Link :href="route('pip.scan')">
+        <!-- <Link :href="route('pip.scan')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -326,7 +326,7 @@ defineProps({
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!--Student Loan Navigator -->
         <!-- <Link :href="route('student.loan.navigator')">

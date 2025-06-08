@@ -1,6 +1,8 @@
 <script setup>
+
 import PipDashboard from '@/array/PipDashboard.vue'
 import PipMarketing from '@/array/PipMarketing.vue'
+import PipStandalone from '@/array/PipStandalone.vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
 import { usePage } from '@inertiajs/vue3'
@@ -34,7 +36,7 @@ const { props } = usePage()
 
     <section
 
-      class="relative overflow-hidden bg-white ">
+      class="relative">
       <div class="py-16 text-center">
         <div v-if="props.user.is_subscribed" class="mt-8">
           <PipDashboard />
