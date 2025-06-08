@@ -3,6 +3,9 @@ import PipDashboard from '@/array/PipDashboard.vue'
 import PipMarketing from '@/array/PipMarketing.vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
+
+const { props } = usePage()
 
 </script>
 
@@ -33,7 +36,7 @@ import { Head } from '@inertiajs/vue3'
 
       class="relative overflow-hidden bg-white ">
       <div class="py-16 text-center">
-        <div v-if="has_stripe_id" class="mt-8">
+        <div v-if="props.user.is_subscribed" class="mt-8">
           <PipDashboard />
         </div>
 
