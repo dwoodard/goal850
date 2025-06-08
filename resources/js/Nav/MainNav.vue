@@ -19,193 +19,43 @@
           <div class="flex flex-wrap items-center">
             <div class="hidden w-auto  lg:block">
               <!-- Guest Menu -->
-              <ul v-if="!$page.props.user" class="flex items-center space-x-8 ">
+              <ul v-if="!$page.props.user" class="flex items-center space-x-8">
                 <NavigationMenu>
                   <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Pricing</NavigationMenuTrigger>
+                    <template v-for="section in visibleNavItems">
+                      <NavigationMenuItem
+                        v-if="section.children.length === 1 && section.children[0].asButton"
+                        :key="section.children[0].name">
+                        <Link :href="routeOrPath(section.children[0].route)">
+                          <Button>{{ section.children[0].name }}</Button>
+                        </Link>
+                      </NavigationMenuItem>
 
-                      <NavigationMenuContent>
-                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[minmax(0,.75fr)_minmax(0,1fr)]">
-                          <li class="row-span-3">
-                            <NavigationMenuLink as-child>
-                              <a
-                                class="flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                href="/#pricing">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="32"
-                                  height="32"
-                                  viewBox="0 0 24 24">
-                                  <!-- Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE --><g
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8m4 2V6"/>
-                                  </g>
-                                </svg>
+                      <!-- Normal dropdown -->
+                      <NavigationMenuItem
+                        v-else
+                        :key="section.title || section.children[0]?.name">
+                        <NavigationMenuTrigger>{{ section.title || 'Menu' }}</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                            <li v-for="item in section.children" :key="item.name">
+                              <NavigationMenuLink as-child>
+                                <Link
+                                  :href="routeOrPath(item.route)"
+                                  :class="[
+                                    'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent focus:bg-accent',
 
-                                <div class="mb-2 mt-4 text-lg font-medium">
-                                  Pricing Details
-                                </div>
-
-                                <p class="text-sm leading-tight text-muted-foreground">
-                                  Explore our pricing plans and find the best fit for your needs.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="#pricing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                @click.prevent="scrollTo($event)">
-                                <div class="text-sm font-medium leading-none">
-                                  Monthly Plan
-                                </div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Flexible monthly subscription for short-term needs.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="#pricing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                @click.prevent="scrollTo($event)">
-                                <div class="text-sm font-medium leading-none">Yearly Plan</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Save more with an annual subscription.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-
-                      <NavigationMenuContent>
-                        <ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/products/product1"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Product 1</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Description of Product 1.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/products/product2"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Product 2</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Description of Product 2.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Education</NavigationMenuTrigger>
-
-                      <NavigationMenuContent>
-                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/education/tutorials"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Tutorials</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Step-by-step guides to help you get started.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/education/webinars"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Webinars</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Join live sessions with experts.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-
-                      <NavigationMenuContent>
-                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/resources/blog"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Blog</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Read our latest articles and updates.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/resources/faq"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">FAQ</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Frequently asked questions.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <Link :href="route('login')">
-                        <Button>Secure Log In</Button>
-                      </Link>
-                    </NavigationMenuItem>
+                                  ]">
+                                  <div class="text-sm font-medium leading-none">
+                                    {{ item.name }}
+                                  </div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    </template>
                   </NavigationMenuList>
                 </NavigationMenu>
               </ul>
@@ -214,303 +64,28 @@
               <ul v-if="$page.props.user" class="flex items-center space-x-8">
                 <NavigationMenu>
                   <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Dashboard</NavigationMenuTrigger>
-
+                    <NavigationMenuItem
+                      v-for="section in visibleNavItems"
+                      :key="section.title || section.children[0]?.name">
+                      <NavigationMenuTrigger>{{ section.title || 'Menu' }}</NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                          <li>
+                          <li v-for="item in section.children" :key="item.name">
                             <NavigationMenuLink as-child>
                               <Link
-                                href="/dashboard/overview"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                :href="routeOrPath(item.route)"
+                                :class="[
+                                  'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent focus:bg-accent',
+                                  { 'bg-gray-100': isActive(item.route) }
+                                ]">
                                 <div class="text-sm font-medium leading-none">
-                                  Overview
+                                  {{ item.name }}
+
+                                  <div class="text-xs text-gray-500">
+                                    {{ item.description }}
+                                  </div>
                                 </div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  View your dashboard overview and recent activity.
-                                </p>
                               </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <!--  -->
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.report')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Credit Report
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  View your credit report details
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.debt.analysis')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Debt Analysis
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Analyze your credit and debt information
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.score.insights')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Score Factors
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Get insights into your credit score trends
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.score.simulator')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Score Simulator
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Simulate changes to your credit score
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.score')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Score Tracker
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Track your credit score over time
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.alerts')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Credit Monitoring
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Receive alerts for credit changes
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('credit.protection')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Identity Protection
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Protect your identity and personal information
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('neighborhood.watch')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Neighborhood Watch
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Monitor your neighborhood for safety
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('privacy.scan')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Privacy Scan
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Scan for privacy risks and vulnerabilities
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('pip.scan')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Personal Info Protection
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Remove your personal info from risky sites and monitor for threats.
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <!-- <li>
-                            <NavigationMenuLink as-child>
-                              <Link
-                                :href="route('pip.standalone')"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">
-                                  Personal Info Protection (Standalone)
-                                </div>
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Remove your personal info from risky sites and monitor for threats.
-                                </p>
-                              </Link>
-                            </NavigationMenuLink>
-                          </li> -->
-
-                          <!--  -->
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem v-if="false">
-                      <NavigationMenuTrigger>Podcast</NavigationMenuTrigger>
-
-                      <NavigationMenuContent>
-                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                          <!-- /podcast -->
-                          <li>
-                            <a href="/podcasts/">
-                              <div class="text-sm font-medium leading-none">All Episodes</div>
-
-                              <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                Browse all podcast episodes.
-                              </p>
-                            </a>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/podcasts/latest"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Latest Episodes</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Listen to the latest podcast episodes.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/podcasts/subscribe"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Subscribe</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Stay updated with new episodes.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Account</NavigationMenuTrigger>
-
-                      <NavigationMenuContent>
-                        <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/profile"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Profile</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Edit your profile information.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/billing"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Billing</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Manage your billing and subscriptions.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-
-                          <!-- <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/dashboard/settings"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Settings</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Manage your account and preferences.
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li> -->
-
-                          <li>
-                            <NavigationMenuLink as-child>
-                              <a
-                                href="/logout"
-                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Logout</div>
-
-                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Sign out of your account.
-                                </p>
-                              </a>
                             </NavigationMenuLink>
                           </li>
                         </ul>
@@ -521,12 +96,67 @@
               </ul>
             </div>
 
-            <div class="hidden w-auto lg:block"/>
-
             <div class="w-auto lg:hidden">
-              <button @click="toggleSidebar">
-                <MenuIcon />
-              </button>
+              <Sheet>
+                <SheetTrigger as-child>
+                  <Button variant="outline">
+                    <MenuIcon />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <!-- mobile menu -->
+                  <Accordion
+                    type="single"
+                    collapsible
+                    class="">
+                    <div
+                      class="">
+                      <!-- Render regular dropdowns -->
+                      <AccordionItem
+                        v-for="section in navItems.filter(i => i.show !== false && !(i.children.length === 1 && i.children[0].asButton))"
+                        :key="section.title || section.children[0]?.name"
+                        :value="(section.title || section.children[0]?.name).toLowerCase()">
+                        <AccordionTrigger class="w-full text-left font-semibold text-gray-900">
+                          {{ section.title || 'Menu' }}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div
+                            v-for="item in section.children"
+                            :key="item.name"
+                            class="relative rounded-lg p-4 hover:bg-gray-50">
+                            <Link
+                              :href="routeOrPath(item.route)"
+                              :class="[
+                                'block font-semibold text-gray-900'
+                              ]">
+                              {{ item.name }}
+                              <span class="absolute inset-0"/>
+                            </Link>
+                            <p class="mt-1 text-gray-600">
+                              {{ item.description }}
+                            </p>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <!-- Render button-style item(s) -->
+                      <div
+                        v-for="section in navItems.filter(i =>
+                          i.show !== false &&
+                          i.children.length === 1 &&
+                          i.children[0].asButton)"
+                        :key="'button-' + section.children[0].name"
+                        class="mt-4">
+                        <Link :href="routeOrPath(section.children[0].route)">
+                          <Button class="w-full">
+                            {{ section.children[0].name }}
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </Accordion>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
@@ -539,31 +169,36 @@
 import Button from '@/components/ui/button/Button.vue'
 import { MenuIcon } from 'lucide-vue-next'
 import { Link } from '@inertiajs/vue3'
-// import { useSidebar } from '@/components/ui/sidebar'
 
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
 // Navigation Menu
-import NavigationMenu from '@/components/ui/navigation-menu/NavigationMenu.vue'
-import NavigationMenuList from '@/components/ui/navigation-menu/NavigationMenuList.vue'
-import NavigationMenuItem from '@/components/ui/navigation-menu/NavigationMenuItem.vue'
-import NavigationMenuTrigger from '@/components/ui/navigation-menu/NavigationMenuTrigger.vue'
-import NavigationMenuContent from '@/components/ui/navigation-menu/NavigationMenuContent.vue'
-import NavigationMenuLink from '@/components/ui/navigation-menu/NavigationMenuLink.vue'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger
+} from '@/components/ui/navigation-menu'
+
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger
+} from '@/components/ui/sheet'
+import Accordion from '@/components/ui/accordion/Accordion.vue'
+import AccordionItem from '@/components/ui/accordion/AccordionItem.vue'
+import AccordionTrigger from '@/components/ui/accordion/AccordionTrigger.vue'
+import AccordionContent from '@/components/ui/accordion/AccordionContent.vue'
 
 // -----------------------------------------------------------------------------
-// const { toggleSidebar } = useSidebar()
 const openPodcast = ref(false)
 const $page = usePage()
-
-const UserInitials = computed(() => {
-  if ($page.props.user) {
-    return $page.props.user.first_name.charAt(0) + $page.props.user.last_name.charAt(0)
-  }
-  return ''
-})
+const isLoggedIn = !!$page.props.user
+const isActive = (path) => $page.url === routeOrPath(path)
 
 const scrollTo = (event) => {
   event.preventDefault()
@@ -580,6 +215,92 @@ const scrollTo = (event) => {
   if (targetElement) {
     targetElement.scrollIntoView({ behavior: 'smooth' })
   }
+}
+// -----------------------------------------------------------------------------
+
+const visibleNavItems = computed(() =>
+  navigationItems(!!$page.props.user).filter(i => i.show !== false)
+)
+
+// 🧮 Navigation structure
+const navigationItems = ( isLoggedIn = false ) => [
+  {
+    title: 'My Credit',
+    show: isLoggedIn,
+    children: [
+      { name: 'Dashboard', route: 'dashboard.overview', description: 'View your dashboard' },
+      { name: 'Credit Report', route: 'credit.report', description: 'View your credit report' },
+      { name: 'Debt Analysis', route: 'credit.debt.analysis', description: 'Analyze your debt' },
+      { name: 'Score Factors', route: 'credit.score.insights', description: 'View factors affecting your score' },
+      { name: 'Score Simulator', route: 'credit.score.simulator', description: 'Simulate your credit score' },
+      { name: 'Score Tracker', route: 'credit.score', description: 'Track your credit score' },
+      { name: 'Credit Monitoring', route: 'credit.alerts', description: 'Monitor your credit' },
+      { name: 'Identity Protection', route: 'credit.protection', description: 'Protect your identity' },
+      { name: 'Neighborhood Watch', route: 'neighborhood.watch', description: 'Watch your neighborhood' }
+      // { name: 'Privacy Scan', route: 'privacy.scan',  },
+      // { name: 'Personal Info Protection', route: 'pip.scan',  }
+    ]
+  },
+  {
+    title: 'Account',
+    show: isLoggedIn,
+    children: [
+      { name: 'Profile', route: '/profile' },
+      { name: 'Billing', route: '/billing' },
+      { name: 'Logout', route: '/logout' }
+    ]
+  },
+  {
+    title: 'Pricing',
+    show: !isLoggedIn,
+    children: [
+      { name: 'Pricing Details', route: '/#pricing' },
+      { name: 'Monthly Plan', route: '/#pricing' },
+      { name: 'Yearly Plan', route: '/#pricing' }
+    ]
+  },
+  {
+    title: 'Products',
+    show: false,
+    children: [
+      { name: 'Product 1', route: '/products/product1' },
+      { name: 'Product 2', route: '/products/product2' }
+    ]
+  },
+  {
+    title: 'Education',
+    show: !isLoggedIn,
+    children: [
+      { name: 'Tutorials', route: '/education/tutorials' },
+      { name: 'Webinars', route: '/education/webinars' }
+    ]
+  },
+  {
+    title: 'Resources',
+    show: !isLoggedIn,
+    children: [
+      { name: 'Blog', route: '/resources/blog' },
+      { name: 'FAQ', route: '/resources/faq' }
+    ]
+  },
+  {
+    title: '',
+    show: !isLoggedIn,
+    children: [
+      {
+        name: 'Secure Log In',
+        route: 'login' ,
+        asButton: true
+      }
+    ]
+  }
+]
+
+const navItems = navigationItems(isLoggedIn)
+
+const routeOrPath = (r) => {
+  if (!r) return '#'
+  return r.startsWith('/') || r.startsWith('#') ? r : route(r)
 }
 
 </script>
