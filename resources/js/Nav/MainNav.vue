@@ -376,7 +376,7 @@
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
-                    <NavigationMenuItem>
+                    <NavigationMenuItem v-if="false">
                       <NavigationMenuTrigger>Podcast</NavigationMenuTrigger>
 
                       <NavigationMenuContent>
