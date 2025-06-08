@@ -221,18 +221,21 @@
                         <ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                           <li>
                             <NavigationMenuLink as-child>
-                              <a
+                              <Link
                                 href="/dashboard/overview"
                                 class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                                <div class="text-sm font-medium leading-none">Overview</div>
+                                <div class="text-sm font-medium leading-none">
+                                  Overview
+                                </div>
 
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                   View your dashboard overview and recent activity.
                                 </p>
-                              </a>
+                              </Link>
                             </NavigationMenuLink>
                           </li>
 
+                          <!--  -->
                           <li>
                             <NavigationMenuLink as-child>
                               <Link
@@ -241,13 +244,134 @@
                                 <div class="text-sm font-medium leading-none">
                                   Credit Report
                                 </div>
-
                                 <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                  Access your credit report details and insights.
+                                  View your credit report details
                                 </p>
                               </Link>
                             </NavigationMenuLink>
                           </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.debt.analysis')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Debt Analysis
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Analyze your credit and debt information
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.score.insights')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Score Factors
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Get insights into your credit score trends
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.score.simulator')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Score Simulator
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Simulate changes to your credit score
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.score')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Score Tracker
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Track your credit score over time
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.alerts')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Credit Monitoring
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Receive alerts for credit changes
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('credit.protection')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Identity Protection
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Protect your identity and personal information
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('neighborhood.watch')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Neighborhood Watch
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Monitor your neighborhood for safety
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <li>
+                            <NavigationMenuLink as-child>
+                              <Link
+                                :href="route('privacy.scan')"
+                                class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                                <div class="text-sm font-medium leading-none">
+                                  Privacy Scan
+                                </div>
+                                <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  Scan for privacy risks and vulnerabilities
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+
+                          <!--  -->
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
