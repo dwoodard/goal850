@@ -14,6 +14,12 @@ const page = usePage()
   <Head title="Billing" />
 
   <AppLayout>
+    <StripeTable
+      v-if="!page.props.user.is_subscribed"
+      :email="page.props.user.email"
+      :phone="page.props.user.phone"
+      :stripe="page.props.stripe"/>
+
     <div class="my-8 flex justify-center">
       <div class="flex w-full max-w-lg flex-col items-center rounded-xl p-8 shadow-lg">
         <h2 class="mb-4 text-2xl font-bold text-gray-800">
