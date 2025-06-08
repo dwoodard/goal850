@@ -309,6 +309,25 @@ defineProps({
           </Card>
         </Link>
 
+        <!--Personal Info Protection -->
+        <Link :href="route('pip.scan')">
+          <Card class="transition-shadow duration-300 hover:border-primary">
+            <div class="flex justify-between">
+              <div class="flex w-1/3  items-center justify-center">
+                <FileTextIcon class="size-12 text-gray-500" />
+              </div>
+              <CardHeader  class="w-2/3">
+                <CardTitle>
+                  Personal Info Protection
+                </CardTitle>
+                <CardDescription>
+                  Remove your personal info from risky sites and monitor for threats.
+                </CardDescription>
+              </CardHeader>
+            </div>
+          </Card>
+        </Link>
+
         <!--Student Loan Navigator -->
         <!-- <Link :href="route('student.loan.navigator')">
           <Card class="transition-shadow duration-300 hover:border-primary">
