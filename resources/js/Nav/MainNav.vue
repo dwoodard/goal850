@@ -103,7 +103,8 @@
                     <MenuIcon />
                   </Button>
                 </SheetTrigger>
-                <SheetContent>
+                <SheetContent
+                  class="max-h-[100vh] overflow-y-auto">
                   <!-- mobile menu -->
                   <Accordion
                     type="single"
