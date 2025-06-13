@@ -126,4 +126,13 @@ class User extends Authenticatable
                $this->hasCompletedArrayUser() &&
                $this->hasCompletedArrayUserToken();
     }
+
+    // plan()
+    public function plans(): ?array
+    {
+        return $this->subscriptions()
+            ->where('stripe_status', 'active')
+            ->first()
+            ?->only(['stripe_plan', 'stripe_price']);
+    }
 }

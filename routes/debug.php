@@ -22,6 +22,7 @@ if (app()->environment('local')) {
                 'success' => true,
                 'count' => count($products->data),
                 'products' => $products->data,
+                'stripe_config' => config('stripe'),
             ];
         } catch (\Exception $e) {
             return [
@@ -31,6 +32,108 @@ if (app()->environment('local')) {
                     'stripe_secret_configured' => ! empty(config('cashier.secret')),
                     'stripe_key_configured' => ! empty(config('cashier.key')),
                 ],
+            ];
+        }
+    });
+
+    Route::get('/debug/user-plan', function () {
+        try {
+            // Set the Stripe API key using Cashier's configuration
+            \Stripe\Stripe::setApiKey(config('cashier.secret'));
+
+            // Check what users we have
+            $allUsers = \App\Models\User::select('id', 'email', 'stripe_id')->get();
+            $userWithStripe = \App\Models\User::whereNotNull('stripe_id')->first();
+
+            if (! $userWithStripe) {
+                // Let's create a test stripe customer for the first user
+                $firstUser = \App\Models\User::first();
+
+                if ($firstUser && ! $firstUser->stripe_id) {
+                    // Create a Stripe customer for testing
+                    $customer = \Stripe\Customer::create([
+                        'email' => $firstUser->email,
+                        'name' => trim($firstUser->first_name.' '.$firstUser->last_name),
+                        'metadata' => [
+                            'user_id' => $firstUser->id,
+                        ],
+                    ]);
+
+                    // Update the user with the stripe_id
+                    $firstUser->update(['stripe_id' => $customer->id]);
+
+                    dd([
+                        'action' => 'Created Stripe customer for testing',
+                        'user_id' => $firstUser->id,
+                        'user_email' => $firstUser->email,
+                        'stripe_id' => $customer->id,
+                        'all_users' => $allUsers,
+                        'next_step' => 'Now visit this route again to test the plans() method',
+                    ]);
+                }
+
+                return [
+                    'success' => false,
+                    'error' => 'No users found and could not create test user',
+                    'all_users' => $allUsers,
+                ];
+            }
+
+            // Test the plans() method with a user that has stripe_id
+            dd([
+                'user_id' => $userWithStripe->id,
+                'user_email' => $userWithStripe->email,
+                'stripe_id' => $userWithStripe->stripe_id,
+                'plans_method_result' => $userWithStripe->plans(),
+                'subscriptions_count' => $userWithStripe->subscriptions()->count(),
+                'subscriptions_raw' => $userWithStripe->subscriptions()->get(),
+                'all_users' => $allUsers,
+            ]);
+
+            // Get the first user with a stripe_id
+            $user = \App\Models\User::whereNotNull('stripe_id')->first();
+
+            if (! $user) {
+                return [
+                    'success' => false,
+                    'error' => 'No users found with stripe_id',
+                ];
+            }
+
+            // Test the plan() method (corrected from plans() to plan())
+            $planData = $user->plans();
+
+            return [
+                'success' => true,
+                'user_id' => $user->id,
+                'user_email' => $user->email,
+                'plan_data' => $planData,
+                'all_subscriptions' => $user->subscriptions()->get()->map(function ($subscription) {
+                    return [
+                        'id' => $subscription->id,
+                        'stripe_id' => $subscription->stripe_id,
+                        'stripe_status' => $subscription->stripe_status,
+                        'stripe_plan' => $subscription->stripe_plan,
+                        'stripe_price' => $subscription->stripe_price,
+                        'quantity' => $subscription->quantity,
+                        'trial_ends_at' => $subscription->trial_ends_at,
+                        'ends_at' => $subscription->ends_at,
+                        'created_at' => $subscription->created_at,
+                        'updated_at' => $subscription->updated_at,
+                    ];
+                }),
+                'has_stripe_id' => ! empty($user->stripe_id),
+                'stripe_id' => $user->stripe_id,
+                'subscription_methods' => [
+                    'subscribed_default' => $user->subscribed(),
+                    'has_completed_stripe' => $user->hasCompletedStripe(),
+                ],
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ];
         }
     });
