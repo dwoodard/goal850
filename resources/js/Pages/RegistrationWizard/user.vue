@@ -81,15 +81,7 @@
         <div>
           <label for="state" class="block text-sm font-medium text-gray-700">State:</label>
 
-          <Input
-            id="state"
-            v-model="form.state"
-            type="text"
-            maxlength="2"
-            placeholder="CA"
-            required
-
-            @change="submit"/>
+          <StateSelector v-model="form.state" required @update:model-value="submit" />
 
           <div v-if="form.errors.state" class="mt-2 text-sm text-red-500">
             {{ form.errors.state }}
@@ -129,6 +121,8 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import StateSelector from '@/components/StateSelector.vue'
+
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { useForm } from '@inertiajs/vue3'
 

@@ -129,12 +129,25 @@ class User extends Authenticatable
     }
 
     // plan()
-    public function plans(): ?array
+    public function plans()
     {
         return $this->subscriptions()
-            ->where('stripe_status', 'active')
-            ->first()
-            ?->only(['stripe_plan', 'stripe_price']);
+            ->where('stripe_status', 'active');
+    }
+
+    public function getStripeProductIds(): array
+    {
+        return $this->subscriptions()
+            ->active()
+            ->with('items') // eager-load items
+            ->get()
+            ->flatMap(function ($subscription) {
+                return $subscription->items->pluck('stripe_product');
+            })
+            ->unique()
+            ->filter()
+            ->values()
+            ->toArray();
     }
 
     public function refreshArrayToken(): ?string
@@ -158,5 +171,35 @@ class User extends Authenticatable
         }
 
         return $token;
+    }
+
+    public function enrollInArrayProducts(): void
+    {
+        $productIds = $this->getStripeProductIds(); // returns Stripe product_ids
+        $plans = Plan::whereIn('stripe_product_id', $productIds)->get();
+
+        $enrollmentCodes = $plans->pluck('array_products')->flatten()->unique();
+        // log out the enrollment code
+        Log::info("User {$this->id} - Enrolling in array products", [
+            'products' => $this->getStripeProductIds(),
+            'array_products' => $this->getArrayProductIdsFromStripe(),
+        ]);
+
+        foreach ($enrollmentCodes as $code) {
+
+            Log::info('Posting to Array API', [
+                'userId' => $this->array_user_id,
+                'enrollmentCode' => $code,
+            ]);
+
+            Http::withHeaders([
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+                'x-array-server-token' => config('array.api_token'),
+            ])->post(config('array.api_url').'/api/monitoring/v2', [
+                'userId' => $this->array_user_id,
+                'enrollmentCode' => $code,
+            ]);
+        }
     }
 }

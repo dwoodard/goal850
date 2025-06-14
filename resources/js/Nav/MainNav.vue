@@ -109,6 +109,7 @@
                   <Accordion
                     type="single"
                     collapsible
+                    :default-value="defaultOpenSection"
                     class="">
                     <div
                       class="">
@@ -196,12 +197,12 @@ import AccordionTrigger from '@/components/ui/accordion/AccordionTrigger.vue'
 import AccordionContent from '@/components/ui/accordion/AccordionContent.vue'
 
 // -----------------------------------------------------------------------------
-const openPodcast = ref(false)
+const _openPodcast = ref(false)
 const $page = usePage()
 const isLoggedIn = !!$page.props.user
 const isActive = (path) => $page.url === routeOrPath(path)
 
-const scrollTo = (event) => {
+const _scrollTo = (event) => {
   event.preventDefault()
 
   let link = event.target
@@ -223,11 +224,24 @@ const visibleNavItems = computed(() =>
   navigationItems(!!$page.props.user).filter(i => i.show !== false)
 )
 
+// Get the default open section based on the defaultOpen property in the navigation items
+const defaultOpenSection = computed(() => {
+  const defaultOpenItem = navItems.find(i =>
+    i.show !== false &&
+    !(i.children.length === 1 && i.children[0].asButton) &&
+    i.defaultOpen === true
+  )
+  if (!defaultOpenItem) return ''
+  const title = defaultOpenItem.title || (defaultOpenItem.children?.[0]?.name || '')
+  return title.toLowerCase()
+})
+
 // 🧮 Navigation structure
 const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'My Credit',
     show: isLoggedIn,
+    defaultOpen: true, // This section will be open by default on mobile
     children: [
       { name: 'Dashboard', route: 'dashboard.overview', description: 'View your dashboard' },
       { name: 'Credit Report', route: 'credit.report', description: 'View your credit report' },
@@ -245,6 +259,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'Account',
     show: isLoggedIn,
+    defaultOpen: false,
     children: [
       { name: 'Profile', route: '/profile' },
       { name: 'Billing', route: '/billing' },
@@ -254,6 +269,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'Pricing',
     show: !isLoggedIn,
+    defaultOpen: true, // This section will be open by default on mobile for guests
     children: [
       { name: 'Pricing Details', route: '/#pricing' },
       { name: 'Monthly Plan', route: '/#pricing' },
@@ -263,6 +279,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'Products',
     show: false,
+    defaultOpen: false,
     children: [
       { name: 'Product 1', route: '/products/product1' },
       { name: 'Product 2', route: '/products/product2' }
@@ -271,6 +288,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'Education',
     show: !isLoggedIn,
+    defaultOpen: false,
     children: [
       { name: 'Tutorials', route: '/education/tutorials' },
       { name: 'Webinars', route: '/education/webinars' }
@@ -279,6 +297,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: 'Resources',
     show: !isLoggedIn,
+    defaultOpen: false,
     children: [
       { name: 'Blog', route: '/resources/blog' },
       { name: 'FAQ', route: '/resources/faq' }
@@ -287,6 +306,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   {
     title: '',
     show: !isLoggedIn,
+    defaultOpen: false,
     children: [
       {
         name: 'Secure Log In',

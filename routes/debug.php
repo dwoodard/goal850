@@ -12,6 +12,7 @@ if (app()->environment('local')) {
     });
 
     Route::get('/debug/stripe', function () {
+
         // Set the Stripe API key using Cashier's configuration
         \Stripe\Stripe::setApiKey(config('cashier.secret'));
 
@@ -37,15 +38,17 @@ if (app()->environment('local')) {
     });
 
     Route::get('/debug/user-plan', function () {
+
+        // get the auth user
+        $user = auth()->user();
+
         try {
             // Set the Stripe API key using Cashier's configuration
             \Stripe\Stripe::setApiKey(config('cashier.secret'));
 
             // Check what users we have
-            $allUsers = \App\Models\User::select('id', 'email', 'stripe_id')->get();
-            $userWithStripe = \App\Models\User::whereNotNull('stripe_id')->first();
 
-            if (! $userWithStripe) {
+            if (! $user) {
                 // Let's create a test stripe customer for the first user
                 $firstUser = \App\Models\User::first();
 
@@ -67,7 +70,7 @@ if (app()->environment('local')) {
                         'user_id' => $firstUser->id,
                         'user_email' => $firstUser->email,
                         'stripe_id' => $customer->id,
-                        'all_users' => $allUsers,
+
                         'next_step' => 'Now visit this route again to test the plans() method',
                     ]);
                 }
@@ -75,20 +78,21 @@ if (app()->environment('local')) {
                 return [
                     'success' => false,
                     'error' => 'No users found and could not create test user',
-                    'all_users' => $allUsers,
+
                 ];
             }
 
             // Test the plans() method with a user that has stripe_id
-            dd([
-                'user_id' => $userWithStripe->id,
-                'user_email' => $userWithStripe->email,
-                'stripe_id' => $userWithStripe->stripe_id,
-                'plans_method_result' => $userWithStripe->plans(),
-                'subscriptions_count' => $userWithStripe->subscriptions()->count(),
-                'subscriptions_raw' => $userWithStripe->subscriptions()->get(),
-                'all_users' => $allUsers,
-            ]);
+            dd(collect([
+                'user_id' => $user->id,
+                'user_email' => $user->email,
+                'stripe_id' => $user->stripe_id,
+                'plans_method_result' => $user->plans()->get(),
+                'getStripeProductIds' => $user->getStripeProductIds(),
+                'subscriptions_count' => $user->subscriptions()->count(),
+                'subscriptions_raw' => $user->subscriptions()->get(),
+
+            ]));
 
             // Get the first user with a stripe_id
             $user = \App\Models\User::whereNotNull('stripe_id')->first();

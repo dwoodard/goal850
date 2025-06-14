@@ -35,9 +35,8 @@ const page = usePage()
         </a>
       </div>
     </div>
-
     <StripeTable
-      v-if="page.props.user.is_subscribed"
+      v-if="!page.props.user.is_subscribed"
       :email="page.props.user.email"
       :phone="page.props.user.phone" />
 

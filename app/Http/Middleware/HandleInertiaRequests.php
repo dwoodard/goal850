@@ -35,12 +35,9 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
 
             'user' => $user ? array_merge($user
-                ->only('id', 'first_name', 'last_name', 'email', 'array_user_id', 'array_user_token'), [
+                ->only('id', 'first_name', 'last_name', 'email', 'phone', 'array_user_id', 'array_user_token'), [
                     'is_admin' => $user->is_admin,
                     'is_subscribed' => $user?->subscription('prod_S2W1o3GAej7brB')?->active(),
-                    'stripe_status' => $user?->subscription('prod_S2W1o3GAej7brB')?->stripe_status,
-                    'is_on_trial' => $user?->subscription('prod_S2W1o3GAej7brB')?->onTrial(),
-                    'trial_ends_at' => $user?->subscription('prod_S2W1o3GAej7brB')?->trial_ends_at?->format('Y-m-d H:i:s'),
                     'array_user_token' => $user->array_user_token,
                 ])
             : null,
@@ -55,10 +52,7 @@ class HandleInertiaRequests extends Middleware
             'stripe' => [
                 'publishableKey' => config('stripe.publishable_key'),
                 'pricingTableId' => config('stripe.pricing_table_id'),
-                'plans' => [
-                    'privacy_credit_monitoring' => config('stripe.plans.privacy_credit_monitoring'),
-                    'full_protection' => config('stripe.plans.full_protection'),
-                ],
+                'plans' => config('stripe.plans'),
             ],
 
             'appEnv' => app()->environment(),

@@ -32,9 +32,7 @@ function mountStripeTable() {
     stripeElement.setAttribute('pricing-table-id', props.stripe.pricingTableId)
     stripeElement.setAttribute('publishable-key', props.stripe.publishableKey)
     // set email based on previous step
-    stripeElement.setAttribute('customer-email', props.userEmail)
-    // phone
-    stripeElement.setAttribute('phone-number', props.user.phone)
+    stripeElement.setAttribute('customer-email', props.user.email)
     stripeContainer.value.appendChild(stripeElement)
   }
 }
