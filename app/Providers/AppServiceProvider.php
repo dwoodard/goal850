@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\ArrayTokenRefresh;
 use App\Listeners\StripeEventListener;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
@@ -25,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen(
-            StripeEventListener::class
+            StripeEventListener::class,
+            ArrayTokenRefresh::class
         );
 
         Cashier::useCustomerModel(User::class);
