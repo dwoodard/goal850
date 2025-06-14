@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Http;
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
@@ -125,5 +126,28 @@ class User extends Authenticatable
                $this->hasCompletedStripe() &&
                $this->hasCompletedArrayUser() &&
                $this->hasCompletedArrayUserToken();
+    }
+
+    public function refreshArrayToken(): ?string
+    {
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+            'x-array-server-token' => config('array.api_token'),
+        ])->post(config('array.api_url').'/api/authenticate/v2/usertoken', [
+            'appKey' => config('array.app_key'),
+            'userId' => $this->array_user_id,
+            'ttlInMinutes' => 60,
+        ]);
+
+        $token = $response->json('userToken');
+
+        if ($token) {
+            $this->update([
+                'array_user_token' => $token,
+            ]);
+        }
+
+        return $token;
     }
 }
