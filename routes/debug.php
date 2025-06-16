@@ -88,7 +88,7 @@ if (app()->environment('local')) {
                 'user_email' => $user->email,
                 'stripe_id' => $user->stripe_id,
                 'plans_method_result' => $user->plans()->get(),
-                'getStripeProductIds' => $user->getStripeProductIds(),
+                'stripeProductIds' => $user->stripeProductIds(),
                 'subscriptions_count' => $user->subscriptions()->count(),
                 'subscriptions_raw' => $user->subscriptions()->get(),
 

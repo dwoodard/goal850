@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
@@ -128,14 +129,14 @@ class User extends Authenticatable
                $this->hasCompletedArrayUserToken();
     }
 
-    // plan()
+    // plans()
     public function plans()
     {
         return $this->subscriptions()
             ->where('stripe_status', 'active');
     }
 
-    public function getStripeProductIds(): array
+    public function stripeProductIds(): array
     {
         return $this->subscriptions()
             ->active()
@@ -173,24 +174,82 @@ class User extends Authenticatable
         return $token;
     }
 
+    public function stripeProductsIds(): array
+    {
+        // when stipe hits this method, we need to get the product id
+        $productIds = $this->stripeProductIds();
+        if (empty($productIds)) {
+            Log::warning("User {$this->id} has no Stripe products", [
+                'stripe_products' => $this->stripeProductIds(),
+            ]);
+
+            return [];
+        }
+        $stripePlans = config('stripe.plans', []);
+
+        $arrayProducts = [];
+
+        foreach ($stripePlans as $plan) {
+            if (in_array($plan['product_id'], $productIds)) {
+                $arrayProducts = array_merge($arrayProducts, $plan['array_products']);
+            }
+        }
+
+        return array_unique($arrayProducts);
+    }
+
     public function enrollInArrayProducts(): void
     {
-        $productIds = $this->getStripeProductIds(); // returns Stripe product_ids
-        $plans = Plan::whereIn('stripe_product_id', $productIds)->get();
 
-        $enrollmentCodes = $plans->pluck('array_products')->flatten()->unique();
-        // log out the enrollment code
-        Log::info("User {$this->id} - Enrolling in array products", [
-            'products' => $this->getStripeProductIds(),
-            'array_products' => $this->getArrayProductIdsFromStripe(),
+        dump(
+            $this
+        );
+
+        // first we need to get all the products based on the user's subscriptions
+        $productIds = $this->stripeProductIds();
+
+        // if the user has no products, we can't enroll them in Array products
+        if (empty($productIds)) {
+            Log::warning("User {$this->id} has no Stripe products", [
+                'stripe_products' => $productIds,
+            ]);
+
+            return;
+        }
+
+        // Get the stripe plans config
+        $stripePlans = config('stripe.plans', []);
+
+        // now that we have the plans we need to get the current stripe plan that the user is subscribed to
+        // and get the array_products from it
+
+        $matchedPlans = collect($stripePlans)->filter(function ($plan) use ($productIds) {
+            return in_array($plan['product_id'], $productIds ?? []);
+        })->first();
+
+        dump([
+            'matchedPlans' => $matchedPlans,
+            'array_products' => $matchedPlans['array_products'] ?? [],
         ]);
 
-        foreach ($enrollmentCodes as $code) {
+        // now we have a matched plan, we can get the array_products out of it, this is what we need to enroll the user in Array products
+        $arrayProducts = $matchedPlans['array_products'] ?? [];
+
+        // Log the enrollment process
+        Log::info("User {$this->id} - Enrolling in array products", [
+            'stripe_products' => $this->stripeProductIds(),
+            'array_products' => $arrayProducts,
+        ]);
+
+        foreach ($arrayProducts as $code) {
 
             Log::info('Posting to Array API', [
                 'userId' => $this->array_user_id,
                 'enrollmentCode' => $code,
             ]);
+            dump(
+                "Enrolling user {$this->id} in Array product with code: {$code}"
+            );
 
             Http::withHeaders([
                 'accept' => 'application/json',

@@ -18,7 +18,7 @@ class StripeEventListener
 
         match ($type) {
             'customer.created' => $this->handleCustomerCreated($payload),
-            'checkout.session.completed' => $this->handleCheckoutSessionCompleted($payload),
+            'customer.subscription.created' => $this->handleSubscriptionCreated($payload),
             default => null,
         };
     }
@@ -36,6 +36,10 @@ class StripeEventListener
             $user = User::where('email', $email)->update([
                 'stripe_id' => $stripeId,
             ]);
+
+            dump(
+                'Stripe customer created for user',
+            );
         } catch (\Exception $e) {
             Log::error('Error processing customer.created', [
                 'error' => $e->getMessage(),
@@ -44,35 +48,25 @@ class StripeEventListener
     }
 
     /**
-     * Enroll user in Array products after checkout
+     * Enroll user in Array products after subscription created
+     * This is triggered by the checkout.session.completed event.
+     *
+     * @see https://stripe.com/docs/api/events/types#event_types-checkout.session.completed
      */
-    protected function handleCheckoutSessionCompleted(array $payload): void
+    protected function handleSubscriptionCreated(array $payload): void
     {
+
         try {
             $session = $payload['data']['object'];
-            $email = $session['customer_email'] ?? null;
-            $user = $email ? User::where('email', $email)->first() : null;
+            // get $user by customer ("customer" => "cus_SVNuykC16SHBW4")
+            $user = User::where('stripe_id', $session['customer'])->first();
 
-            // log out these things
-            Log::info('Checkout session completed', [
-                'email' => $email,
-                'user_id' => $user->id ?? null,
-                'session_id' => $session['id'] ?? null,
-            ]);
-
-            if (! $user) {
-                Log::warning('User not found for Stripe customer_email', compact('email'));
-
-                return;
-            }
-
-            if ($user->hasCompletedStripe()) {
-                $user->enrollInArrayProducts();
-            }
         } catch (\Exception $e) {
             Log::error('Error processing checkout.session.completed', [
                 'error' => $e->getMessage(),
             ]);
         }
+
+        $user->enrollInArrayProducts();
     }
 }
