@@ -198,6 +198,13 @@ function submit() {
               </Button>
             </div>
 
+            <div v-if="stepper.isCurrent('user-information')" class="mt-4 text-center text-sm text-gray-600">
+              Already registered?
+              <Link :href="route('login')" class="ml-1 text-primary underline">
+                Log in
+              </Link>
+            </div>
+
             <div v-if="stepper.isCurrent('plan') && showPricingTable">
               <StripeTable :email="form.email"/>
             </div>
