@@ -5,7 +5,7 @@ import {
 } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import ApplicationLogo from '@/components/ApplicationLogo.vue'
 
 // import { useParticles } from '@/composables/useParticles.js'
@@ -19,38 +19,8 @@ defineProps({
 })
 
 const subscribeEmail = ref(null)
-
+const isVideoPlaying = ref(false)
 const videoRef = ref(null)
-
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting && videoRef.value) {
-        videoRef.value.muted = true // required for autoplay
-
-        const playPromise = videoRef.value.play()
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log('✅ autoplay succeeded')
-            })
-            .catch(() => {
-              console.log('❌ autoplay was blocked')
-              // Optionally show a "Tap to Play" overlay
-            })
-        }
-      }
-
-    },
-    {
-      threshold: 0.5 // play when 50% in view
-    }
-  )
-
-  if (videoRef.value) {
-    observer.observe(videoRef.value)
-  }
-})
 
 // const { canvasRef } = useParticles(50)
 
@@ -117,18 +87,35 @@ onMounted(() => {
 
         <div class="grid grid-cols-1 gap-12 px-4 py-8 sm:grid-cols-2   ">
           <div class="flex items-center *:justify-center">
-            <video
-              ref="videoRef"
-              v-motion
-              :initial="{ opacity: 0, y: -50 }"
-              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, delay: 250 } }"
-              :delay="100"
-              class=" aspect-video rounded-lg shadow-lg "
-              controls
-              muted
-              playsinline
-              preload="metadata"
-              src="/videos/goal850_promo.mp4"/>
+            <div class="relative">
+              <video
+                ref="videoRef"
+                v-motion
+                :initial="{ opacity: 0, y: -50 }"
+                :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, delay: 250 } }"
+                :delay="100"
+                class="aspect-video rounded-lg shadow-lg"
+                controls
+                muted
+                playsinline
+                preload="metadata"
+                src="/videos/goal850_promo.mp4"
+                @play="isVideoPlaying = true"
+                @pause="isVideoPlaying = false"
+                @ended="isVideoPlaying = false"/>
+
+              <!-- Play Button Overlay -->
+              <div
+                v-show="!isVideoPlaying"
+                class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black bg-opacity-30 transition-opacity duration-300 hover:bg-opacity-40"
+                @click="videoRef?.play()">
+                <div class="transform rounded-full bg-white bg-opacity-90 p-4 shadow-lg transition-transform duration-200 hover:scale-110">
+                  <svg class="ml-1 size-12 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <div class="mx-auto mt-8 max-w-lg text-left">
