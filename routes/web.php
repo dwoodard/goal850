@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\CreditAlertsController;
 use App\Http\Controllers\CreditDebtAnalysisController;
 use App\Http\Controllers\CreditProtectionController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\CreditScoreSimulatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdentityProtectController;
 use App\Http\Controllers\NeighborhoodWatchController;
+use App\Http\Controllers\PipScanController;
+use App\Http\Controllers\PipStandaloneController;
 use App\Http\Controllers\PrivacyScanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationWizardController;
@@ -27,8 +30,20 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');
 
+Route::get('/dashboard', fn () => redirect()->route('dashboard.overview'))
+    ->middleware('auth')
+    ->name('dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/privacy-scan', [PrivacyScanController::class, 'index'])->name('privacy.scan');
+});
+
+Route::middleware([
+    'auth',
+    \App\Http\Middleware\ArrayTokenCheck::class,
+])->group(function () {
+    Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard.overview');
+
 });
 
 Route::middleware([
@@ -36,8 +51,6 @@ Route::middleware([
     \App\Http\Middleware\CheckUserRegistration::class,
     \App\Http\Middleware\ArrayTokenCheck::class,
 ])->group(function () {
-    Route::get('/dashboard', fn () => redirect()->route('dashboard'))->name('dashboard');
-    Route::get('/dashboard/overview', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/credit-report', [CreditReportController::class, 'index'])->name('credit.report');
     Route::get('/credit-score-details', [CreditScoreDetailsController::class, 'index'])->name('credit.score.details');
     Route::get('/credit-protection-controller', [CreditProtectionController::class, 'index'])->name('credit.protection');
@@ -51,6 +64,9 @@ Route::middleware([
     Route::get('/neighborhood-watch', [NeighborhoodWatchController::class, 'index'])->name('neighborhood.watch');
     Route::get('/subscription-manager', [SubscriptionManagerController::class, 'index'])->name('subscription.manager');
     Route::get('/student-loan-navigator', [StudentLoanNavigatorController::class, 'index'])->name('student.loan.navigator');
+    Route::get('/pip-scan', [PipScanController::class, 'index'])->name('pip.scan');
+    Route::get('/pip-standalone', [PipStandaloneController::class, 'index'])->name('pip.standalone');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -72,6 +88,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/billing', function () {
         return Inertia::render('Billing/Index');
     })->name('billing');
+
+    // User
+    Route::get('/user', function () {
+        return Inertia::render('User/Index');
+    })->name('user.index');
 });
 
 // route post stripe/webhook
@@ -84,6 +105,35 @@ Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 // Route::get('/notifications', function () {
 //     return Inertia::render('Notifications');
 // })->middleware('auth')->name('notifications');
+
+Route::resource('podcasts', \App\Http\Controllers\PodcastController::class);
+Route::get('/podcasts/latest', [\App\Http\Controllers\PodcastController::class, 'latest'])->name('podcasts.latest');
+
+// resources/faq
+Route::prefix('resources')->group(function () {
+    Route::get('/faq', function () {
+        return Inertia::render('Faq/Index');
+    })->name('faq.index');
+});
+
+// education
+Route::prefix('education')->group(function () {
+    // tutorials
+    Route::get('/tutorials', function () {
+        return Inertia::render('Education/Tutorials');
+    })->name('education.tutorials');
+    // webinars
+    Route::get('/webinars', function () {
+        return Inertia::render('Education/Webinars');
+    })->name('education.webinars');
+
+});
+
+Route::get('/privacy', \App\Http\Controllers\PrivacyController::class)->name('privacy');
+Route::get('/terms', \App\Http\Controllers\TermsController::class)->name('terms');
+
+// API routes (fix this)
+Route::resource('api/user', UserController::class);
 
 require __DIR__.'/auth.php';
 

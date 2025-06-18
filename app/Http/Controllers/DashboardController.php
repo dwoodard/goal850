@@ -10,6 +10,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        return inertia()->render('Dashboard');
+        return inertia()->render('Dashboard', [
+            'can_privacy_scan' => $user->canPrivacyScan(),
+        ]);
     }
 }

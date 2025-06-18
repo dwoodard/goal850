@@ -35,7 +35,21 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'newsletter' => 'boolean',
+            'tcpa' => 'accepted',
+        ], [
+            'phone.required' => 'Phone number is required.',
+            'phone.numeric' => 'Phone number must be numeric.',
+            'phone.digits' => 'Phone number must be exactly 10 digits.',
+            'phone.unique' => 'This phone number is already registered.',
+            'first_name.required' => 'First name is required.',
+            'last_name.required' => 'Last name is required.',
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email is already registered.',
+            'password.required' => 'Password is required.',
+            'password.confirmed' => 'Passwords do not match.',
+            'tcpa.accepted' => 'You must accept the terms and conditions.',
+
         ]);
 
         // check validation for errors
@@ -48,20 +62,21 @@ class RegisteredUserController extends Controller
         }
 
         $user = User::create($data);
+        // refresh user in database
+        $user->refresh();
         Auth::login($user);
         $this->createGoHighLevelContact($user);
 
         event(new Registered($user));
 
         if (session('intent') === 'privacy.scan') {
-            return redirect()->route('privacy.scan');
+            return redirect()->route('dashboard');
         }
 
         // Redirect back to the register page with props for the pricing table
         return Inertia::render('Auth/Register', [
             'showPricingTable' => true,
-            'userEmail' => $user->email,
-            'userId' => $user->id,
+            'user' => $user,
             'status' => 'Registration successful! Please select a plan.',
         ]);
 

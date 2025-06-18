@@ -12,8 +12,17 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { FileTextIcon } from 'lucide-vue-next'
+import PipMarketing from '@/array/PipMarketing.vue'
+import PipDashboard from '@/array/PipDashboard.vue'
 
 const { props } = usePage()
+
+defineProps({
+  can_privacy_scan: {
+    type: Boolean,
+    default: false
+  }
+})
 
 </script>
 
@@ -28,6 +37,28 @@ const { props } = usePage()
     <div class="flex flex-col justify-center ">
       <CreditOverview :user="props.user" />
     </div>
+
+    <section
+      v-if="can_privacy_scan"
+      class="relative overflow-hidden bg-white ">
+      <div class="py-16 text-center">
+        <div v-if="has_stripe_id" class="mt-8">
+          <PipDashboard />
+        </div>
+
+        <div v-else>
+          <h2 class="text-4xl font-bold text-gray-800">
+            Protect your personal information.
+          </h2>
+
+          <p class="mt-4 text-2xl text-gray-600">
+            Start with our free Privacy scan.
+          </p>
+
+          <PipMarketing />
+        </div>
+      </div>
+    </section>
 
     <div class="m-10 mx-auto max-w-7xl p-3">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -51,7 +82,7 @@ const { props } = usePage()
         </Link>
 
         <!-- Credit Score Details -->
-        <Link :href="route('credit.score.details')">
+        <!-- <Link :href="route('credit.score.details')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -67,10 +98,10 @@ const { props } = usePage()
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!-- Credit Protection -->
-        <Link :href="route('credit.protection')">
+        <!-- <Link :href="route('credit.protection')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -86,7 +117,7 @@ const { props } = usePage()
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!-- Credit Debt Analysis -->
         <Link :href="route('credit.debt.analysis')">
@@ -146,7 +177,7 @@ const { props } = usePage()
         </Link>
 
         <!--Credit Score Coach -->
-        <Link :href="route('credit.score.coach')">
+        <!-- <Link :href="route('credit.score.coach')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -162,7 +193,7 @@ const { props } = usePage()
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
 
         <!--Credit Score Tracker -->
         <Link :href="route('credit.score')">
@@ -241,7 +272,7 @@ const { props } = usePage()
         </Link>
 
         <!--Subscription Manager -->
-        <Link :href="route('subscription.manager')">
+        <!-- <Link :href="route('subscription.manager')">
           <Card class="transition-shadow duration-300 hover:border-primary">
             <div class="flex justify-between">
               <div class="flex w-1/3  items-center justify-center">
@@ -257,7 +288,8 @@ const { props } = usePage()
               </CardHeader>
             </div>
           </Card>
-        </Link>
+        </Link> -->
+
         <!--Privacy Scan -->
         <Link :href="route('privacy.scan')">
           <Card class="transition-shadow duration-300 hover:border-primary">
@@ -276,6 +308,25 @@ const { props } = usePage()
             </div>
           </Card>
         </Link>
+
+        <!--Personal Info Protection -->
+        <!-- <Link :href="route('pip.scan')">
+          <Card class="transition-shadow duration-300 hover:border-primary">
+            <div class="flex justify-between">
+              <div class="flex w-1/3  items-center justify-center">
+                <FileTextIcon class="size-12 text-gray-500" />
+              </div>
+              <CardHeader  class="w-2/3">
+                <CardTitle>
+                  Personal Info Protection
+                </CardTitle>
+                <CardDescription>
+                  Remove your personal info from risky sites and monitor for threats.
+                </CardDescription>
+              </CardHeader>
+            </div>
+          </Card>
+        </Link> -->
 
         <!--Student Loan Navigator -->
         <!-- <Link :href="route('student.loan.navigator')">

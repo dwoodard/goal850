@@ -2,7 +2,7 @@
   <array-authentication-kba
     :appKey="props?.array?.appKey"
     :userId="props?.user?.array_user_id"
-    :apiUrl="props?.array?.apiUrl"
+    :apiUrl="props?.array?.apiComponentUrl"
     :sandbox="props?.array?.sandbox"
     :showResultPages="showResultPages"/>
 </template>

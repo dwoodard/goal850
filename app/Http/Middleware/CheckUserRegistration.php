@@ -24,16 +24,6 @@ class CheckUserRegistration
             return Inertia::render('Billing/Index');
         }
 
-        // 🚧 Hasn't completed Array user
-        if (! $user->hasCompletedArrayUser()) {
-            return Redirect::route('registration.wizard.user');
-        }
-
-        // 🚧 Hasn't completed Array KBA
-        if (! $user->hasCompletedArrayUserToken()) {
-            return Redirect::route('registration.wizard.kba');
-        }
-
         return $next($request);
     }
 }

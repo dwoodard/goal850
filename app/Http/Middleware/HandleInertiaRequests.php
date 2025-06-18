@@ -46,9 +46,19 @@ class HandleInertiaRequests extends Middleware
             : null,
 
             'array' => [
-                'appKey' => env('ARRAY_APP_KEY'),
-                'apiUrl' => env('ARRAY_API_URL'),
+                'appKey' => config('array.app_key'),
+                'apiUrl' => config('array.api_url'),
+                'apiComponentUrl' => config('array.api_component_url'),
                 'sandbox' => env('ARRAY_SANDBOX', app()->isLocal()),
+            ],
+
+            'stripe' => [
+                'publishableKey' => config('stripe.publishable_key'),
+                'pricingTableId' => config('stripe.pricing_table_id'),
+                'plans' => [
+                    'privacy_credit_monitoring' => config('stripe.plans.privacy_credit_monitoring'),
+                    'full_protection' => config('stripe.plans.full_protection'),
+                ],
             ],
 
             'appEnv' => app()->environment(),

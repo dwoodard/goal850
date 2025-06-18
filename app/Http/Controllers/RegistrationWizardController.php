@@ -47,7 +47,11 @@ class RegistrationWizardController extends Controller
         $response = $this->createArrayUser(
             $user,
             $data['dob'],
-            $data['ssn']
+            $data['ssn'],
+            $data['street'],
+            $data['city'],
+            $data['state'],
+            $data['zip']
         );
 
         if (! $response->successful()) {
@@ -59,6 +63,8 @@ class RegistrationWizardController extends Controller
 
         $user->array_user_id = $response->json('userId');
         $user->save();
+
+        $user->refresh();
 
         return redirect()->route('dashboard');
     }
@@ -79,25 +85,37 @@ class RegistrationWizardController extends Controller
     }
 
     // createArrayUser function
-    private function createArrayUser($user, $dob, $ssn)
+    private function createArrayUser($user, $dob, $ssn, $street, $city, $state, $zip)
     {
-
-        $arrayUrl = env('APP_ENV') === 'local' ? 'https://sandbox.array.io' : env('ARRAY_API_URL');
-
-        $response = Http::withHeaders([
-            'accept' => 'application/json',
-            'content-type' => 'application/json',
-        ])->post($arrayUrl.'/api/user/v2', [
+        $arrayUrl = config('array.api_url');
+        $data = [
             'appKey' => env('ARRAY_APP_KEY'),
             'dob' => $dob,
             'ssn' => $ssn,
+            'address' => [
+                'street' => $street,
+                'city' => $city,
+                'state' => $state,
+                'zip' => $zip,
+            ],
             'firstName' => $user->first_name,
             'lastName' => $user->last_name,
             'emailAddress' => $user->email,
             'phoneNumber' => $user->phone,
-        ]);
+        ];
 
-        
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ])->post($arrayUrl.'/api/user/v2', $data);
+
+        if ($response->failed()) {
+            \Illuminate\Support\Facades\Log::error('Array API request failed', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'data' => $data,
+            ]);
+        }
 
         return $response;
     }

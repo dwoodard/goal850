@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->string('array_user_id')->nullable();
             $table->string('array_user_token')->nullable();
+            $table->timestamp('last_privacy_scan')->nullable();
 
             $table->string('ghl_contact_id')->nullable();
             $table->string('ghl_location_id')->nullable();

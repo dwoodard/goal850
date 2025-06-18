@@ -5,7 +5,9 @@ import {
 } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import ApplicationLogo from '@/components/ApplicationLogo.vue'
+
 // import { useParticles } from '@/composables/useParticles.js'
 defineProps({
   canLogin: {
@@ -18,6 +20,38 @@ defineProps({
 
 const subscribeEmail = ref(null)
 
+const videoRef = ref(null)
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && videoRef.value) {
+        videoRef.value.muted = true // required for autoplay
+
+        const playPromise = videoRef.value.play()
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('✅ autoplay succeeded')
+            })
+            .catch(() => {
+              console.log('❌ autoplay was blocked')
+              // Optionally show a "Tap to Play" overlay
+            })
+        }
+      }
+
+    },
+    {
+      threshold: 0.5 // play when 50% in view
+    }
+  )
+
+  if (videoRef.value) {
+    observer.observe(videoRef.value)
+  }
+})
+
 // const { canvasRef } = useParticles(50)
 
 </script>
@@ -26,37 +60,40 @@ const subscribeEmail = ref(null)
   <AppLayout>
     <Head title="Welcome" />
 
-    <section class=" bg-[#32383F] lg:-mb-10 lg:max-h-[480px] ">
-      <div class="bg-[url('/images/Glogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
-        <div class="lg:max-height-[380px] mx-auto px-4 pt-10 lg:container lg:flex lg:flex-wrap lg:justify-between lg:px-40">
-          <div class="w-full lg:w-1/2">
-            <div class="">
-              <div
-                v-motion
-                :initial="{ opacity: 0, x: -150 }"
-                :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
-                :delay="100">
-                <h2 class="mb-4 text-4xl font-bold text-white">
-                  <div>Monitor. Protect.</div>
-                  <div>Build. Your credit.</div>
-                </h2>
-                <p class="mb-4 text-2xl text-white">
-                  Access your free credit score. Track
-                  your progress and get alerts. 100%
-                  free, no strings attached.
-                </p>
-                <Link
-                  as="button"
-                  :href="route('register', { intent: 'privacy.scan' })">
-                  <Button>
-                    Sign up for FREE credit monitoring
-                  </Button>
-                </Link>
+    <section class=" bg-[#32383F]">
+      <div class=" container ">
+        <div class="bg-[url('/images/GLogo.svg')]  bg-[right_bottom_-2rem] bg-no-repeat">
+          <div class="grid grid-cols-1 gap-12 pt-12 sm:grid-cols-2">
+            <div class=" ">
+              <div class="grid grid-flow-row gap-3  ">
+                <div
+                  v-motion
+                  :initial="{ opacity: 0, x: -150 }"
+                  :enter="{ opacity: 1, x: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+                  :delay="100"
+                  class="flex flex-col items-start gap-2 lg:gap-6">
+                  <h2 class=" text-3xl font-bold text-white ">
+                    <div>Monitor. Protect.</div>
+                    <div>Build. Your credit.</div>
+                  </h2>
+                  <p class=" text-xl text-white">
+                    Access your free credit score. Track
+                    your progress and get alerts. 100%
+                    free, no strings attached.
+                  </p>
+                  <Link
+                    class="align-self-end "
+                    as="button"
+                    :href="route('register', { intent: 'privacy.scan' })">
+                    <Button>
+                      Sign up for FREE credit monitoring
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="">
-            <div class="flex justify-center  lg:w-96 lg:justify-end">
+
+            <div class="flex items-center justify-center lg:justify-end">
               <img
                 v-motion
                 :initial="{ opacity: 0, x: 150 }"
@@ -72,25 +109,28 @@ const subscribeEmail = ref(null)
     </section>
 
     <section
-      class="relative overflow-hidden bg-white "
-      style="background-image: url('flaro-assets/images/pricing/gradient6.svg'); background-size: cover; background-position: center;">
-      <div class="py-16 text-center">
+      class="relative overflow-hidden bg-white ">
+      <div class="container py-16 text-center">
         <h2 class="text-4xl font-bold text-gray-800">
           Your credit matters. Free tools. Real results.
         </h2>
 
-        <div class="mt-6 flex flex-col justify-center p-10 lg:flex-row ">
-          <div class="lg:w-1/2">
+        <div class="grid grid-cols-1 gap-12 px-4 py-8 sm:grid-cols-2   ">
+          <div class="flex items-center *:justify-center">
             <video
+              ref="videoRef"
               v-motion
               :initial="{ opacity: 0, y: -50 }"
-              :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, delay: 250 } }"
               :delay="100"
-              class="mx-auto mt-8  w-full rounded-lg shadow-lg"
+              class=" aspect-video rounded-lg shadow-lg "
               controls
+              muted
+              playsinline
+              preload="metadata"
               src="/videos/goal850_promo.mp4"/>
           </div>
-          <div class="lg:w-1/2">
+          <div>
             <div class="mx-auto mt-8 max-w-lg text-left">
               <p class="mt-4 text-2xl font-semibold text-gray-600">
                 <span class="font-black">Free credit monitoring</span> is your first step to financial GOATness. Sign up today and you’ll get all this for free.*
@@ -133,12 +173,120 @@ const subscribeEmail = ref(null)
       </div>
     </section>
 
-    <section class="relative flex  justify-center overflow-hidden bg-[#32383F] py-32">
-      <a id="pricing">
-        <!--  Pricing-->
-      </a>
+    <section class="  bg-[#32383F]  text-white">
+      <div class="container bg-[url('/images/GLogo.svg')]  bg-[left_bottom_-1.5rem] bg-no-repeat">
+        <div class="max-w-6xl px-4 py-16 *:mx-auto lg:px-40">
+          <h2 class="mb-5 text-3xl font-bold">
+            Why it’s free?
+          </h2>
 
-      <div class="container mx-auto max-w-6xl px-4">
+          <p class="text-lg leading-loose">
+            Because at <span class="font-bold  ">GOAL850</span>, we believe everyone deserves access to their own credit info. We’re able to offer this for free thanks to partnerships and optional upgrades — but you’re never required to pay a penny. <span class="italic  ">GOAT guaranteed!</span>
+          </p>
+
+          <div class=" mt-6 flex">
+            <Link
+              as="button"
+              :href="route('register', { intent: 'privacy.scan' })"
+              class="mb-4 w-full">
+              <Button>
+                Click here to start your journey
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container ">
+      <h2 class="py-5 text-center text-3xl font-bold">
+        Want even more protection?
+      </h2>
+      <div class="grid grid-cols-1 gap-12 px-4 py-8 sm:grid-cols-2">
+        <div>
+          <!-- logo -->
+        </div>
+        <div class="grid grid-cols-1 gap-6">
+          <h3 class="text-2xl font-semibold">
+            Privacy Protection
+          </h3>
+
+          <p>
+            Data brokers collect and sell your
+            personal details — like your name,
+            address, income, and even family info —
+            without your consent.
+            This info can end up in the hands of
+            marketers, scammers, and identity
+            thieves.
+          </p>
+
+          <p>
+            As part of your free credit tools, we’ll run
+            a complimentary privacy scan to show
+            you exactly where your data is exposed
+          </p>
+
+          <span class="font-semibold">— and what to do about it.</span>
+
+          <div class="mt-6 flex justify-center">
+            <Link
+              as="button"
+              :href="route('register', { intent: 'privacy.scan' })"
+              class="mb-4 w-full">
+              <Button>
+                Scan My Info For Free
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-12 px-4 py-8 sm:grid-cols-2">
+        <div class="grid grid-cols-1 gap-6">
+          <h3 class="text-2xl font-semibold">
+            Identity Protection
+          </h3>
+
+          <p>
+            Every few seconds, someone becomes a
+            victim of identity theft — often without
+            knowing until it’s too late.
+            With Goal 850’s Identity Protection, you
+            get real-time alerts if your Social
+            Security number, address, or financial
+            info shows up where it shouldn't — from
+            the dark web to change-of-address
+            databases.
+          </p>
+
+          <p>
+            Plus, you’re covered by <span class="font-semibold">
+              $1 million in
+              identity theft insurance
+            </span> and full
+            restoration support, just in case.
+          </p>
+
+          <div class="mt-6 flex justify-center">
+            <Link
+              as="button"
+              :href="route('register', { intent: 'payment' })"
+              class="mb-4 w-full">
+              <Button>
+                Upgrade to Full Protection
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div>
+          <!-- logo -->
+        </div>
+      </div>
+      <a id="pricing"/>
+    </section>
+
+    <section class="bg-[#32383F] py-32">
+      <div class="container mx-auto   px-4">
         <div class="flex flex-col justify-between gap-10 lg:flex-row">
           <!-- Left side: Heading and Testimonial -->
           <div class="max-w-md text-white">
@@ -162,8 +310,14 @@ const subscribeEmail = ref(null)
           </div>
 
           <!-- Right side: Pricing Plans -->
-          <div class="flex flex-col  gap-8 lg:flex-row" >
-            <div class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
+          <div
+            class="flex flex-col  gap-8 lg:flex-row" >
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: -50 }"
+              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100' } }"
+              :delay="300"
+              class="mt-8 w-full max-w-sm rounded-lg bg-white p-8">
               <h3 class="mb-4 text-center text-xl font-semibold">
                 Privacy Protection
               </h3>
@@ -171,7 +325,6 @@ const subscribeEmail = ref(null)
               <div class="mb-4 flex items-center justify-between">
                 <div class="text-3xl font-bold">
                   $9<sup class="text-sm">99</sup>
-
                   <span class="text-base font-normal">/mo</span>
                 </div>
 
@@ -189,7 +342,7 @@ const subscribeEmail = ref(null)
                 :href="route('register', { intent: 'payment' })"
                 class="mb-4 w-full">
                 <Button>
-                  Get 7 Days Free Trial
+                  Sign up
                 </Button>
               </Link>
 
@@ -210,7 +363,12 @@ const subscribeEmail = ref(null)
               </ul>
             </div>
 
-            <div class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: -50 }"
+              :visible="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: '100', delay: 250 } }"
+              :delay="200"
+              class="relative w-full max-w-sm rounded-lg border-2 border-primary bg-white p-8 pt-16">
               <!-- MOST POPULAR Badge floating above -->
               <div class="absolute inset-x-0 top-0">
                 <span class="block w-full bg-primary py-2 text-center text-sm font-bold uppercase tracking-[.6em] text-white">
@@ -243,7 +401,7 @@ const subscribeEmail = ref(null)
                 :href="route('register', { intent: 'payment' })"
                 class="mb-4 w-full">
                 <Button>
-                  Get 7 Days Free Trial
+                  Sign up
                 </Button>
               </Link>
 
@@ -304,193 +462,134 @@ const subscribeEmail = ref(null)
       </div>
     </section>
 
-    <section
-      class="bg-gray-100 lg:p-40">
+    <section class=" ">
       <div class="rounded-lg bg-gray-50 p-8 text-center shadow-md">
         <h3 class="mb-4 text-2xl font-bold text-gray-800">
-          Identity Protection
+          Not ready to have the greatest
+
+          credit of all time just yet?
         </h3>
-
-        <p class="text-lg leading-relaxed text-gray-600">
-          Safeguard your identity with up to <span class="font-semibold text-primary">$1M</span> in theft reimbursement, full-service restoration, and real-time monitoring to detect and prevent fraud across your financial, social, and personal records.
+        <p class="mb-6 text-lg text-gray-600">
+          Get Free Credit Tips and Free Alerts in Your Inbox.
+          Sign up today and get our FREE e-book!
         </p>
-      </div>
-
-      <div
-        class="bg-white   outline-1 outline-gray-200">
-        <!-- <PipDashboard /> -->
-      </div>
-
-      <div class="flex justify-center py-10">
-        <Link
-          as="button"
-          :href="route('register')"
-          class="mb-4 w-full max-w-lg">
-          <h3 class="mb-4 text-2xl font-bold text-gray-800">
-            Get Identity Protection
-          </h3>
-
-          <Button class="p-8 text-lg">
-            Get Identity Protection
-          </Button>
-        </Link>
+        <div class="mx-auto flex w-full max-w-md">
+          <input
+            type="email"
+            placeholder="Type your email"
+            class="flex-1 rounded-l-md border border-gray-300 px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            required>
+          <button
+            type="submit"
+            class="rounded-r-md bg-primary px-8 py-3 text-lg font-semibold text-white transition hover:bg-primary">
+            Subscribe
+          </button>
+        </div>
       </div>
     </section>
 
-    <section class="bg-gray-50">
-      <div class="  p-8 text-center  ">
-        <h3 class="mb-4 text-2xl font-bold text-gray-800">
-          Credit Monitoring
-        </h3>
+    <footer class="  bg-[#32383F]   text-white">
+      <div class="container mx-auto px-4 py-8 text-center">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h4 class="mb-3 text-lg font-bold">
+              Company
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <Link href="#"  class="hover:underline">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="#"  class="hover:underline">
+                  FAQs
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-        <p class="text-lg leading-relaxed text-gray-600">
-          Monitoring your credit regularly helps you catch identity theft early, track your financial progress, and ensure accuracy in your credit reports, empowering you to protect and improve your credit score.
-        </p>
-      </div>
+          <div>
+            <h4 class="mb-3 text-lg font-bold">
+              Products
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <Link :href="route('credit.report')" class="hover:underline">
+                  Credit Monitoring
+                </Link>
+              </li>
+              <li>
+                <Link :href="route('privacy')" target="_blank" class="hover:underline">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link :href="route('identity.protect')" class="hover:underline">
+                  Identity
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-      <div class="p-100 bg-gray-50">
-        <!-- <CreditOverview /> -->
-      </div>
+          <div>
+            <h4 class="mb-3 text-lg font-bold">
+              Resources
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <Link href="#" class="hover:underline">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="#"  class="hover:underline">
+                  Podcast
+                </Link>
+              </li>
+              <li>
+                <Link href="#"  class="hover:underline">
+                  Offerings
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-      <div class="p-10 text-center">
-        <Link :href="route('register')" class=" text-lg font-bold text-primary hover:underline">
-          <Button class="p-8 text-lg">
-            Get Credit Monitoring
-          </Button>
-        </Link>
-      </div>
-    </section>
-
-    <footer class="overflow-hidden bg-[#32383F] pt-24 text-white">
-      <div class="container mx-auto px-4">
-        <div class="border-b pb-20">
-          <div class="-m-8 flex flex-wrap">
-            <div class="w-full p-8 sm:w-1/2 lg:w-2/12">
-              <h3 class="mb-6 font-semibold leading-normal">
-                Company
-              </h3>
-
-              <ul>
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">About Us</a>
-                </li>
-
-                <li class="mb-3.5"/>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Press</a>
-                </li>
-
-                <li><a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Blog</a></li>
-              </ul>
-            </div>
-
-            <div class="w-full p-8 sm:w-1/2 lg:w-2/12">
-              <h3 class="mb-6 font-semibold leading-normal">
-                Products
-              </h3>
-
-              <ul>
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Credit Monitoring</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Privacy</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">ID protection (coming soon)</a>
-                </li>
-
-                <li><a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Contact</a></li>
-              </ul>
-            </div>
-
-            <div class="w-full p-8 sm:w-1/2 lg:w-2/12">
-              <h3 class="mb-6 font-semibold leading-normal">
-                Resources
-              </h3>
-
-              <ul>
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Blog</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Financial Education</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Credit Ideas</a>
-                </li>
-
-                <li>
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Hustles </a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="w-full p-8 sm:w-1/2 lg:w-2/12">
-              <h3 class="mb-6 font-semibold leading-normal">
-                Legal
-              </h3>
-
-              <ul>
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Privacy Policy</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Unsubscribe</a>
-                </li>
-
-                <li class="mb-3.5">
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Contact Us</a>
-                </li>
-
-                <li>
-                  <a class="font-medium leading-relaxed text-gray-600 hover:text-gray-700" href="#">Pricing</a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="w-full p-8 sm:w-1/2 lg:w-4/12">
-              <div class="lg:max-w-sm">
-                <h3 class="mb-6 font-semibold leading-normal">
-                  Subscribe
-                </h3>
-
-                <p class="mb-5 font-sans leading-relaxed text-gray-600">
-                  Receive our free eBook and subscribe to our free newsletter filled with credit building tips as well as other financial wellness education.
-                </p>
-
-                <div ref="subscribeEmail" class="mb-3 inline-block w-full overflow-hidden rounded-xl border border-gray-300 focus-within:ring focus-within:ring-primary md:max-w-xl xl:pl-6">
-                  <div class="flex flex-wrap items-center">
-                    <div class="w-full xl:flex-1">
-                      <input
-                        id="footerInput1-1"
-                        class="w-full p-3 font-medium text-gray-500 placeholder-gray-500 outline-none xl:p-0 xl:pr-6"
-                        type="text"
-                        placeholder="Type your e-mail">
-                    </div>
-
-                    <div class="w-full xl:w-auto">
-                      <div class="block">
-                        <Button size="lg" class="rounded-l-none">
-                          Subscribe
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <h4 class="mb-3 text-lg font-bold">
+              Legal
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <Link :href="route('privacy')" class="hover:underline">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link :href="route('terms')" class="hover:underline">
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link href="#" class="hover:underline">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- <canvas ref="canvasRef" class="pointer-events-none fixed inset-0 z-0" /> -->
+      <!--  -->
+
+      <div class="border-t border-gray-700 py-4 text-center text-sm text-gray-400">
+        <div class="container flex max-w-2xl items-center justify-between ">
+          <ApplicationLogo variant="icon" class="text-white" />
+          <span class="ml-2">
+            Copyright &copy; {{ new Date().getFullYear() }}  Goal850 All Rights Reserved
+          </span>
+        </div>
+      </div>
     </footer>
   </AppLayout>
 </template>

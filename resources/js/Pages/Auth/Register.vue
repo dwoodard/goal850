@@ -27,7 +27,7 @@ const form = useForm({
   last_name: '',
   password: '',
   password_confirmation: '',
-  newsletter: true
+  tcpa: false
 })
 
 // Field validation
@@ -37,7 +37,8 @@ const validations = {
   first_name: (value) => !!value,
   last_name: (value) => !!value,
   password: (value) => !!value && value.length >= 6,
-  password_confirmation: (value) => value === form.password
+  password_confirmation: (value) => value === form.password,
+  tcpa: (value) => value === true
 }
 
 const stepper = useStepper({
@@ -75,7 +76,7 @@ function submit() {
     <Head title="Register" />
 
     <div
-      class="mx-auto flex max-w-2xl flex-col gap-5 py-5">
+      class="mx-auto flex max-w-6xl flex-col gap-5 py-5">
       <div class="flex justify-between">
         <Link :href="route('welcome')">
           <ApplicationLogo variant="icon"/>
@@ -86,13 +87,11 @@ function submit() {
         </Link>
       </div>
 
-      <p class="text-center leading-relaxed text-gray-500">
-        Enter your info and choose your plan.
-      </p>
-
       <div class="rounded-lg p-8 shadow-lg">
         <form class="mt-10" @submit.prevent="submit">
-          <span class="text-lg font-bold" v-text="stepper.current.value.title" />
+          <!-- <div class="mb-6 flex justify-center">
+            <span class="text-lg font-bold" v-text="stepper.current.value.title" />
+          </div> -->
 
           <div class="mt-2 flex flex-col justify-center gap-2">
             <div v-if="stepper.isCurrent('user-information')">
@@ -177,15 +176,33 @@ function submit() {
                 </p>
               </div>
 
-              <div class="mb-4 flex items-center">
-                <Checkbox id="newsletter" v-model:checked="form.newsletter" class="mr-2"/>
+              <!-- TCPA Opt-In -->
+              <div class="mb-4 flex flex-col ">
+                <div class="flex items-start">
+                  <Checkbox id="tcpa" v-model:checked="form.tcpa" class="mr-2"/>
 
-                <Label for="newsletter">Subscribe to our newsletter</Label>
+                  <Label for="tcpa">
+                    <p class="mt-1 text-[0.62rem] leading-relaxed text-gray-900">
+                      I agree to receive messages from Goal 850 about credit-related offers, including some from trusted third-party partners, by email, text, or phone (including automated messages). Msg & data rates may apply. I can opt out anytime. <a href="/terms" target="_blank" class="text-primary underline">Terms & Conditions</a>
+                    </p>
+                  </Label>
+                </div>
+
+                <p v-if="form.errors.tcpa" class="mt-1 text-sm text-red-500">
+                  {{ form.errors.tcpa }}
+                </p>
               </div>
 
               <Button class="w-full" >
                 Next
               </Button>
+            </div>
+
+            <div v-if="stepper.isCurrent('user-information')" class="mt-4 text-center text-sm text-gray-600">
+              Already registered?
+              <Link :href="route('login')" class="ml-1 text-primary underline">
+                Log in
+              </Link>
             </div>
 
             <div v-if="stepper.isCurrent('plan') && showPricingTable">

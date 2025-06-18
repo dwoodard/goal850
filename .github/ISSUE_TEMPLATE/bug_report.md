@@ -1,45 +1,39 @@
 ---
-name: "Bug Report"
+
+name: Bug Report
 about: Report something that isn't working as expected
-title: '[Bug]: '
-labels: [bug]
-assignees: []
+title: "[Bug]: "
+labels: bug
+assignees: ''
+
 ---
 
-## Summary
-<!-- A concise description of what’s broken -->
+
+## Bug Summary
+
+Briefly describe what’s broken.
 
 ## Steps to Reproduce
+
+### How to Reproduce
 
 1. Go to '...'
 2. Click on '...'
 3. Run '...'
 
-**Expected Behavior:**  
-<!-- What you thought would happen -->
+## Expected vs Actual
 
-**Actual Behavior:**  
-<!-- What actually happened -->
+- **Expected:** What should happen
+- **Actual:** What actually happens
 
-## Code, Config, or References
-<!-- Any relevant code snippets, config, branch, or commit references -->
+## Screenshots / Logs
 
-## Error Logs / Screenshots
-<!-- Paste logs or screenshots here -->
+Paste any error messages or screenshots here.
 
-## Environment
+## What I Tried
 
-| Tool        | Version           |
-|-------------|-------------------|
-| OS          | <!-- e.g., macOS Ventura --> |
-| Node        | <!-- e.g., v18.17.0 --> |
-| Laravel     | <!-- e.g., 10.x --> |
-| PHP         | <!-- e.g., 8.2.x --> |
-| Browser     | <!-- e.g., Chrome 123 --> |
-| Other       | <!-- e.g., Vue, Inertia, etc. --> |
+List anything you’ve already tried to fix the issue.
 
-## What I’ve Tried
-<!-- List of things you've attempted to debug/fix -->
+## Desired Fix
 
-## Desired Outcome
-<!-- What would a fix look like to you? -->
+What would a successful fix look like?
