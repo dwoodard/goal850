@@ -62,6 +62,16 @@ class StripeEventListener
         $customerId = $payload['data']['object']['customer'];
         $user = User::where('stripe_id', $customerId)->first();
 
+        if (! $user) {
+            dump(
+                'User not found for Stripe customer ID',
+                $customerId,
+                $payload
+            );
+
+            return;
+        }
+
         try {
             $user->enrollInArrayProducts();
         } catch (\Exception $e) {

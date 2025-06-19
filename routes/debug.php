@@ -42,7 +42,9 @@ if (app()->environment('local')) {
         // get the auth user
         $user = auth()->user();
 
-        $user->enrollInArrayProducts();
+        if ($user) {
+            $user->enrollInArrayProducts();
+        }
 
         try {
             // Set the Stripe API key using Cashier's configuration
