@@ -42,6 +42,8 @@ if (app()->environment('local')) {
         // get the auth user
         $user = auth()->user();
 
+        $user->enrollInArrayProducts();
+
         try {
             // Set the Stripe API key using Cashier's configuration
             \Stripe\Stripe::setApiKey(config('cashier.secret'));
@@ -66,6 +68,7 @@ if (app()->environment('local')) {
                     $firstUser->update(['stripe_id' => $customer->id]);
 
                     dd([
+                        'user' => $firstUser,
                         'action' => 'Created Stripe customer for testing',
                         'user_id' => $firstUser->id,
                         'user_email' => $firstUser->email,
@@ -84,6 +87,7 @@ if (app()->environment('local')) {
 
             // Test the plans() method with a user that has stripe_id
             dd(collect([
+                'user' => $user,
                 'user_id' => $user->id,
                 'user_email' => $user->email,
                 'stripe_id' => $user->stripe_id,
@@ -140,5 +144,32 @@ if (app()->environment('local')) {
                 'trace' => $e->getTraceAsString(),
             ];
         }
+    });
+
+    Route::get('/debug/user-array-products', function () {
+        // userId
+        $userId = auth()->user()->array_user_id;
+        // config('array.api_token')
+
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+            'x-array-server-token' => config('array.api_token'),
+        ])
+            ->get(config('array.api_url')."/api/monitoring/v2?userId={$userId}");
+
+        // dump out $response
+        if ($response->failed()) {
+            return [
+                'success' => false,
+                'error' => $response->body(),
+                'status' => $response->status(),
+            ];
+        }
+
+        return [
+            'success' => true,
+            'data' => $response->json(),
+        ];
     });
 }

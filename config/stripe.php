@@ -13,7 +13,8 @@ return [
             'price_id' => env('STRIPE_PLAN_PRIVACY_CREDIT_MONITORING_PRICE'),
             'name' => 'Privacy Credit Monitoring',
             'array_products' => [
-                'ppPIPMonitoringAndRemoval',
+                'exp1bStandardMonitoring', // Credit Alerts
+                'ppPIPMonitoringAndRemoval', // PIP Dashboard
             ],
         ],
         'full_protection' => [
@@ -21,62 +22,13 @@ return [
             'price_id' => env('STRIPE_PLAN_FULL_PROTECTION_PRICE'),
             'name' => 'Full Protection',
             'array_products' => [
-                'autoProductRefresh',
-                'creditScoreCoach',
-                'creditScoreDetails',
-                'efx1bInstantMonitoring',
-                'efx1bStandardMonitoring',
-                'efx1bStandardMonitoringReportScorePMPM',
-                'exp1bInstantMonitoring',
-                'exp1bStandardMonitoring',
-                'exp1bStandardMonitoringWithScoreTracker',
-                'exp2bStandardMonitoring',
-                'exp3bStandardMonitoring',
-                'expNonTraditionalMonitoring',
-                'expScoreSimulator',
-                'idpAutoTitleMonitoring',
-                'idpBundle1Insurance1mmRestoreBundleMonitoring',
-                'idpBundle2Monitoring',
-                'idpChangeOfAddressMonitoring',
-                'idpCourtRecordsMonitoring',
-                'idpDarkWebMonitoring',
-                'idpDarkWebMonitoringV2',
-                'idpFinancialThresholdMonitoring',
-                'idpHomeTitleMonitoring',
-                'idpInsurance1mmRestore',
-                'idpInsurance1MRestore',
-                'idpInsurance1MRestorePlusSpouse',
-                'idpInsurance3MCashRecoveryPro',
-                'idpInsurance3MCashRecoveryProPlusFamily',
-                'idpInsurance3MCashRecoveryProPlusSpouse',
-                'idpInsurance3MRestore',
-                'idpInsurance3MRestorePlusSpouse',
-                'idpInsurance5MCashRecoveryPro',
-                'idpInsurance5MCashRecoveryProPlusFamily',
-                'idpInsurance5MCashRecoveryProPlusSpouse',
-                'idpNeighborhoodWatch',
-                'idpSocialMediaMonitoring',
-                'idpSSN10Monitoring',
-                'idpSSNMonitoring',
-                'idpSSNUnlimitedMonitoring',
-                'idpSurfaceWebMonitoring',
-                'idpTelecomSpoofingMonitoring',
-                'mcmCreditProtection',
-                'ppPIPMonitoringAndRemoval',
-                'ppPIPMonitoringAndRemovalStandalone',
-                'ppPIPScanOnly',
-                'scoreTrackerAutoExp',
-                'smTransactionSourcePlaid',
-                'subscriptionManagerEnrichmentAndCancellation',
-                'subscriptionManagerEnrichmentOnly',
-                'tui1bCreditLock',
-                'tui1bEnhancedMonitoring',
-                'tui1bInstantEnhancedMonitoring',
-                'tui1bInstantMonitoring',
-                'tui1bScoreSimulator',
-                'tui1bStandardMonitoring',
+                'exp1bStandardMonitoring', // Credit Alerts
+                'idpBundle1Insurance1mmRestoreBundleMonitoring', // Identity Protect
+                'idpFinancialThresholdMonitoring', // Identity Protect
+                'idpNeighborhoodWatch', // NHW
+                'ppPIPMonitoringAndRemoval', // PIP Dashboard
             ],
         ],
-        
+
     ],
 ];

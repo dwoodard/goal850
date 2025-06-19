@@ -201,63 +201,62 @@ class User extends Authenticatable
     public function enrollInArrayProducts(): void
     {
 
-        dump(
-            $this
-        );
+        /*
+        $plan_product = $payload['data']['object']['plan']['product'] ?? null;
+        $customerId = $payload['data']['object']['customer'];
+        $user = User::where('stripe_id', $customerId)->first();
+        */
+        // get the plan from the user from the stripe subscription
+        $plan = $this->stripeProductIds();
 
-        // first we need to get all the products based on the user's subscriptions
-        $productIds = $this->stripeProductIds();
-
-        // if the user has no products, we can't enroll them in Array products
-        if (empty($productIds)) {
-            Log::warning("User {$this->id} has no Stripe products", [
-                'stripe_products' => $productIds,
-            ]);
-
-            return;
-        }
-
-        // Get the stripe plans config
         $stripePlans = config('stripe.plans', []);
 
-        // now that we have the plans we need to get the current stripe plan that the user is subscribed to
-        // and get the array_products from it
+        $matchedPlan = collect($stripePlans)
+            ->whereIn('product_id', $plan ?? [])
+            ->first();
 
-        $matchedPlans = collect($stripePlans)->filter(function ($plan) use ($productIds) {
-            return in_array($plan['product_id'], $productIds ?? []);
-        })->first();
+        $array_products = $matchedPlan['array_products'] ?? [];
 
-        dump([
-            'matchedPlans' => $matchedPlans,
-            'array_products' => $matchedPlans['array_products'] ?? [],
-        ]);
+        dump(
+            $this->array_user_id,
+            $array_products
+        );
 
-        // now we have a matched plan, we can get the array_products out of it, this is what we need to enroll the user in Array products
-        $arrayProducts = $matchedPlans['array_products'] ?? [];
-
-        // Log the enrollment process
-        Log::info("User {$this->id} - Enrolling in array products", [
-            'stripe_products' => $this->stripeProductIds(),
-            'array_products' => $arrayProducts,
-        ]);
-
-        foreach ($arrayProducts as $code) {
-
-            Log::info('Posting to Array API', [
-                'userId' => $this->array_user_id,
-                'enrollmentCode' => $code,
-            ]);
-            dump(
-                "Enrolling user {$this->id} in Array product with code: {$code}"
-            );
-
-            Http::withHeaders([
+        try {
+            $response = Http::withHeaders([
                 'accept' => 'application/json',
                 'content-type' => 'application/json',
                 'x-array-server-token' => config('array.api_token'),
-            ])->post(config('array.api_url').'/api/monitoring/v2', [
+            ])->post(config('array.api_url').'/api/monitoring/v2/batch', [
                 'userId' => $this->array_user_id,
-                'enrollmentCode' => $code,
+                'enrollmentCode' => $array_products,
+            ]);
+
+            $responseData = $response->json();
+
+            // Check for enrollment errors
+            if (
+                isset($responseData['enrollmentStatus']) && $responseData['enrollmentStatus'] === 'None'
+                || ! empty($responseData['rejectedEnrollments'])
+            ) {
+                Log::error('Enrollment failed or rejected', [
+                    'user_id' => $this->id,
+                    'array_user_id' => $this->array_user_id,
+                    'enrollmentCode' => $array_products,
+                    'response' => $responseData,
+                ]);
+            }
+
+            dump(
+                $responseData,
+            );
+        } catch (\Throwable $e) {
+
+            Log::error('Failed to enroll in Array products', [
+                'user_id' => $this->id,
+                'array_user_id' => $this->array_user_id,
+                'enrollmentCode' => $array_products,
+                'error' => $e->getMessage(),
             ]);
         }
     }

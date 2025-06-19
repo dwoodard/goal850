@@ -63,8 +63,8 @@ class RegistrationWizardController extends Controller
 
         $user->array_user_id = $response->json('userId');
         $user->save();
-
         $user->refresh();
+        $user->enrollInArrayProducts();
 
         return redirect()->route('dashboard');
     }

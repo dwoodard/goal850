@@ -17,9 +17,18 @@ class StripeEventListener
         $type = $payload['type'] ?? null;
 
         match ($type) {
+            // Customer events
             'customer.created' => $this->handleCustomerCreated($payload),
-            'customer.subscription.created' => $this->handleSubscriptionCreated($payload),
-            default => null,
+
+            // Subscription lifecycle events
+            'customer.subscription.created' => $this->handleArrayEnrollment($payload),
+            // 'customer.subscription.updated' => $this->handleArrayEnrollment($payload),
+
+            // Checkout events (for new subscriptions)
+            // 'checkout.session.completed' => $this->handleCheckoutCompleted($payload),
+
+            // default => Log::info("{$type} Stripe webhook event"),
+            default => null
         };
     }
 
@@ -43,30 +52,28 @@ class StripeEventListener
         } catch (\Exception $e) {
             Log::error('Error processing customer.created', [
                 'error' => $e->getMessage(),
+                'payload' => $payload,
             ]);
         }
     }
 
-    /**
-     * Enroll user in Array products after subscription created
-     * This is triggered by the checkout.session.completed event.
-     *
-     * @see https://stripe.com/docs/api/events/types#event_types-checkout.session.completed
-     */
-    protected function handleSubscriptionCreated(array $payload): void
+    protected function handleArrayEnrollment(array $payload): void
     {
+        $customerId = $payload['data']['object']['customer'];
+        $user = User::where('stripe_id', $customerId)->first();
 
         try {
-            $session = $payload['data']['object'];
-            // get $user by customer ("customer" => "cus_SVNuykC16SHBW4")
-            $user = User::where('stripe_id', $session['customer'])->first();
-
+            $user->enrollInArrayProducts();
         } catch (\Exception $e) {
-            Log::error('Error processing checkout.session.completed', [
-                'error' => $e->getMessage(),
-            ]);
-        }
+            dump(
+                'Error enrolling user in Array products',
+                $e->getMessage(),
+                $payload,
+                $user
+            );
 
-        $user->enrollInArrayProducts();
+        }
     }
+
+    protected function handleCheckoutCompleted(array $payload): void {}
 }

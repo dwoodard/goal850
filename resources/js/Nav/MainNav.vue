@@ -251,9 +251,9 @@ const navigationItems = ( isLoggedIn = false ) => [
       { name: 'Score Tracker', route: 'credit.score', description: 'Track your credit score' },
       { name: 'Credit Monitoring', route: 'credit.alerts', description: 'Monitor your credit' },
       { name: 'Identity Protection', route: 'credit.protection', description: 'Protect your identity' },
-      { name: 'Neighborhood Watch', route: 'neighborhood.watch', description: 'Watch your neighborhood' }
-      // { name: 'Privacy Scan', route: 'privacy.scan',  },
-      // { name: 'Personal Info Protection', route: 'pip.scan',  }
+      { name: 'Neighborhood Watch', route: 'neighborhood.watch', description: 'Watch your neighborhood' },
+      // { name: 'Privacy Scan', route: 'privacy.scan' },
+      { name: 'Personal Info Protection', route: 'pip.scan' }
     ]
   },
   {
