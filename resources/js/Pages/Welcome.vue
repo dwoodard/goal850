@@ -507,7 +507,7 @@ const videoRef = ref(null)
                 </Link>
               </li>
               <li>
-                <Link :href="route('privacy')" target="_blank" class="hover:underline">
+                <Link :href="route('privacy.scan')" target="_blank" class="hover:underline">
                   Privacy
                 </Link>
               </li>
