@@ -51,41 +51,7 @@ if (app()->environment('local')) {
             \Stripe\Stripe::setApiKey(config('cashier.secret'));
 
             // Check what users we have
-
-            if (! $user) {
-                // Let's create a test stripe customer for the first user
-                $firstUser = \App\Models\User::first();
-
-                if ($firstUser && ! $firstUser->stripe_id) {
-                    // Create a Stripe customer for testing
-                    $customer = \Stripe\Customer::create([
-                        'email' => $firstUser->email,
-                        'name' => trim($firstUser->first_name.' '.$firstUser->last_name),
-                        'metadata' => [
-                            'user_id' => $firstUser->id,
-                        ],
-                    ]);
-
-                    // Update the user with the stripe_id
-                    $firstUser->update(['stripe_id' => $customer->id]);
-
-                    dd([
-                        'user' => $firstUser,
-                        'action' => 'Created Stripe customer for testing',
-                        'user_id' => $firstUser->id,
-                        'user_email' => $firstUser->email,
-                        'stripe_id' => $customer->id,
-
-                        'next_step' => 'Now visit this route again to test the plans() method',
-                    ]);
-                }
-
-                return [
-                    'success' => false,
-                    'error' => 'No users found and could not create test user',
-
-                ];
-            }
+            $user = auth()->user();
 
             // Test the plans() method with a user that has stripe_id
             dd(collect([
