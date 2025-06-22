@@ -221,12 +221,12 @@ const _scrollTo = (event) => {
 // -----------------------------------------------------------------------------
 
 const visibleNavItems = computed(() =>
-  navigationItems(!!$page.props.user).filter(i => i.show !== false)
+  navigationItems(!!$page.props.user, $page.props.user?.is_admin).filter(i => i.show !== false)
 )
 
 // Get the default open section based on the defaultOpen property in the navigation items
 const defaultOpenSection = computed(() => {
-  const defaultOpenItem = navItems.find(i =>
+  const defaultOpenItem = navigationItems(isLoggedIn, $page.props.user?.is_admin).find(i =>
     i.show !== false &&
     !(i.children.length === 1 && i.children[0].asButton) &&
     i.defaultOpen === true
@@ -237,7 +237,19 @@ const defaultOpenSection = computed(() => {
 })
 
 // 🧮 Navigation structure
-const navigationItems = ( isLoggedIn = false ) => [
+const navigationItems = ( isLoggedIn = false, isAdmin = false ) => [
+
+  {
+    title: 'Admin',
+    show: isLoggedIn && isAdmin,
+    defaultOpen: false,
+    children: [
+      { name: 'Users', route: '/admin/users', description: 'Manage users' },
+      { name: 'Roles', route: '/admin/roles', description: 'Manage roles' },
+      { name: 'Permissions', route: '/admin/permissions', description: 'Manage permissions' },
+      { name: 'Settings', route: '/admin/settings', description: 'Admin settings' }
+    ]
+  },
   {
     title: 'My Credit',
     show: isLoggedIn,
@@ -317,7 +329,7 @@ const navigationItems = ( isLoggedIn = false ) => [
   }
 ]
 
-const navItems = navigationItems(isLoggedIn)
+const navItems = navigationItems(isLoggedIn, $page.props.user?.is_admin)
 
 const routeOrPath = (r) => {
   if (!r) return '#'

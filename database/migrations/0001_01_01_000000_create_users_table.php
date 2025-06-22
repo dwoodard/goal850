@@ -30,8 +30,6 @@ return new class extends Migration
             $table->string('ghl_contact_id')->nullable();
             $table->string('ghl_location_id')->nullable();
 
-            // Added new columns for login tracking
-            $table->unsignedInteger('login_count')->default(0);
             $table->string('last_ip')->nullable();
             $table->string('user_agent')->nullable();
 

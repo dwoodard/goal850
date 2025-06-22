@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\CreditAlertsController;
 use App\Http\Controllers\CreditDebtAnalysisController;
@@ -16,6 +20,7 @@ use App\Http\Controllers\NeighborhoodWatchController;
 use App\Http\Controllers\PipScanController;
 use App\Http\Controllers\PipStandaloneController;
 use App\Http\Controllers\PrivacyScanController;
+// Admin Controllers
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationWizardController;
 use App\Http\Controllers\StudentLoanNavigatorController;
@@ -134,6 +139,22 @@ Route::get('/terms', \App\Http\Controllers\TermsController::class)->name('terms'
 
 // API routes (fix this)
 Route::resource('api/user', UserController::class);
+
+// Admin routes
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/admin/users/{user}/verify-email', [AdminUserController::class, 'verifyEmail'])->name('admin.users.verify-email');
+    Route::post('/admin/users/{user}/unverify-email', [AdminUserController::class, 'unverifyEmail'])->name('admin.users.unverify-email');
+    Route::post('/admin/users/{user}/set-password', [AdminUserController::class, 'setPassword'])->name('admin.users.set-password');
+    Route::get('/admin/users/{user}/subscriptions', [AdminUserController::class, 'subscriptions'])->name('admin.users.subscriptions');
+
+    Route::get('/admin/roles', [AdminRoleController::class, 'index'])->name('admin.roles');
+    Route::get('/admin/permissions', [AdminPermissionController::class, 'index'])->name('admin.permissions');
+    Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+});
 
 require __DIR__.'/auth.php';
 
